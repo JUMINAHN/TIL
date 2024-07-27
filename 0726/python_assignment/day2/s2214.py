@@ -29,9 +29,16 @@ authors = [
     '임제',
     '임제',
 ]
+new_list = []
+for author in authors:
+    if author in new_list:
+        continue
+    else :
+        new_list.append(author)
+print(new_list)
 
-authors = list(set(authors))
-print(authors)
+#authors = list(set(authors))
+#print(authors)
 
 
 # authors = [
