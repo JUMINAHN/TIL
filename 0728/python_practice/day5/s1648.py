@@ -12,3 +12,6 @@ def remove_duplicates(num_list):
 
 result = remove_duplicates([1, 2, 2, 3, 4, 4, 5])
 print(result)
+
+# result = remove_duplicates([1, 2, 2, 3, 4, 4, 5])
+# print(result)

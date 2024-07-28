@@ -20,12 +20,22 @@ for i in range(1, 11):
         dummy_data.append(new_dict)
 
 
-def censorship() : #이게 blacklist에 있는지 확인한다.
-    pass     
+def censorship(censored_user_list) :#blacklist 유무 확인하기 -> 전달받은 company, name 기반
+    for user in censored_user_list:
+        if user['company'] in black_list:
+            print(f'{user["company"]} 소속의 {user["name"]} 은/는 등록할 수 없습니다.')
+            return False
+        else :
+            print('이상 없습니다.')
+            return True
+        
 
 def create_user(dummy_data): #사용자 목록을 인자로 넘겨 순회하는 코드
-    censored_user_list = {dummy_data['company'] : list(dummy_data['name'])} #company이름을 key로 사용자 이름을 value는 list로 구성한다.
-    pass
+    #사용자 목록을 순회하면서 각 사용자 정보를 censorshop 인자로 넘겨 balcklist에 포함되어 있는지 확인한다.
+    censored_user_list = {}
+    for dummy in dummy_data:
+        censored_user_list.update({dummy['company'] : list(dummy['name'])}) #company이름을 key로 사용자 이름을 value는 list로 구성한다.
+    censorship(censored_user_list) #blacklist 유무 확인하기
 
 result = create_user(dummy_data)
 print(result)

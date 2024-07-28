@@ -27,7 +27,6 @@ result_4 = default_arg_func('다른 값')
 print(result_4)
 
 
-
 # my_multi(2, 3) 결과 : 6
 # 함수를 수정하고 호출 결과를 result_1 변수에 할당하여 출력하시오.
 # def my_multi():
