@@ -10,6 +10,7 @@
 # print(f"나이 : {age}")
 # print("출력 완료")
 
+
 #다 변수로 바꿔서 출력
 information = '학생 정보를 출력합니다.'
 other_information = '각각의 정보는 다음과 같습니다.'
@@ -18,6 +19,6 @@ age = '나이'
 result = '출력완료'
 print(information)
 print(other_information)
-print('이름 :', name) #,의 기능은 space와 같다. --> 일반 문자열 메서드와 약간 상이함
+print('이름 :', name)
 print('나이 :', age)
 print(result)
