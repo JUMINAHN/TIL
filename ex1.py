@@ -13,4 +13,6 @@ def create_data(subject, day, title=None): #호출되면 인자들이 담기게 
     return data
 
 result_1 = create_data(global_data['subject'], global_data['day'])
-print(result_1)
+print(result_1) #dictionary 자체를 출력
+result_2 = create_data('web', 1, 'web연습하기')
+print(result_2)

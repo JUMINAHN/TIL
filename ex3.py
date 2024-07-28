@@ -14,10 +14,13 @@ a, b, *c = hello
 print(a)
 print(b)
 print(c)
-#앞에 해야한다
+#앞에 해야한다 #list화 된다.
 print("-"*30)
 number = [1,2,3,4,5]
 a,b,*c = number
 print(a)
 print(b)
 print(c)
+
+#여러개 -> 비닐봉지(한 묶음)
+#비닐봉지 -> 여러개 -> 개수가 안맞으면 걔는 장바구니를 들고 있는 것
