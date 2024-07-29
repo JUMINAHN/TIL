@@ -45,7 +45,7 @@ def get_weather(api_key):
 # 아래 코드는 수정하지 않습니다.
 if __name__ == '__main__':
     # 여러분의 OpenWeatherMap API 키를 설정하세요
-    api_key = '02632a1a19eafa7854c4b90c94158271'
+    api_key = 'ss'
 
     result = get_weather(api_key)
     pprint(result)
