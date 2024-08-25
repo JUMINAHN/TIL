@@ -1,6 +1,6 @@
 import sys
 
-sys.stdin = open('input18311.txt')
+sys.stdin = open('../input18311.txt')
 #테스트 케이스 개수
 
 def DFS(startV, endV, adj_list): #첫번쨰 정점 & 마지막 정점의 개수, 인접 리스트 받아오기
