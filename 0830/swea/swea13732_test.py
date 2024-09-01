@@ -20,8 +20,8 @@
 '''
 T = int(input())
 for tc in range(1, T+1):
-    N = int(input().strip()) #배열의 크기
-    arr = [list(input()) for _ in range(N)] #arr에 데이터가 들어간다.
+    N = int(input().strip())
+    arr = [list(input()) for _ in range(N)]
 
     first_row = first_col = 0
     for row in range(N):
@@ -29,21 +29,21 @@ for tc in range(1, T+1):
             if arr[row][col] == '#':
                 first_row = row
                 first_col = col
-                break #col loop를 빠짐
-        if arr[first_row][first_col] == '#': #그러면 지금 들어간 상태이니까 내가 원하는게 나왔다면 break
+                break
+        if arr[first_row][first_col] == '#':
             break
 
     second_col = 0
-    for i in range(first_col, N):##이 있었던 곳 이후에 (이후면 일단 플러스 일을 해야하는데..)
+    for i in range(first_col, N):
         if arr[first_row][i] == '#':
-            second_col = i #맨 마지막의 값이 담길 것
+            second_col = i
         else :
-            break #없으면 그냥 끝내..?
+            break #
 
     distance = second_col - first_col
     result = 'yes'
     for row in range(first_row, first_row+distance+1):
-        # if row >= N:  # 배열 범위를 벗어나는 경우 체크 --> 근데 배열 범위를 벗어나면 애초에 idx error????
+        # if row >= N:  # 배열 범위를 벗어나는 경우 체크
         #     result = 'no'
         #     break
         for col in range(first_col, first_col+distance+1):
