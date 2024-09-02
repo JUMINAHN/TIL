@@ -35,14 +35,15 @@ for tc in range(1, T+1):
             #     break
             temp = idx
             charge += 1 #그냥 충전을 한다는 가정을 하고
+            result = 0
             for i in range(1, K+1): #k만큼 더해줄 것이기 떄문에
                 #print(idx+i)
                 # if idx + K == N+1 or idx + K >= N+1:  # 더 충전할 필요가 없음 종착지에 도착하여씩 떄문에
                 #     break  # while문 break
-                if idx+K<=N and bus_stop[idx+i] == 1: #충전소가 있다면 -> 가장 마지막 충전소
-                    idx = idx+i #현재의 충전소 위치를 전달해준다. #위치를 잘못 대입한 것을 확인함
-
-            if idx == temp:
+                if idx+K<=N and bus_stop[idx+i] == 1: #충전소가 있다면 -> 가장 마지막 충전소 #9-> 14가 바로 적용되어 버리는..
+                    result = i #여기서 문제가 발생했고!!
+            idx = idx+result #현재의 충전소 위치를 전달해준다. #위치를 잘못 대입한 것을 확인함
+            if idx == temp:#여기서 문제가 발생했음
             # else : #다 돌고 조건에 없을 경우를 해야 했음 -> 조건문 설정의 오류, break가 없었기 때문임
                 charge = 0
                 idx = N + 1 #따라서 그냥 바로 while범위를 벗어나도록 하기 위해서 N보다 1더 크게 설정을 한다.
