@@ -23,6 +23,7 @@ for _ in range(student): #학생수만큼
         start_idx = switch_num
         end_idx = switch_num #대칭이 발생하지 않을경우 오류 발생
         i = 1
+        #유동적으로 언제까지 대칭인지 모르면 while이 더 적합하다/..
         while switch_num - i >= 1 and switch_num + i < S and switch[switch_num - i] == switch[switch_num + i]:
             start_idx = switch_num - i
             end_idx = switch_num + i

@@ -1,56 +1,66 @@
 import sys
-#나는 달팽이로 하드 코딩함
-sys.stdin = open('input2564.txt')
 
-C, R = map(int, input().split()) #C == 10 : 가로 , R == 5 : 세로
-store = int(input()) #상점의 개수
-#동서남북의 방향, 그리고 line의 위치
-up = [0] * C
-right = [0] * R
-down = [0] * C
-left = [0] * R
+sys.stdin = open('../input2564.txt')
+#가로, 세로
+C, R = map(int, input().split())
+north = [0] * C #1
+east = [0] * R #4
+south = [0] * C #2
+west = [0] * R #3
 
-#상점
-for i in range(1, store+1): #상점의 번호를 idx에 담는다.
-    direct, pos = map(int, input().split())
-    pos -= 1
-    if direct == 1 :
-        up[pos] = i
+store = int(input())
+for i in range(1, store+1):
+    direct, distance = map(int, input().split())
+    if direct == 1:
+        north[distance] = i
     elif direct == 2:
-        down[pos] = i
-    elif direct == 3 :
-        right[pos] = i
-    elif direct == 4:
-        left[pos] = i
-
-#동근 -> 4보다 클 수 있기 떄문에
-direct, pos = map(int, input().split())
-pos -= 1
-if direct == 1 :
-    up[pos] = 'X'
+        south[distance] = i
+    elif direct == 3:
+        west[distance] = i
+    else :
+        east[distance] = i
+direct, distance = map(int, input().split())
+if direct == 1:
+    north[distance] = 'X'
 elif direct == 2:
-    down[pos] = 'X'
-elif direct == 3 :
-    right[pos] = 'X'
-elif direct == 4:
-    left[pos] = 'X'
-
-#한 줄로 펼쳐보기
-one_line = up + left + down[::-1] + right[::-1]
-print(one_line)
+    south[distance] = 'X'
+elif direct == 3:
+    west[distance] = 'X'
+else:
+    east[distance] = 'X'
+line = north + east + south[::-1] + west[::-1]
+#print(line)
 X_idx = 0
-for i in range(len(one_line)): #X의 인덱스를 찾았다.
-    if one_line[i] == 'X':
+for i in range(len(line)):
+    if line[i] == 'X':
         X_idx = i
-        break
+print(X_idx)
+
+
+print(line)
+#왼쪽 / 오른쪽 모두 비교해야 함
 total = 0
-for i in range(1, store+1): #store개수만큼 반복
+for i in range(1, store+1): #찾을 상점
     store_idx = 0
-    for j in range(len(one_line)): #i를 찾으면 됨
-        if one_line[j] == i : #oneline i -> oneline에서 1이 들어가있는 것
-            store_idx = j #지금 j를 찾고
-            total += abs(X_idx - store_idx)
+    for j in range(len(line)):
+        if line[j] == i:
+            store_idx = j
+    #찾은 것에서 X_idx 빼주기
+    if store_idx < X_idx:
+        total += (X_idx - store_idx)
+    else :
+        total += (store_idx - X_idx)
 print(total)
 
-
-
+# total = 0
+# for i in range(1, store+1): #찾을 상점
+#     store_idx = 0
+#     for j in range(len(line)):
+#         if line[j] == i:
+#             store_idx = j
+#     #찾은 것에서 X_idx 빼주기
+#     if store_idx < X_idx:
+#         total += (X_idx - store_idx)
+#     else :
+#         total += (store_idx - X_idx)
+# print(total)
