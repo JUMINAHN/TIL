@@ -1,0 +1,49 @@
+/* 컨테이너 및 기본 스타일 */
+.container {
+    height: 2500px; /* 스크롤을 만들기 위한 높이 */
+}
+
+/*postion 속성만 수정해야 함*/
+
+div {
+    margin: 10px;
+    padding: 20px;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+}
+
+/* Static Positioning */
+.static-example {
+    position: relative;
+    background-color: lightgrey;
+}
+
+/* Relative Positioning */
+.relative-example {
+    position: relative; /*현재위치에서 relative*/
+    
+    top: 20px;
+    left: 20px;
+    background-color: lightblue;
+}
+
+/* Absolute Positioning */
+.absolute-example {
+    position: absolute; /*relative가 두개인데 static 첫번쨰에만 되는 이유?*/
+    top: 40px;
+    left: 40px;
+    background-color: lightgreen;
+}
+
+/* Sticky Positioning */
+.sticky-example {
+    position: relative;
+    top: 0;
+    background-color: lightcoral;
+}
+
+/* Filler Content for Scrolling */
+.filler-content {
+    height: 1000px; /* 높이를 주어 스크롤을 만듦 */
+}

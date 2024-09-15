@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .body {
+            font-style: Arial #333333;
+            font-size: 16px;            
+        }
+
+        .container {
+            background-color: #F0F0F0;
+            padding: 20px;
+        }
+
+        .parent {
+            font-weight: 900;
+            border: 1px solid black;
+            margin : 0px 0px 20px 0px 
+        }
+
+        .child {
+            color: red;
+            background-color: #ADD8E6;
+            padding : 10px
+        }
+
+        .grandchild {
+            font-style: italic;
+            border: dashed 1px red ;
+        }
+
+    </style>
+</head>
+<body class="body">
+    <div class="container">
+        <div class="parent">
+            <h1>부모 요소</h1>
+            <p>부모 요소의 텍스트입니다.</p>
+            <div class = "child">
+                <h2>자식 요소</h2>
+                <p>자식 요소의 텍스트입니다.</p>
+                <span class="grandchild">손자 요소의 텍스트입니다.</span>
+            </div>
+        </div>
+    
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .container {
+      border : 1px solid black;
+      text-align: center; /*자식 요소 모두에게 center 부여*/
+
+    }
+
+    .container > p {
+      padding : 20px;
+      flex-wrap : wrap;
+      text-align :initial;
+    }
+
+    /*item에 있는 div block 포개기*/
+    .item {
+      position : relative;
+      display: flex;
+      justify-content : center;
+    }
+
+    .item > p {
+      display: block;
+      width: 90%; /*content 기준으로 넓이*/
+      background-color: rgba(255, 228, 196, 0.9);
+      font-weight: bold;
+      font-size: xx-large;
+      position: absolute; /*realative기준으로 */
+      bottom: 0px;
+      margin : 0px;
+      padding: 10px 0px;
+      /*opacity rgba로 잡는 이유는 text에도 먹는다*/
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="item">
+      <img src="profile.jpg" alt="Profile Image">
+      <p>Name</p> 
+    </div>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci unde officiis ad nostrum. Laboriosam mollitia similique provident fuga tenetur saepe sit, amet eaque neque eius quaerat expedita ea illum veniam.</p>
+  </div>
+</body>
+</html>

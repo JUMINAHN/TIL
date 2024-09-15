@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    div p {
+      color: blue;
+    }
+    
+    div > p { /*자식은 자손 포함*/
+      color: crimson; /*우선 순위 : 왜냐면 두개 동일 요소 : 먼저 적용*/
+    }
+
+    articel > p {
+      margin-left: 50px;
+    }
+
+  </style>
+</head>
+<body>
+  <div> <!--div의 자식-->
+    <p>자식</p>
+      <articel>
+        <p>손자</p>
+      </articel>
+    <!-- <div> : 해당 부분역시도 div 자체의 자식 
+      <p>손자</p>
+    </div> -->
+    <p>자식</p>
+  </div>
+</body>
+</html>
