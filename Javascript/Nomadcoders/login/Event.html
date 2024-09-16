@@ -8,11 +8,12 @@
 </head>
 <body> 
   <form id="login-form">
-    <input type="text" placeholder="input your data">
-    <button>Click here!</button>
+    <input required maxlength="15" type="text" placeholder="What is your name?">
+    
+    <button>Log in</button> 
+    <!--submit이라는 event가 발생하는 것을 막거나 중간에 개입해서 event 발생을 파악하고 싶음-->
   </form>
-  <a href="https://nomadcoders.co/">Go to courses</a> 
 
-  <script src="app.js"></script>
+  <script src="Event.js"></script>
 </body>
 </html>
