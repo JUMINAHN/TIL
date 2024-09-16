@@ -11,32 +11,16 @@
 #8부터 1까지 차례대로 연주된다면 descending
 #둘다 아니라면 mixed
 arr = list(map(int, input().split())) #들어오는 값
-#1 2 3 4 5 6 7 8
 
-#배열 list가 증가하는지, 감소하는지 확인할 것
-result = "ascending"
-now = arr[1]
-prev = arr[0]
-for i in range(1, len(arr)): #해당 값이 증가하는지 감소하는지 확인
-    prev = arr[i-1]
-    now = arr[i]
-    if now == prev + 1 : #now가 prev보다 1 더 크다면
-        continue #ascending으로 계속하고
-    else : #아니라면?
-        if i == 1:
-            continue #0일때는 넘겨
-        #감소하는지 아닌지 확인할 것
-        #따라서 주기적으로 감소한다면 descending
-        if now == prev - 1:
-            result = "descending"
-            break #for 구문 빠져나가기
-        #아니라면 mixed
-        else :
-            result = "mixed"
-            break
+up = [1,2,3,4,5,6,7,8]
+down = [8,7,6,5,4,3,2,1]
+
+result = 'mixed'
+if arr == up:
+    result = 'ascending'
+elif arr == down:
+    result = 'descending'
 print(result)
-
-
 
 
 
