@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
   <title>Momentum App</title>
 </head>
 <body> 
@@ -11,9 +11,10 @@
     <input type="text" placeholder="input your data">
     <button>Click here!</button>
   </form>
-  <h1 class="hidden" id="greeting"></h1> <!--비워둘 것, 애초에 사라져있는 값 -> js를 통해서 나타나게 만들 것-->
-  <a href="https://nomadcoders.co/">Go to courses</a> 
+  <h2 id ="clock">00:00:00</h2>
+  <h1 class="hidden" id="greeting"></h1>
 
-  <script src="app.js"></script>
+  <script src="/clock/js/greeting.js"></script>
+  <script src="/clock/js/clock.js"></script>
 </body>
 </html>
