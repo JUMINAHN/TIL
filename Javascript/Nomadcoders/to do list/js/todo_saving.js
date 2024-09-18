@@ -24,13 +24,26 @@ const toDos = [];
 
 
 function saveToDos() { // localStorage에 toDos값을 저장하는 것
-  localStorage.setItem("toDos", JSON.stringify(toDos)); //배열로 저장가능
+  //단순 text를 배열화 텍스트 처럼 저장하고 싶을 때
+  localStorage.setItem("toDos", JSON.stringify(toDos));
+
+  //localStorage.setItem("toDos", toDos);
+  //자체적으로 todo는 저장하고 있지만, abcde를 넣고 a를 다시 넣으면 값이 초기화되는 문제 발생
+  //또한, 화면에 저장한 값이 나타나지 않는 문제를 확인할 수 있음
+  //현재는 localStorage의 특성상 단순 text로 저장이 되는 문제가 발생됨
+  //다양한 효과를 사용하기 위해서 배열 형태로 바꾸고 싶음
+
+
+  //localStorage.setItem("toDos", JSON.stringify(toDos)); //배열로 저장가능
+
+
   //stringify == 변수등을 문자열로 바꿈
   //parse == 문자열을 json으로 바꿈
   //즉 stringify로 array 자체를 문자열로 바꾸고
   //local에서 가지고 온 다음 문자열을 array로 만들어서 불려들이는 느낌
 
-  //localStorage안에는 배열은 저장되지 않고, `텍스트만 저장`된다.
+  //<local storage의 특징>
+  //localStorage안에는 배열은 저장되지 않고, `텍스트만 저장`된다!!!
   //즉 스트링 형태로 저장이된다.
   //따라서 json.stringify를 이용해서 배열 형태로 저장시켜준다. 
 }
@@ -58,9 +71,10 @@ function handleToDoSubmit(event) {
   event.preventDefault();
   const newTodo = todoInput.value;
   todoInput.value = ""; 
+  //painting이 그려질떄마다 toDos 배열에 값을 넣고 싶음
   toDos.push(newTodo); //해당 값을 배열에 담을 수 있음
   paintTodo(newTodo); //값을 모두 집어넣고 saveTodos를 한다.
-  saveToDos();
+  saveToDos(); //기존 내용 업데이트
 
 
 
