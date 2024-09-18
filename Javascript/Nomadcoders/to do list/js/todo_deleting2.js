@@ -6,14 +6,8 @@ const TODOS_KEY = "toDos";
 
 function deleteToDo(event) { 
   const li = event.target.parentElement; 
-  //console.log(li);  //삭제할때도 toDos의 localStorage를 업데이트 해주어야 함
+  console.log(li);   
   li.remove();
-  toDos = toDos.filter((toDo) => toDo.id !== parseInt(li.id)) //클릭했던 li의 id를 갖고 있는 toDo를 지우고 싶음
-  //여기 확인 중요
-  //즉 우리가 클릭한 것을 제외한 todo를 남겨두고 싶은 것
-  //지운뒤에 지운 데이터를 저장
-  saveToDos();
-
 }
 
 let toDos = []; 
@@ -71,5 +65,21 @@ if (savedToDos) {
 
 } 
 
-//중요한 점은 filter function이 새 array를 주는 것을 기억하는 것
-//즉 기존값은 유지하고 새로운 값을 return으로 반환한다.
+//만약 array에서 뭔가를 삭제할 떄,실제로 array에서 그것을 지우는 것이 아님
+//실제로는 지우고 싶은 item을 빼고 새로운 array를 만드는 것임
+//item을 제외하는 것, 즉 이전 array는 사실상 있는 것 == filter함수 사용
+
+// function sexyFilter() { //forEach와 유사함
+
+// }//이것은 반드시 true를 리턴해야 함
+//새 array에서 해당 object를 유지하고 싶으면 반드시 true를 리턴해야 함
+
+// [1,2,3,4].filter(sexyFilter); //filter는 sexyFilter를 부르고, 1234에 sexyfilter가 차례대로 실행될 것
+//즉 sexyFilter의 함수가 할 일은 질문을 던지는 것임, item을 제외할지에 대한
+
+
+// 사실상 하기 처럼 작동 -> true를 리턴하면 해당 값을 유지할 것
+// sexyFilter(1); -> true일시 1 유지
+// sexyFilter(2); -> true일시 2 유지
+// sexyFilter(3); -> true일시 3 유지
+// sexyFilter(4); -> true일시 4 유지
