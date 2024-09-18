@@ -4,7 +4,7 @@ const toDoList = document.querySelector("#todo-list") // ul
 
 //to do list 삭제하기
 function deleteToDo(event) { 
-  const li = event.target.parentElement(); 
+  const li = event.target.parentElement; 
   li.remove();
 }
 
