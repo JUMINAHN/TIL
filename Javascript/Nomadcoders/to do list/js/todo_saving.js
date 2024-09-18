@@ -19,10 +19,20 @@ function deleteToDo(event) {
 
 //단 localStorage에 array를 저장할 수 없음 -> text로 저장은 됨
 const toDos = [];
+//const는 업데이트할 수 없다. 다만, 배열은 업데이트가 가능하다.
+//즉 배열 자체가 참조형이기 때문에 이러한 상황이 가능한 것
+
 
 function saveToDos() { // localStorage에 toDos값을 저장하는 것
   localStorage.setItem("toDos", JSON.stringify(toDos)); //배열로 저장가능
+  //stringify == 변수등을 문자열로 바꿈
+  //parse == 문자열을 json으로 바꿈
+  //즉 stringify로 array 자체를 문자열로 바꾸고
+  //local에서 가지고 온 다음 문자열을 array로 만들어서 불려들이는 느낌
 
+  //localStorage안에는 배열은 저장되지 않고, `텍스트만 저장`된다.
+  //즉 스트링 형태로 저장이된다.
+  //따라서 json.stringify를 이용해서 배열 형태로 저장시켜준다. 
 }
 
 
