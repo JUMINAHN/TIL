@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/weather/css/style.css">
+  <title>Momentum App</title>
+</head>
+
+<body> 
+  <h2 id ="clock">00:00:00</h2>
+  <form id="login-form" class="hidden">
+    <input type="text" placeholder="input your data">
+    <button>Click here!</button>
+  </form>
+  
+  <h1 class="hidden" id="greeting"></h1>
+  <!-- to do 목록은 list를 확인할 수 있어야 함 : form 사용-->
+  <form id="todo-form">
+    <input type="text" placeholder="Write a To Do and Press Enter" required>
+    <!--browser 새로고침 됨-->
+  </form>
+  <ul id="todo-list"> <!--js로 내용(li)을 생성-->
+
+  </ul>
+
+  <div id="quote">
+    <span></span> <!--명언-->
+    <span></span> <!--작가-->
+  </div>
+
+  <div id="weather">
+    <span></span>
+    <span></span>
+  </div>
+
+  <script src="/weather/js/background.js"></script>
+  <script src="/weather/js/clock.js"></script>
+  <script src="/weather/js/greeting.js"></script>
+  <script src="/weather/js/quotes.js"></script>
+  <script src="/weather/js/todo.js"></script>
+  <script src="/weather//js/weather.js"></script>
+</body>
+</html>
