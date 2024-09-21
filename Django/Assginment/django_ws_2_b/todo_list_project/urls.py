@@ -20,6 +20,6 @@ from todos import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('todos/', views.index),
+    path('todos/', views.index), #맞음
     path('todos/create_todo/', views.create_todo),
 ]
