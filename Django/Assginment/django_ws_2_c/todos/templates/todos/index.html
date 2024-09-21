@@ -4,6 +4,10 @@
   <h1>할 일 목록 관리 프로젝트 메인 페이지</h1>
   <p>이 곳에서 할 일 목록을 관리합니다.</p>
   <ul>
-    <li>{{ work }}</li>
+  {% if work == None %}  <!--여기까지 변수 타입 `{}`를 사용할 필욘 없다-->
+    <li>아직 할 일이 없습니다.</li>
+  {% else %}
+    <li><a href="/todos/{{work}}/">{{ work }}</a></li>
+  {% endif %}
   </ul>
 {% endblock content %}

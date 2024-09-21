@@ -21,5 +21,7 @@ from todos import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('todos/', views.index),
-    path('todos/create_todo/', views.create_todo),
+    path('todos/create_todo/', views.create_todo), #create_todo로 생성되고
+    #그 뒤에 나타나야함, variable routing의 특징상
+    path('todos/<str:work>/', views.detail) #variable routing을 위한 내용 선언
 ]

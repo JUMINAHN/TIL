@@ -10,3 +10,9 @@ def index(request):
 
 def create_todo(request):
     return render(request, 'todos/create_todo.html')
+
+def detail(request, work):
+    context = {
+        'work' : work
+    }
+    return render(request, 'todos/detail.html', context)
