@@ -7,8 +7,10 @@
 </head>
 <body>
   <h1>메시지를 보냅니다.</h1>
-  <form action="">
-    <input type="text" name="message">
+  <!--form tag를 receive의 위치로 보낸다. -->
+  <form action="/receive"> <!--이 form과 receive가 연동이 되어야한다는 의미-->
+    <input type="text" name="message"> <!--msg를 기반으로 data를 전달함 : url 확인-->
+    <!--value는 값이고, name은 key-->
     <input type="submit" value="[SEND]">
   </form>
 </body>
