@@ -13,13 +13,15 @@ def DFS(startV, endV):
     while stack: #stack에 값이 있을떄만 돌아가도록 만든다.
         for next in graph[now]: #현재 now의 인접노드들을 기준으로 -> 6에 인접노드는 없기 때문에
             if not visited[next] :
-                stack.append(next) #stack에 추가해준다. -> 다음을
-                visited[next] = True #방문을 확인시켜주고
-                result.append(next) #방문이 완료되었으니 result에도 추가를 해준다.
+                stack.append(now) #stack에 추가해준다. -> 다음을
+                #왜 또 추가하지..?
                 now = next #다음 인접 리스트들을 탐색하기 위한 now를 재설정해준다.
+                visited[now] = True #방문을 확인시켜주고
+                result.append(now) #방문이 완료되었으니 result에도 추가를 해준다.
                 break #next가 여러개가 나올 것인데 그 중 1개만을 먼저 검토하고 지정할 것
                 #또 검증이 완료된 것이라 break가 뜰 것 같은데
-            stack.pop()
+        else :
+            now = stack.pop()
                 #pop을 하고 pop에 대한 인접 노드를 다시 확인해야 함
     return result
 
