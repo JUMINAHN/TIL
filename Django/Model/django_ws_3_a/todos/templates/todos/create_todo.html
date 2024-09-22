@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>이 곳에서 할 일을 생성합니다.</h1>
+  <p>추후 기능 추가 예정</p>
+
+  <!--forma action도 기존처럼 catch/이런식으로 보내는게 아니라 파일명/특정 idx로 보내는 형태-->
+  <form action="/todos/"> <!--index.html로 보내는 것-->
+    <input type="text" name="work">
+    <input type="submit" value="제출">
+  </form>
+{% endblock content %}
