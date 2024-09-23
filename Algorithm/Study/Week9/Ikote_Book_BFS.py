@@ -12,16 +12,16 @@ def BFS(startV, endV): #startV
 
     #queue가 있을떄까지 작동한다 == stack과 흐름은 동일하게 가져간다.
     while queue: #순서대로 순회할 것
-        for next in graph[now]: #graph 다음 -> 다음으로
-            #이전 queue에 들어있는 것은 pop해주고 이와 관련된 방문하지 않은 것들
-            queue.pop()
-            #방문하지 않았다면 모두 queue에 넣고, 방문처리를 한다.
-            visited[next] = True
-            #그리고 next와 관련된 인접노드들 queue에 넣는다.
-            result.append(next)
-            now = next
-
-
+        now = queue.popleft() #방문을 하고
+        for next in graph[now]: #pop한 내용을 기반으로 graph 탐색
+            if not visited[next]:
+                #방문하지 않았다면 모두 queue에 넣고, 방문처리를 한다.
+                queue.append(next)
+                visited[next] = True
+                #그리고 next와 관련된 인접노드들 queue에 넣는다.
+                result.append(next) #근데 이러면 그게 되나?
+                #3번째 idx가 예를 들면 1, 4, 5가 들어갔다면  그냥 그 숫자는 없어지는 것
+    return result #구조를 생각하자
 
 #각 노드가 연결된 정보
 graph = [ #adj_list
