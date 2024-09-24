@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>이 곳에서 할 일을 생성합니다.</h1>
+  <p>추후 기능 추가 예정</p>
+  <!--form action 링크가 잘못됨, 제출하면서 index/라는 값이 붙게 됨-->
+  <!--값이 추가로 붙게 되는데.. -->
+  <!--링크가 이상한 곳으로 가게 된다. -->
+  <!--제출을 할 때 값을 추가로 붙이는게 아님-->
+  <!--form태그 잘 보기-->
+
+  <form action="../" method="GET"> <!--submit의 제출 경로, todos 경로로 전송, index html에 데이터를 준다는 의미 -->
+    <input type="text" name="work"> <!--해당값이 value, value를 전송하기 위해서는 key값이 있어야 함 key값 설정-->
+    <input type="submit" value="제출"> <!--해당 submit 버튼을 누르면 todos/ 경로로 전송되어야 함-->
+    <!--name은 work로 작성한다.-->
+  </form>
+{% endblock content %}
