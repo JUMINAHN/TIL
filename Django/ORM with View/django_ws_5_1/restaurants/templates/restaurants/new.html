@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>식당 생성 페이지</h1>
+    <form action="{% url "restaurants:create" %}" method="POST"> <!--form 형식, 생성 메서드로 전송-->
+        {% csrf_token %}
+        <div>
+            <label for="name">식당 이름:</label> <!--name과 아이디 연결-->
+            <input type="text" name="name" id="name">
+        </div>
+        <div>
+            <label for="description">식당 설명:</label> <!--name과 아이디 연결-->
+            <input type="text" name="description" id="description">
+        </div>
+        <div>
+            <label for="address">식당 주소:</label> <!--name과 아이디 연결-->
+            <textarea name="address" id="address"></textarea>
+        </div>
+        <div>
+            <label for="phone_number">식당 전화번호</label>
+            <textarea name="phone_number" id="phone_number"></textarea>
+        </div>
+        <input type="submit" value="CREATE"> <!--form tag 내부에서 전송-->
+    </form>
+    <a href="{% url "restaurants:create" %}">[BACK]</a>
+{% endblock content %}

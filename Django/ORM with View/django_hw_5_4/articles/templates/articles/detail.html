@@ -1,0 +1,29 @@
+<!DOCTYPE html> <!--상세 페이지 확인을 위함-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body> <!--일단 detail이 맞게 나오지 확인-->
+    <h1>게시글 상세 페이지</h1>
+    <p>게시글 번호 : {{articles.pk}} </p>
+    <p>게시글 제목 : {{articles.title}} </p>
+    <p>생성 시간 : {{articles.created_at}} </p>
+    <p>수정 시간 : {{articles.updated_at}} </p>
+    <hr> 
+    <p>게시글 생성 테스트 입니다.</p>
+    <hr>
+    <!--form 형식 설정-->
+    <!--action을 보낼때 index 메인 페이지로 보내면 진행되는게 없음-->
+    <!--따라서 delete 할때 -->
+    <!--delete page가서 삭제해~~-->
+    <!--그니까 단순히 form을 제출할 때 삭제를 위한 요청을 하는 것이지 idx로 보내기 위한 요청이 아님을 명심-->
+    <form action="{% url "articles:delete" articles.pk%}" method=POST> <!--aciton이 보내져야 함 : 메인으로 돌아가나 삭제는 안됨--> 
+        {% csrf_token %}
+        <input type="submit" value="DELETE"> <!--form의 역할이 실행이 되지 않기 때문일 것-->
+    </form>
+    <a href="{% url "articles:index" %}">[BACK]</a>
+     <!--main 페이지로 이동-->
+</body>
+</html>

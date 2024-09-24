@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>게시글 생성 페이지</h1>
+    <form action="/articles/create/" method="POST"> <!--생성하고, 생성 경로로 전달 -->
+        {% csrf_token %}
+        <div>
+            <label for="title">제목</label> <!--id랑 연동-->
+            <input type="text" name="title", id="title">
+        </div>
+        <div>
+            <label for="content">내용</label> <!--label이 아마 id와 연동되어야 할 것-->
+            <textarea name="content" id="contetnt"></textarea>
+        </div>
+        <input type="submit" value="CREATE"> <!--일반 button설정이 문제였음-->
+    </form>
+    <a href="{% url "articles:index" %}">[BACK]</a> <!--형식이 잘못되었었음-->
+</body>
+</html>

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>메인 페이지</h1>
+  <a href="{% url 'articles:new' %}">[CREATE]</a>
+
+  <ul>
+    {% for article in articles %}
+      <li>{{ article.pk }}번째 글</li>
+      <li>제목 : {{ article.title }}</li>
+      <!--여기서 문제가 발생함 -->
+      <a href="{% url "articles:detail" article.pk%}">[DETAIL]</a> <!--error 가 터진다.-->
+      <!--오타-->
+      <!-- 'detail' with no arguments not found. 1 pattern(s) tried: ['articles/(?P<pk>[0-9]+)/\\Z']-->
+      <!-- template에 id가 없다, 매개변수 인자가 없다는것, variable routing-->
+      <hr>
+    {% endfor %}
+  </ul>
+{% endblock content %}
