@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>식당 수정 페이지</h1>
+  <!--나 수정할거에요 -> 서버에 요청-->
+  <!--edit에 보내는게 아니라 그 update에 보내져야 함 : 요청 받을 애한테 -->
+  <!--form에서 예상치 못한 pk인자가 있다. -->
+  
+  <!--즉 탬플릿의 매개변수 url/path 키워드 인수와 동일하지 않거나 템플릿 url 호출이 오류되었다고 구글-->
+  <!--템플릿에는 update의 인자가 없다고 표기됨 : 즉 update의 템플릿 부분을 수정해주면 되는 부분-->
+  <form action="{% url 'restaurants:update' restaurants.pk%} " method="POST"> <!--url 밖에 있으면 no reverse-->
+    {% csrf_token %}
+    <label for="name">식당 이름 : </label>
+    <input type="text" id="name" name="name" value="{{restaurants.name}}"> <br>
+    <label for="description">식당 설명 : </label>
+    <input type="text" id="description" name="description" value = "{{restaurants.description}}"> <br>
+    <label for="address">식당 주소 : </label>
+    <textarea name="address" id="address" cols="30" rows="10">{{restaurants.address}}</textarea> <br>
+    <label for="phone_number">식당 전화번호</label>
+    <textarea name="phone_number" id="phone_number" cols="30" rows="10">{{restaurants.phone_number}}</textarea> <br>
+
+    <input type="submit" value="UPDATE"> <!--update : 업데이트를 누를 때 문제가 발생--> 
+  </form>
+  <a href="{% url 'restaurants:index' %}">[BACK]</a>
+{% endblock content %}

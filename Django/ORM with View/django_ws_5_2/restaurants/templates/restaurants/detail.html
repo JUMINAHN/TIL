@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>맛집 상세 정보</h1>
+    <p>식당 번호 : {{restaurants.pk}}</p>
+    <p>식당 이름 : {{restaurants.name}}</p>
+    <p>식당 설명 : {{restaurants.description}}</p>
+    <p>식당 위치 : {{restaurants.address}}</p>
+    <p>전화 번호 : {{restaurants.phone_number}}</p>
+    <hr>
+    <a href="{% url "restaurants:edit" restaurants.pk %}">[UPDATE]</a> <!--edit 페이지 수정을 해야하기 떄문에 -->
+    <!--해당 부분에 대한 요청-->
+    <form action=" {% url "restaurants:delete" restaurants.pk%}"> <!--요청 값을 보낼 곳 : 삭제하자고 form에게 요청을 보낸다 -->
+        {% csrf_token %}
+        <input type="submit" value="DELETE"> <!--그럼 삭제 요청에 대한 답변이 나타날 것-->
+    </form>
+    <hr>
+    <a href="{% url "restaurants:index" %}">[BACK]</a>
+</body>
+</html>
+
