@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>주차 정보 관리 시스템</h1>
+  <p>모든 차고지 정보</p>
+  <a href="{% url "garages:new" %}">새 차고지 등록하기</a> <!--이게 문제였던 것 같음-->
+  <ul>
+  {% for garage in garages %}
+    <li>위치 : {{ garage.location }}</li>
+    <li>주차 가능 대 수 : {{ garage.capacity }}</li>
+    <li>현재 주차 가능 여부 : {{ garage.is_parking_avaliable }}</li>
+    <a href="{% url "garages:edit" garage.pk%}">차고지 정보 수정하기</a> <!--edit면 인자를 받을 것-->
+    <!--쿼리가 존재하지 않데-->
+    <form action="{% url "garages:delete" garage.pk%}" method="POST"> <!--삭제할래요 하고 -> 삭제 태그 자체로 보내준다-->
+      {% csrf_token %}
+      <input type="submit" value="차고지 정보 삭제">
+    </form>
+    <!--location을 받을 수 없다-->
+    <hr>
+  {% endfor %}
+  </ul>
+{% endblock content %}
