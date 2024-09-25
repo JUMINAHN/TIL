@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>travels</h1>
+  <a href="{% url "travels:create" %}">CREATE</a> <!--생성 링크 넣을 것 : new 즉 create-->
+  <hr>
+  <!--이 밑에 location이랑 plan을 보여주려고 한다 : 즉 전체의 내용이 담겨있어야 한다-->
+  <!--해당 부분에 대한 작업을 진행-->
+  <ul>
+  {% for travel in travels %}
+    <li>위치 : {{travel.location}}</li>
+    <a href="{% url "travels:detail" travel.pk %}">상세 페이지</a>
+    <p>계획 : {{travel.plan}}</p>
+  {% endfor %}
+  </ul>
+{% endblock content %}
+
+
