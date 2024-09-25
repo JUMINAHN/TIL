@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %} 
+<h1>예약 생성 페이지</h1>
+<!--여기서 form 사용-->
+<!--create로 post요청을 보내야 합니다.-->
+
+<!--태그 잘보기-->
+<form action="{% url "reservations:create" %}" method="POST"> <!--form tag안에 넣어야 한다-->
+    {% csrf_token %}
+    {{form.as_p}} <!--문단을 사용하겠다-->
+    <input type="submit" value="예약 생성">
+</form>    
+
+{% endblock content %}
+
+
+
