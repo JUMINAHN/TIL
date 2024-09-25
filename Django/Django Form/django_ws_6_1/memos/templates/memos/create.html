@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <form action="{% url "memos:create" %}" method="POST"> <!--post방식으로 받는다 ==> 어디로 보낸다? create로 생성 응답 요청-->
+    {% csrf_token %}
+    {{ form.as_p }} <!--form 자체를 생성-->
+    <input type="submit" value ="제출">
+  </form>
+  <hr>
+  <a href="{% url "memos:index" %}">[back]</a> <!--어디로 갈 것인가? : 바로 이전 index로 -->
+{% endblock content %}
+
+

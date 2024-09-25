@@ -1,0 +1,21 @@
+{% extends "base.html" %} <!--main 화면을 받을 것-->
+
+<!--게시물의 요약, 수정 날짜를 보여준다-->
+<!--게시물의 생성 페이지로 가는 링크를 생성-->
+<!-- 따라서 구조적으로 살펴보았을 때 전체에 대한 내용이 담겨야한다.-->
+
+<!--자 새로 model을 생성하고 메모를 받았습니다.-->
+{% block content %}
+  <h1>Memos</h1>
+  <!--context로 메모를 받아왔는데 받아오지 못하는듯?-->
+  <a href="{% url "memos:create" %}">메모하기</a> <!--new : new는 추후 실질적으로 사용하지 않을 것이니까 create 관련 내용 -->
+  <ul>
+    {% for memo in memos %}
+      <!--여기서 상세페이지로 연동 : 그럼 context에 memos에 대한 정보를 받아와야 함-->
+      <a href="{% url "memos:detail" memo.pk %}"><li>{{memo.summary}}</li></a> <!--아마 detail : 상세 페이지로 들어갈 것 : 게시물 요약-->
+      <p>{{memo.updated_at}}</p> <!--어떠한 특정 데이터~ : 게시물 수정 날짜-->
+    {% endfor %}    
+  </ul>
+{% endblock content %}
+
+<!--1차적으로 index를 만듬-->
