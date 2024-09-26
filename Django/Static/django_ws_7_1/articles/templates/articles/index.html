@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <h1>나만의 SNS 서비스</h1>
+  <!--했는데?-->
+  <a href="{% url "articles:create" %}">[CREATE]</a> <!--new html이 create html로 바뀔 것-->  
+  <!--추후 이미지가 올라갈 위치 : static을 불러오기 위해선? -->
+  <!--어디에 있는 것을 사용할것인지? : 확장자 명과 같이 작성함-->
+  <br> <!--칸 띄우기-->
+  <div>
+    <!--지금 단순히 cat.jpg를 했을떄 나오지 않음??-->
+    <img src="{% static "articles/2cat.jpg" %}" alt="2cat">
+    <!--이것은 url과 비슷하지만 확장자명과 /태그를 사용해줘야한다 :: 경로의 위치 -->
+  </div>
+  {% for article in articles %}
+  <!--이미지 유무에 따라서 출력형태를 다르게 한다-->
+  <!--이미지에 따라 조건을 건다-->
+    <!--이건 어떻게 구분하지?-->
+    <a href="{% url "articles:detail" article.pk%}">test with img</a> <!--무엇이 들어갈지 추후 확인-->
+    <!--test img가 있는 것 : media에서 받아와야함 -->
+    <hr>
+    {% comment %} <a href="#">Test without img</a> <!--무엇이 들어갈지 추후 확인-->
+    <!--없는 것 뭔가 이쪽은 추가적으로 값을 더했을 때 나타내는 예시 케이스 같음-->
+    <hr> {% endcomment %} 
+  {% endfor %}
+
+{% endblock content %}
