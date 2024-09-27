@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>영화 생성 페이지</h1> <!-- 앱 네임-->
+    <!--form에서 enctype 설정 및 메서드 받지 않음-->
+    <!--enctype 모름-->
+    <form action="{% url "movies:create" %}", method="POST", enctype="multipart/form-data"> <!--페이지 생성 요청 -> create로 보내줄 것-->
+        {% csrf_token %}
+        {{form.as_p}} <!--form에 대한 데이터 받아올 것, 그런데 지금 이미지를 활용할 것이기 때문에--> 
+        <!--일단 여기는 괜찮음-->
+        <input type="submit" value="제출">
+    </form>
+
+{% endblock content %}
