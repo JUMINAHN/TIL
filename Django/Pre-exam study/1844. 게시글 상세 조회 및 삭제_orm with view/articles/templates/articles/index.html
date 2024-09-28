@@ -8,6 +8,7 @@
     {% for article in articles %}
       <li>{{ article.pk }}번째 글</li>
       <li>제목 : {{ article.title }}</li>
+      <a href="{% url "articles:detail" article.pk%}">[DETAIL]</a> 
       <hr>
     {% endfor %}
   </ul>
