@@ -33,7 +33,7 @@ def DFS(row, col): #행 -> 열로 나누어 접근해야 하기 떄문에
 #먼저 관련해서 input을 받아서 얼음틀을 채워보자
 #N과 M이 주어진다.
 N, M = map(int, input().split())
-ice = [list(map(int, input().split())) for _ in range(N)] #M만큼 -> 값이 들어갈 것
+ice = [list(map(int, input())) for _ in range(N)] #M만큼 -> 값이 들어갈 것 == ***************오류 : 입력값 잘확인!!!!!!!!
 
 #얼음틀을 채웠고, 그 얼음틀에서 내가 찾는 것이 있는지 확인하자 : 같은 인접노드인지 확인하는 것
 icecream = 0
@@ -41,7 +41,9 @@ for row in range(N):
     for col in range(M): #한개씩 주변 노드의 유무를 탐색하는 것
         #즉 DFS 자체 내부에서 상하좌우 경로 탐색이 더 이루어져야 함
         #0을 발견하고 말고에 따라서 이루어 지는 것 -> 즉 0이 발견되었는가
-        if DFS(ice[row], ice[col]) == 0: #이거를 살려보고 -> 이게 진짜면 icecrea 생성이 가능한 것 -> True / False임에 따라서
+        #즉 방문이 참인가 == 오류!!!!!!!!!!!!
+        if DFS(row, col) == True: #이거를 살려보고 -> 이게 진짜면 icecrea 생성이 가능한 것 -> True / False임에 따라서
             icecream += 1 #icecream 생성
 
 print('result =', icecream)
+
