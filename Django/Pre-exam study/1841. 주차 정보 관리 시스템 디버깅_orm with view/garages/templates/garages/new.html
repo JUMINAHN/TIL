@@ -3,6 +3,7 @@
 {% block content %}
   <h1>신규 차고 등록</h1>
   <form action="{% url 'garages:create' %}" method="POST">
+    {% csrf_token %}
     <label for="location">위치 : </label>
     <input type="text" id="location" name="location"><br>
 
