@@ -6,8 +6,9 @@
   <title>할 일 목록 관리 프로젝트</title>
 </head>
 <body>
-  <a href="/todos/">[MAIN]</a> | 
-  <a href="/todos/create_todo">[CREATE]</a>
+  <a href="{% url "todos:index" %} ">[MAIN]</a> | <!--바꿔준다.-->
+  <a href="{% url "todos:create_todo" %} ">[CREATE]</a> <!--link의 위치-->
+  <a href="{% url "accounts:login" %} ">[LOGIN]</a>
   {% block content %}
   {% endblock content %}
 </body>
