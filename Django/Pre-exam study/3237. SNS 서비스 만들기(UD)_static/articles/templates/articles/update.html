@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>게시글 수정 페이지</h1>
+  <!--수정 페이지로 이동-->
+  <!--맞게 들어감-->
+  <form action="{% url "articles:update" article.pk %}" method="POST" enctype="multipart/form-data"> <!--동일 구조-->
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="UPDATE">
+  </form>
+  <a href="{% url 'articles:index' %}">[BACK]</a>
+{% endblock content %}
+
