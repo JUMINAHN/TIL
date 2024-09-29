@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--사실 이거까지 필요없긴 한데 일단 등록한다-->
+  <title>Document</title>
+</head>
+<body>
+  <h1>차고지 정보</h1>
+  <p>위치 : {{garage.location}}</p>
+  <p>주차 가능 대 수 : {{garage.capacity}}</p>
+  <p>현재 주차 가능 여부 : {{garage.is_parking_avaliable}}</p>
+  <!--삭제도 만들자-->
+  <a href="{% url "garages:delete" garage.pk%}">[DELETE]</a>
+  <!--뒤로가기-->
+  <a href="{% url "garages:index" %}">[BACK]</a> 
+</body>
+</html>
