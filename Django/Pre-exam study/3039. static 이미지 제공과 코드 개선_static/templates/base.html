@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>할 일 목록 관리 프로젝트</title>
+</head>
+<body>
+  <!--이 index page링크를 수정?-->
+  <!--준비한 이미지를 클릭하면 index로 갈 수 있도록 변경-->
+  <a href="{% url "todos:index" %}"><img src="{% static "ssafy_logo.jpg" %}" alt="img"></a> |  <!--이곳으로 이동-->
+  <a href="{% url "todos:create" %}">[CREATE]</a>
+  <a href="{% url "accounts:login" %}">[LOGIN]</a>
+  <a href="{% url "diaries:index" %}">[DIARY]</a>
+  {% block content %}
+  {% endblock content %}
+</body>
+</html>
