@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <h1>나만의 SNS 서비스</h1>
+  <a href="{% url 'articles:create' %}">[CREATE]</a>
+
+  <form action="{% url 'articles:index' %}" method="GET">
+    <input type="hidden" name="show_private" value="true">
+    <input type="submit" value="비공개 게시글 조회">
+    <!--공개 게시글 조회 폼에만 show_private=true 파라미터를 전송-->
+    <!--show_private=true 파라미터는 비공개 게시글을 보고 싶다는 명시적인 요청-->
+    <!--파라미터가 없으면 기본적으로 공개 게시글을 보여줍-->
+    <!--코드의 가독성과 유지보수성을 높이-->
+  </form>
+  <form action="{% url 'articles:index' %}" method="GET">
+    <input type="submit" value="공개 게시글 조회">
+  </form>
+
+  <h2>{% if show_private %}비공개{% else %}공개{% endif %} 게시글 목록</h2>
+  <ul>
+    {% for article in articles %}
+    <li>
+      <a href="{% url 'articles:detail' article.pk %}">
+        {% if article.image %}
+          <img src="{{ article.image.url }}" alt="{{ article.image_description }}">
+        {% else %}  
+          <img src="{% static 'assets/noimage.png' %}" alt="noimage" style="max-width: 200px; max-height:200px;">
+        {% endif %}
+        <p>{{ article.title }}</p>
+      </a>
+    </li>
+    <hr>
+    {% endfor %}
+  </ul>
+{% endblock content %}
