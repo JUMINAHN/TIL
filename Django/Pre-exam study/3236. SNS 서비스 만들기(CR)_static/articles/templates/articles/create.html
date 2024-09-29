@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <!--create 페이지로 요청 : db에 올리고 그에 따른 응답을 얻기 위해 필요함-->
+  <form action="{% url "articles:create" %}" method="POST" enctype="multipart/form-data"> <!--multifiles: form-data 이런 느낌-->
+    {% csrf_token %} <!--해킹 방지-->
+    {{form.as_p}} <!--form에 대한 정보 생성-->
+    <input type="submit" value="CREATE"> <!--생성 버튼도 만든다.-->
+  </form>
+  <a href="{% url "articles:index" %}">[BACK]</a> 
+{% endblock content %}
+

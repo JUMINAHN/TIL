@@ -1,0 +1,20 @@
+{% extends "base.html" %} 
+{% load static %} <!--static 메서드 사용을 위해서 load를 해야함-->
+
+{% block content %}
+  <h1>나만의 SNS 서비스</h1>
+    <a href="{% url "articles:create" %}">[CREATE]</a> <!--create 생성 page-->
+    <br>
+  <!--static에 저장한 이미지 사용할 것-->
+  <!--static의 경로 : 확장자명과 /을 사용해야 한다.-->
+  <!--경로가 있다면 static 까지 그 뒤에 경로를 작성해야 한다.-->
+  <!--이경우 앱 내의 static에서 찾고 없으면 dirs-->
+    <img src="{% static "zoomstagram.png" %}" alt="mainimg"> <!--일단 읿나 확장자명-->
+    <br>
+    {% for article in articles %}
+    <!--detail-->
+      <a href="{% url "articles:detail" article.pk %}">{{article.title}}</a> <!--title인 것으로 :: detail내용이 들어갈 것-->
+      <hr>
+    {% endfor %}
+{% endblock content %}
+
