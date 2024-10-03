@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+  <!--로그인한 경우 유저 이름 확인할 수 있어야 함 : HOW? -->
+  <!-- 로그인한 경우 현재 로그인한 유저 이름 확인-->
+  {% comment %} {% if user.is_authenticated %} {% endcomment %}
+ 
+  <p>hello, {{user.username}} </p> <!--username-->
+  <!--user는 받아온 것을 확인할 수 있음-->
+  <a href="{% url "accounts:login" %}">[LOGIN]</a> <!--조회-->
+  <!--db 조작 -->
+  {% comment %} {% else %} {% endcomment %}
+    {% comment %} <p>PLZ login</p>
+    <a href="{% url "accounts:login" %}">[LOGIN]</a> <!--조회--> {% endcomment %}
+  {% comment %} {% endif %} {% endcomment %}
+  <form action="{% url "accounts:logout" %}" method="POST"> <!--기존에는 create 요청으로 보냈지만, 지금은 login으로-->
+    {% csrf_token %}
+    {% comment %} {{form.as_p}} {% endcomment %}
+    <input type="submit" value="LOGOUT">
+  </form>
+  <h1>전체 유저 목록</h1>
+  <ul>
+    {% for o_user in users %}
+    <li>
+      {{o_user}} <!--admin이런 것-->
+      <hr>
+    </li>
+    {% endfor %}
+  </ul>
+{% endblock content %}
