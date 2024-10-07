@@ -6,6 +6,10 @@ from django.contrib.auth import get_user #auth module에서 제공하는 인증 
 #django contrib는 django에서 제공하는 추가적인 기능을 모아놓은 패키지
 #auth는 contrib패키지 내의 인증관련 모듈 -> 사용자 계정, 그룹, 권한, 쿠키 기반 사용자 세션 등을 처리 함
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm #이거는 생성, 수정 -> 회원가입?
+#user는 -> 새로 재정의 해야함 -> 따라서 forms에서 다시
+from .forms import MyUserChangeForm
+
+#인증 자체
 from django.contrib.auth.forms import AuthenticationForm #인증 관련 form -> 그냥 각 구조가 다른 것에 접근하는 것 뿐
 # 사용자 인증 전문화, 세션 관리 용이 
 from django.contrib.auth import login
@@ -37,3 +41,16 @@ def my_login(request): #login정보를 받음 -> request자체에 user의 정보
         'form' : form
     }
     return render(request, 'accounts/login.html', context) #form에 대한 정보를 보냄
+
+def signup(request): #기존 crud -> creat와 동일한 방식
+    if request.method == "POST":
+        form = MyUserChangeForm(request.POST) #단순 post받고 -> 그냥 단순 회원 가입 생성
+        if form.is_valid():
+            form.save() #기존과 동일
+            return redirect('accounts:index')
+    else :
+        form = MyUserChangeForm()
+    context = {
+        'form' : form
+    }
+    return render(request, 'accounts/signup.html', context)

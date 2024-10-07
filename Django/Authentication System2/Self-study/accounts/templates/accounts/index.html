@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <a href="#">[LOGIN]</a> <!--login page 기입 예정-->
-  <a href="#">[Sign Up]</a> <!--sign up page 기입 예정-->
+
+  <a href="{% url "accounts:my_login" %}">[LOGIN]</a> <!--login page 기입 예정-->
+  <a href="{% url "accounts:signup" %}">[Sign Up]</a> <!--sign up page 기입 예정-->
   <h1>전체 유저 목록</h1>
   <!--하기 부터는 유저 목록 1개씩 출력할 것-->
   <ul>
