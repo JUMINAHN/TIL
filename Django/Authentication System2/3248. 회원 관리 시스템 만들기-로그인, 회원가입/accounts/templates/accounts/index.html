@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <a href="{% url "accounts:my_login" %}">[LOGIN]</a> <!--login 관련 url-->
+  <a href="{% url "accounts:signup" %}">[Sign Up]</a> <!--회원가입 관련 url-->
+
+  <h1>전체 유저 목록</h1>
+  <ul>
+    {% for user in users %}
+      <li>{{user}}</li> <!--user 정보 출력-->
+      <hr>
+    {% endfor %}
+  </ul>
+{% endblock content %}
