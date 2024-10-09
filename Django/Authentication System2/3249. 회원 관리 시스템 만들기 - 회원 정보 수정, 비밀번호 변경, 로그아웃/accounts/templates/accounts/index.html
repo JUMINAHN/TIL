@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!--이것때문에 중복이 되고 있었음-->
+  {% comment %} <a href="{% url 'accounts:login' %}">[LOGIN]</a>
+  <a href="{% url 'accounts:signup' %}">[Sign Up]</a> {% endcomment %}
+  <h1>전체 유저 목록</h1>
+  <ul>
+    {% for person in persons %}
+      <li>{{ person.username }}</li>
+      <hr>
+    {% endfor %}
+  </ul>
+{% endblock content %}

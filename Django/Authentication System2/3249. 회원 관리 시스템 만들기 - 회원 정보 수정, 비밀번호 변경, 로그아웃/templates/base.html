@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!--로그인을 하면 update를 띄울 것-->
+  <!--인증을 한 상태이면 :: 사용자가 -->
+  {% comment %} /{{user}} {% endcomment %} <!--user가 뜨는데 머지-->
+  {% if user.is_authenticated %} <!--user에 접근해야 함-->
+    <a href="{% url "accounts:signupdate" %}">[Update]</a>  <!--회원정보업데이트가아니라-->
+    <!--비밀번호 변경이어야 함-->
+    <!--logout으로 요청-->
+    <form action="{% url "accounts:logout" %}" method="POST"> <!--조회가 아니끼 떄문에 : logout 페이지 만들기--> 
+      {% csrf_token %}
+      <input type="submit" value="[LOGOUT]">
+    </form>
+  {% else %}
+    <a href="{% url "accounts:login" %}">[LOGIN]</a> 
+    <a href="{% url "accounts:signup" %}">[Sign Up]</a> 
+  {% endif %}
+
+
+  {% block content %}
+  {% endblock content %}
+</body>
+</html>
