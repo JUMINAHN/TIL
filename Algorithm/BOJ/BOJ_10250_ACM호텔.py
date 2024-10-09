@@ -5,7 +5,6 @@
 # W가 같을떄는 Y가 작은것을 기준으로 선호
 # 결론적으로 맨 왼쪽부터 순서대로 배정됨
 # N번쨰 손님에게 배정되어야하는 방 번호 출력
-#문제를 푸는데 갑자기 희원 언니가 간단하게 생각하라고 했떤 부분이 생각이 남
 '''
 2
 6 12 10 => 402
@@ -19,24 +18,36 @@ T = int(input())
 for tc in range(1, T+1):
     #N번쨰로 도착할 손님의 수
     H, W, N = map(int, input().split()) #높이 6, 가로 12, N번쨰 방문 손님
-    #단순히 값을 대입하기 보다는 몫과 나머지로도 가능한 듯 하다..?
-    YY = N % H
-    if YY == 0: #0으로 나누어 떨어질 경우 -> H의 마지막 값을 사용한다.
-        YY = H #H를 넣는다. 
-    
-    XX = N // H
-    if XX % 10 == 0: #10의 단위로 나누어 떨어질 경우
-        XX -= 1 #-1을 줄인다
-    if XX >= 9:
-        print(f'{YY}{XX+1}') #9부터 해당되기 떄문에 XX가 10부터이면 안됨
-    else :
-        print(f'{YY}0{XX+1}')
+    #배정의 오류
+    acm_hotel = []
+    for col in range(1, W+1):
+        floor = []
+        for row in range(H): #층부터 -> 반대로 :: 아까그거처럼 -1한거랑 똑같음
+            if col >= 10: #row가 아니라 col을 기준으로 해야함
+                floor.append(f'{H-row}{col}') #여기값 잘못설정함 -> 잘못 기입함
+            else : #계속 잘붙다가 왜 안붙지?
+                floor.append(f'{H-row}{0}{col}') #이게 맞음
+        acm_hotel.append(floor) #왼쪽부터 채우기
+    #print(acm_hotel) #다만 지금 세로로 되어야 함 -> 행/열 바꿔주면 됨 == 전치행렬
 
-#반례 
+    acm = list(map(list, zip(*acm_hotel))) #단순 str로 묶으니까 튜플
+    count = 0
+    result = 0 #호텔번호
+    #자 여기서 동일하게 접근
+    for col in range(W):
+        for row in range(H):
+            if count == N:
+                break
+            result = acm[H-1-row][col]
+            count += 1
+        if count == N:
+            break
+    print(result)
+
+#반례
 '''
 1
 10 10 100
 정답은 1010
-내 코드는 011
 '''
 
