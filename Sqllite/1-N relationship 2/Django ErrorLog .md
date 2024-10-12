@@ -2,7 +2,7 @@
 
 날짜: 2024년 10월 12일
 
-# NoReerseMatch at/libraries/
+# NoReverseMatch at/libraries/
 
 ---
 
