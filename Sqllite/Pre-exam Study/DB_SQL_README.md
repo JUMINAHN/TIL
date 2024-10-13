@@ -751,3 +751,262 @@ WHERE last_name LIKE '박%'
       AND age >= 25
   );
 ```
+
+# 서브 쿼리에서 WHERE 사용과 테이블 별칭
+
+---
+
+- 서브 쿼리가 있을 경우 테이블 별칭을 사용하는 것이 유용 : 메인 서브가 같은 쿼리를 사용할 때
+
+```sql
+SELECT *
+FROM users u--테이블 별칭 사용 가능 : 테이블 별칭 부여시 가독성 향상
+--여러 테이블이 호출될 경우 어느 테이블인지 쉽게 구분할 수 있음
+--같은 테이블 참조에 유용함 
+WHERE (u.country, u.balance) IN ( 
+    SELECT country, MAX(balance) 
+    FROM users
+    GROUP BY country
+)
+ORDER BY balance DESC  
+```
+
+```sql
+-- GROUP BY 없이 MAX(balance)만 사용할 경우:
+-- 이 경우, 전체 테이블에서 단일 최대값만 반환됩니다.
+-- 결과는 단일 행, 단일 열이 됩니다.
+-- 예: SELECT MAX(balance) FROM users → 1200000 (단일 값)
+
+-- GROUP BY country와 함께 사용할 경우:
+-- 각 국가별로 최대값을 계산합니다.
+-- 결과는 여러 행, 두 개의 열(country, MAX(balance))이 됩니다.
+```
+
+⇒ 서브 쿼리에 `IN` 연산자 사용 == 여러행 반환에 유용
+
+| 구분 | GROUP BY 없음 | GROUP BY country 사용 |
+| --- | --- | --- |
+| SELECT 절 | SELECT MAX(balance) | SELECT country, MAX(balance) |
+| 결과 형태 | **단일 행**, 단일 열 | **여러 행,** 두 열 |
+| 예시 결과 | 1200000 | ('한국', 1000000)<br>('일본', 800000)<br>('미국', 1200000) |
+| WHERE 절 사용 | WHERE balance = (서브쿼리) | WHERE (country, balance) IN (서브쿼리) |
+| 비교 방식 | 스칼라 비교 (단일 값) | 튜플 비교 (복합 값) |
+
+# 서브 쿼리 위치
+
+---
+
+## **서브쿼리 사용 위치**
+
+1. **SELECT 절**: `계산된 컬럼을 생성`할 때 사용
+
+```sql
+SELECT first_name, last_name, (SELECT COUNT(*) FROM orders WHERE user_id = u.id) AS order_count
+FROM users u;
+```
+
+1. **FROM 절**: `임시 테이블을 생성`할 때 사용합니다.
+
+```sql
+SELECT *
+FROM (SELECT * FROM users WHERE age > 30) AS older_users;
+```
+
+1. **WHERE 절**: `조건을 만족하는 행`을 필터링할 때 사용합니다.
+
+```sql
+SELECT *
+FROM users u --메인 쿼리는 users 테이블의 모든 행을 하나씩 확인
+WHERE balance = (
+    SELECT MAX(balance)
+    FROM users u2
+    WHERE u2.country = u.country --"현재 확인 중인 사람과 같은 나라 사람들 중 최고 잔액"
+);
+```
+
+- 서브쿼리와 메인 쿼리에서 같은 테이블을 참조할 때, 별칭을 다르게 사용하면 각 쿼리 부분에서 어떤 "users" 테이블을 참조하는지 명확히 할 수 있다.
+
+## 상관 서브 쿼리 ⇒ groub by를 사용하지 않고도 가능
+
+---
+
+```sql
+ WHERE u2.country = u.country를 사용하는 이유
+```
+
+1. 각 나라별로 최고 잔액을 찾기 위해서
+2. 이 조건이 없으면, 모든 나라 중에서 가장 높은 잔액 하나만 찾게 됨
+
+```sql
+이름 | 나라 | 잔액
+김철수 | 한국 | 1000만원
+이영희 | 한국 | 1500만원
+John  | 미국 | 2000만원
+Mary  | 미국 | 1800만원
+```
+
+이 조건을 사용하면: == `각 나라에서 제일 돈 많은 사람`
+
+- 한국에서는 이영희(1500만원)
+- 미국에서는 John(2000만원)
+
+하지만 이 조건이 없다면: == `전체에서 제일 돈 많은 사람`
+
+- John(2000만원)만 선택
+
+# 상관 서브 쿼리 방식 & GROUB BY 방식
+
+---
+
+[상관 서브 쿼리] == `조인` 의 개념
+
+- **내가 추출한 데이터 a테이블과 원본 b가 일치하는지 확인부터 하고 -> 그게 맞다면 추출**
+
+```sql
+SELECT *
+FROM users u
+WHERE balance = (
+    SELECT MAX(balance)
+    FROM users u2
+    WHERE u2.country = u.country
+);
+```
+
+- 데이터가 많을 때 느려짐
+- 더 복잡한 조건이 필요할 때 (두번째로 높은 잔액 찾기)
+- 다른 테이틀의 데이터와 비교할 때
+
+[group by]
+
+```sql
+SELECT *
+FROM users u--테이블 별칭 사용 가능 : 테이블 별칭 부여시 가독성 향상
+--여러 테이블이 호출될 경우 어느 테이블인지 쉽게 구분할 수 있음
+--같은 테이블 참조에 유용함 
+WHERE (u.country, u.balance) IN ( 
+    SELECT country, MAX(balance) 
+    FROM users
+    GROUP BY country
+)
+ORDER BY balance DESC  
+```
+
+- 더 빠름
+- 읽기 쉽고 이해하기 쉬움
+- 단순 최대값을 찾을 때
+
+# 데이터 잘못 추출 → 서브쿼리 관련
+
+---
+
+- age가 30세 이상이면서, balance가 30세 이상인 사용자들의 평균 balance보다 높은 사용자의 정보 조회
+
+[수정 전]
+
+```sql
+SELECT *
+FROM users
+WHERE balance = (
+  SELECT MAX(balance)
+  FROM users
+)
+GROUP BY country
+ORDER BY balance DESC;
+```
+
+- 서브쿼리 **`SELECT MAX(balance) FROM users`**는 전체 users 테이블에서 가장 큰 balance 하나만 반환
+- 따라서 WHERE 절은 오직 그 최대 balance를 가진 사용자만 선택
+- 그 후 GROUP BY country를 하지만, 이미 선택된 사용자는 하나 또는 소수의 국가에 속한 사람들뿐
+
+<aside>
+💡
+
+**수정 1**
+
+</aside>
+
+```sql
+SELECT *
+FROM users u
+WHERE (u.country, u.balance) IN (
+  SELECT country, MAX(balance)
+  FROM users
+  GROUP BY country
+)
+ORDER BY balance DESC;
+```
+
+- 각 국가별로 최대 balance를 가진 사용자를 찾으려면, 국가별 그룹화가 먼저 이루어져야 함
+    - 따라서 그룹화먼저 진행하고 전체 비교
+
+<aside>
+💡
+
+**수정 2 → 참고만**
+
+</aside>
+
+```sql
+SELECT
+  T1.* -- T1(원본 users 테이블)의 모든 열을 선택
+FROM
+  users T1, -- 원본 users 테이블을 T1이라고 별칭 지정
+  (
+    SELECT
+      country, MAX(balance) AS balance -- 각 국가별 최대 잔액 계산
+    FROM
+      users
+    GROUP BY
+      country -- 국가별로 그룹화
+  ) T2 -- 이 서브쿼리 결과를 T2라고 별칭 지정
+WHERE
+  T1.country = T2.country -- T1의 국가와 T2의 국가가 일치하는지 확인
+  AND T1.balance = T2.balance -- T1의 잔액이 해당 국가의 최대 잔액(T2)과 일치하는지 확인
+ORDER BY
+  T1.balance DESC; -- 결과를 잔액 기준 내림차순으로 정렬
+```
+
+1. 서브쿼리 별칭 지정:
+: 서브쿼리 바로 뒤에 T2를 붙이는 것만으로도 별칭이 지정됩니다. `AS T2`와 `T2`는 SQL에서 동일한 의미로 사용
+2. WHERE 절에서 T1과 T2 비교:
+T2는 서브쿼리로 생성된 임시 테이블입니다. 
+    - T1은 원본 데이터 시트
+    - T2는 피벗으로 뽑아낸 요약 데이터 시트
+    
+    WHERE 절에서 이 두 "시트"를 비교하는 이유는:
+    a) 같은 국가끼리 매칭하기 위해 (`T1.country = T2.country`)
+    b) 해당 국가에서 최대 잔액을 가진 사용자를 찾기 위해 (`T1.balance = T2.balance`)
+    
+3. 출력값 생성 과정:
+    - T2(서브쿼리)로 각 국가별 최대 잔액을 계산 (피벗 테이블과 유사)
+    - T1(원본 데이터)의 각 행을 T2와 비교
+    - 조건에 맞는 행(각 국가의 최대 잔액을 가진 사용자)만 선택하여 출력
+
+이 방식은 마치 엑셀에서 원본 데이터와 피벗 테이블을 나란히 놓고, VLOOKUP이나 INDEX-MATCH 함수로 조건에 맞는 데이터를 찾는 것과 유사한 개념
+
+# 헷갈리는 부분/유형 정리&복습
+
+---
+
+```sql
+--first_name이 '현'으로 시작하고 country가 '제주특별자치도'인 사용자 중 나이가 가장 많은 사용자
+SELECT
+  *
+FROM
+  users u1
+WHERE
+  (first_name LIKE '현%' --해당 조건을 추가로 걸지 않으면 : 하기에서 추출한 것에서 1차 필터링된것과 비교되어 가장 나이가 많은 값만 나올 것
+  AND country LIKE '제주특별자치도') --제주 특별 자치도에서 나이가 가장 많은 사람
+  AND age = ( --나이가 가장 많은 사람 추출
+    SELECT
+      MAX(age) --나이가 가장 많은 사람 : 1명
+    FROM
+      users u2
+    WHERE
+      (first_name LIKE '현%'
+    AND country LIKE '제주특별자치도')
+  )
+```
+
+- 이 쿼리는 특정 조건을 만족하는 그룹에서 최고 나이를 찾아 그 나이와 일치하는 모든 사용자를 반환
+- 원래 의도했던 '제주특별자치도에 사는 이름이 "현"으로 시작하는 가장 나이 많은 사람'만을 찾기 위해서는 메인 쿼리에도 동일한 조건을 적용해야 함
