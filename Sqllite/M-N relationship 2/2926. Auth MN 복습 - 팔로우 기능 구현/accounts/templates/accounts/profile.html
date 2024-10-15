@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>{{ person.username }}님의 프로필</h1>
+  <!--길이가 몇개인지 출력하기-->
+  <p>팔로잉 : {{person.followings.all | length}} / 팔로워 : {{person.followers.all | length}}</p> <!--참조와 역참조-->
+  {% if request.user != person %} <!--유저와 유저 비교-->
+  <form action="{% url "accounts:follow" person.username %}" method="POST"> <!--매개변수 인자 : 특정 username의 프로필 : 조회한 사람의 -->
+    <!--iterable-->
+    {% csrf_token %}
+    <!--내가 person의 팔로워들 목록에 있는 것을 확인하는게 아니라 지금 요청받은 person의 user가 있는지 확인해야 함-->
+    <!--따라서 usernmae이 -->
+    <!--view내용과 동일해야함-->
+    {% if request.user in person.followers.all %} <!--그리고 usernmae을 출력하는게 아님-->
+      <input type="submit" value="UnFollow"> <!--목록에 있으면 언팔그-->
+    {% else %}
+      <input type="submit" value="follow">
+    {% endif %}
+  </form>  
+  {% endif %}
+
+
+
+  <hr>
+  <h2>{{ person.username }}가 작성한 게시글</h2>
+  {% for article in person.article_set.all %}
+    <div>{{ article.title }}</div>
+  {% endfor %}
+  <hr>
+  <h2>{{ person.username }}가 작성한 댓글</h2> 
+  {% for comment in person.comment_set.all %} 
+    <div>{{ comment.content }}</div> 
+  {% endfor %}
+  
+  <hr>
+  <h2>{{ person.username }}가 좋아요한 게시글</h2> 
+  {% for article in person.like_articles.all %} 
+    <div>{{ article.title }}</div> 
+  {% endfor %}
+</body>
+</html>
