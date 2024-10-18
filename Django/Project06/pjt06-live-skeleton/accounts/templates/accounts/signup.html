@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>회원가입</h1>
+    <form action="{% url "accounts:signup" %}" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button>Sign Up</button> <!--지금 부트스랩 클래스 사용할 수 있도록 함-->
+    </form>
+{% endblock content %}
