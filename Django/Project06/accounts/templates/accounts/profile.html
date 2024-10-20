@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  <!--여기서 request.user라고 명시를 해놓으면,, 나로 프로필 정보가 한정되는 문제가 발생함-->
+  <!--따라서 dictionary로 받아온 person의 usernmae을 받아온다-->
+  <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
+    <h1>{{person.username}}님의 프로필 페이지</h1> <!--일단 나 관련된 내용-->
+    <!--일단 현재 나의 팔로잉, 팔로워-->
+    <!--팔로잉은 나이 기준-->
+    <!--팔로워는 역참조 : 일단 following과 followers간의 내용-->
+    <!--팔로워도 person : 매개변수 인ㅅ자가 동일하기 떄문에-->
+    <div>
+      <p>팔로잉 : {{person.following.all | length}} / 팔로워 : {{person.followers.all | length}}</p>
+      <!--follow상태일때, 아닐 떄 구분-->
+      {% if request.user != person %}
+      <form action="{% url 'accounts:follows' person.pk%}" method="POST"> <!--follow에-->
+        {% csrf_token %}
+        {% if request.user in person.followers.all %} <!--전체-->
+            <!--정보 전달이 목적-->
+            <input type="submit" value="unfollow">
+        {% else %}
+            <!--정보 전달이 목적-->
+            <input type="submit" value="follow">
+        {% endif %}
+      </form>
+      {% endif %}
+    </div>
+  </div>
+  <br>
+  <p>회원 번호 : {{person.pk}}</p>
+  <p>유저 이름 : {{person.username}}</p>
+  <p>가입 날짜 : {{person.date_joined}}</p>
+  <hr>
+  <h1>유저가 쓴 글</h1>
+  <div class='bg-secondary text-white'>
+    <!--현재는 userporfile페이지로 board에 접근해야 하는 상황-->
+    <!--person에 author가 있음 :: 내가 board로 바꿈-->
+    <!--역 참조를 진행해야 함 -->
+    {% comment %} {% for article in board %} {% endcomment %}
+    <!--그런데 요구 조건을 보면 없을수도 있음 : 이부분 확인하고 if문으로 만들기-->
+    {% if person.board.all %} <!--person.board.all이 있는 것이지-->
+      {% for article in person.board.all %} <!--해당 유저가 작성한 게시글 조회 : 역참조 => board로 바꿈 : 모든 정보 조회-->
+      <!--person in person.board.all : 여기서 for의 내용은 이걸로 하지 않아도 됨 :: 좀 더 명시화하자-->
+        <p>글 번호 : {{article.pk}}</p> <!--해당 게시글의 번호를 가져온다 : 즉 board-->
+        <p>글 제목 : {{article.title}}</p>
+      {% endfor %}    
+    {% else %}
+      <p>아직 작성한 게시글이 없습니다.</p>
+    {% endif %}
+  </div>
+  <hr>
+
+  <h1>유저가 쓴 댓글</h1> <!--동일하게 접근 : 다시 models로 가서 한번 보자 -->
+  <!--그러면 유저에서 댓글은 역참조해야함 -->
+  {% if person.usercomment.all%}
+    {% for comment in person.usercomment.all%} <!--사람이 작성한 댓글 모두 조회-->
+      <!--근데 어떠한 게시글에 대한 댓글을 작성했는지 알고 싶음-->
+      <!--comment : 지금 댓글 --> <!--즉 댓글로 또 게시글 참조 : 바로 참조 가능-->
+      <!--그냥 board라고하면 board에 대한 인스턴스만 뜸 : title까지 -->
+      <p>작성한 게시글 명 : {{comment.board.title}} ---  유저의 댓글 : {{comment.content}}</p>
+    {% endfor %}    
+  {% else %}
+    <p>아직 작성한 게시글이 없습니다.</p>
+  {% endif %}
+
+  <hr> 
+  <h1>팔로워</h1>
+  {% if person.followers.all|length == 0 %} <!--팔로워가 0인 경우-->
+    <p>팔로워 한 사람이 없습니다.</p>
+  {% else %}
+    <p>팔로워는 총 {{person.followers.all | length}}명 입니다.</p>
+  {% endif %}
+{% endblock content %}
