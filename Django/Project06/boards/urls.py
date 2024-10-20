@@ -10,4 +10,7 @@ urlpatterns = [
     path('<int:board_pk>/comment/', views.comment, name='comment'),
     path('<int:board_pk>/comment/<int:comment_pk>/', views.comment_detail, name='comment_detail'),
     path('comment/<int:comment_pk>/', views.create_reply, name='create_reply'),
+    #실제 기능 구현
+    #특정 게시글에 접근을 해야함
+    path('<board_pk>/likes/', views.likes, name='likes'),
 ]

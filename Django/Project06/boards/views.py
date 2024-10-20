@@ -103,3 +103,20 @@ def comment_detail(request, board_pk, comment_pk):
     if request.method == 'POST':
         comment.delete()
         return redirect('boards:detail', board_pk)
+    
+#좋아요.. => 누르고, 취소할 수 있음 ==> 이것도 post가 딱히 필요없는 부분
+#게시판 정보 받아오기
+@login_required
+def likes(request, board_pk):
+    board = Board.objects.get(pk=board_pk) #특정보드
+    #근데 board에 좋아요 눌러야하니까 => 일단 요청 유저와 board에 작성자가 달라야 함
+    #board에서 작성자 확인
+    if request.user != board.author: #이게 아니어야 좋아요 가능
+        #board자체의 like_users에 접근 => 보드에 like_users를 한사람은 많을 것 :: 정참조
+        #보드에 좋아요를 누른 유저 중 한명인가요?
+        if request.user in board.like_users.all(): #그 중에서도 전체임을 호출해야 함
+            #좋아요를 눌렀다면 취소
+            board.like_users.remove(request.user) #여기서도 추가가능
+        else :
+            board.like_users.add(request.user)
+    return redirect('boards:detail', board_pk)

@@ -501,6 +501,106 @@ Reverse for 'follows' not found. 'follows' is not a valid view function or patte
 
 ```
 
+# 게시글에 좋아요 기능 구현 → 여기 많이 부족함
+
+---
+
+## 먼저 N:N관계 설정을 해주어야 함
+
+---
+
+```python
+    #이제는 여러 유저가 좋아요 누를 수 있음을 염두
+    #보드에 -> 좋아요를 누른 유저 == like_users
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_boards') #N:N의 관계이기 떄문에 => 다대다 관계 => migration 에러 발생
+    #역참조 이름때문에 충돌가능성 있음
+    #유저가 좋아요를 누른 게시글들 => like_boards
+```
+
+## URL 설정
+
+---
+
+```python
+    #특정 게시글에 접근을 해야함
+    path('<board_pk>/likes/', views.likes, name='likes'),
+```
+
+## views 설정
+
+---
+
+```python
+#좋아요.. => 누르고, 취소할 수 있음 ==> 이것도 post가 딱히 필요없는 부분
+#게시판 정보 받아오기
+def likes(request, board_pk):
+    board = Board.objects.get(pk=board_pk) #특정보드
+    #근데 board에 좋아요 눌러야하니까 => 일단 요청 유저와 board에 작성자가 달라야 함
+    #board에서 작성자 확인
+    if request.user != board.author: #이게 아니어야 좋아요 가능
+        #board자체의 like_users에 접근 => 보드에 like_users를 한사람은 많을 것 :: 정참조
+        #보드에 좋아요를 누른 유저 중 한명인가요?
+        if request.user in board.like_users: #뭔가 이상한데..
+            #좋아요를 눌렀다면 취소
+            board.like_board.remove(request.user)
+        else :
+            board.like_board.add(request.user)
+
+```
+
+→ 뭔가 이상함
+
+→ 역참조를 따로하지 않아도 됨
+
+<aside>
+💡
+
+**수정 사항**
+
+</aside>
+
+```python
+#좋아요.. => 누르고, 취소할 수 있음 ==> 이것도 post가 딱히 필요없는 부분
+#게시판 정보 받아오기
+def likes(request, board_pk):
+    board = Board.objects.get(pk=board_pk) #특정보드
+    #근데 board에 좋아요 눌러야하니까 => 일단 요청 유저와 board에 작성자가 달라야 함
+    #board에서 작성자 확인
+    if request.user != board.author: #이게 아니어야 좋아요 가능
+        #board자체의 like_users에 접근 => 보드에 like_users를 한사람은 많을 것 :: 정참조
+        #보드에 좋아요를 누른 유저 중 한명인가요?
+        if request.user in board.like_users.all(): #그 중에서도 전체임을 호출해야 함
+            #좋아요를 눌렀다면 취소
+            board.like_user.remove(request.user) #여기서도 추가가능
+        else :
+            board.like_user.add(request.user)
+```
+
+# ValueError at /boards/2/likes/
+
+```
+The view boards.views.likes didn't return an HttpResponse object. It returned None instead.
+```
+
+---
+
+```python
+@login_required
+def likes(request, board_pk):
+    board = Board.objects.get(pk=board_pk) #특정보드
+    #근데 board에 좋아요 눌러야하니까 => 일단 요청 유저와 board에 작성자가 달라야 함
+    #board에서 작성자 확인
+    if request.user != board.author: #이게 아니어야 좋아요 가능
+        #board자체의 like_users에 접근 => 보드에 like_users를 한사람은 많을 것 :: 정참조
+        #보드에 좋아요를 누른 유저 중 한명인가요?
+        if request.user in board.like_users.all(): #그 중에서도 전체임을 호출해야 함
+            #좋아요를 눌렀다면 취소
+            board.like_users.remove(request.user) #여기서도 추가가능
+        else :
+            board.like_users.add(request.user)
+# return 값을 넣지 않은 문제
+```
+
 ### 추가 참고 사항
 
 ---

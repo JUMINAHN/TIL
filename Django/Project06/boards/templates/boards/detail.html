@@ -12,6 +12,20 @@
   <div class="d-flex justify-content-between">
     <h1 class="mb-4">상세 페이지</h1>
   </div>
+  <!--좋아요 기능-->
+  <!--follow 취소 유무와 동일-->
+  {% if request.user != board.author %}
+  <form action="{% url "boards:likes" board.pk %}" method="POST"> 
+    {% csrf_token %}
+    {% if request.user in board.like_users.all%} <!--좋아요 취소-->
+      <input type="submit" value="좋아요 취소">
+    {% else %}
+      <input type="submit" value="좋아요">
+    {% endif %}
+  </form>
+  {% endif %}
+  <form action=""></form>
+
   <p>글번호 : {{ board.id }}</p>  
   <p><a href="{% url "accounts:profiles" board.author %}">작성자 : {{ board.author }}</a></p> <!--해당 작성자의 profile-->
   <p>글제목 : {{ board.title }}</p>

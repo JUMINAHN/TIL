@@ -11,6 +11,13 @@ class Board(models.Model):
     #author.board_set.all()을 진행해야 한다는 의미
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='board') #이미 역참조화
     #명확한 구분을 위해 related_name 설정 
+
+    #이제는 여러 유저가 좋아요 누를 수 있음을 염두
+    #보드에 -> 좋아요를 누른 유저 == like_users
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_boards') #N:N의 관계이기 떄문에 => 다대다 관계 => migration 에러 발생
+    #역참조 이름때문에 충돌가능성 있음
+    #유저가 좋아요를 누른 게시글들 => like_boards
+
     title = models.CharField(max_length=20)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
