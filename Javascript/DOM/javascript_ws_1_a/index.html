@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <p class="text">Lorem ipsum dolor sit amet.</p>
+  <div id="container">
+    <p class="text">Hello world!</p>
+    <ul>
+      <li class="list-content">content1</li>
+      <li class="list-content">content2</li>
+      <li class="list-content">content3</li>
+      <li class="list-content">content4</li>
+    </ul>
+    <a href="#">hyper link</a>
+  </div>
+  <script>
+    // 아래에 코드 작성
+    //helloword를 가지는 px래르 선ㅌ택해서 Ptag변수에 할당한다
+    pTag = document.querySelector('div > p') //div 안에 p?
+    //li태그를 모두 선택해서 liTags 변수에 할당
+    liTags = document.querySelectorAll('li') //li 선택
+    //pTag에 있는 내용 값만 추출하기
+    console.log(pTag.innerText) //innerText를 넣으면 안에 text만 출력된다.
+    console.log(liTags)
+  </script>
+</body>
+
+</html>

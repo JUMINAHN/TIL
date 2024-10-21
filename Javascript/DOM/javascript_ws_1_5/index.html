@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+<body>
+  <section>
+    <article class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      </div>
+    </article>
+    <!-- 아래에 새로운 card 생성 및 추가 -->
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  <script>
+    //section과 article의 요소 선택한다.
+    const section = document.querySelector('section')
+    const article = document.querySelector('article') //추가 article과 구분 지을수 있는 변수명 작성
+    //얘 삭제
+
+    //새로운 article과 그 하위 요소를 생성
+    //하위 요소 구성은 기존의  article과 동일하게 작성한다
+    //하위 요소 생성 => 음.. creaetelement
+    const newArticle = document.createElement('article')
+    // 구성을 동일하게 작성
+    // 새 article의 요소와 하위 요소에 클래스 등 속성과 값을 추가한다.
+    newArticle.classList.add('card')//class 추가
+    //newarticle에 속성을 추가한해야한다.
+    newArticle.style = 'width: 18rem'
+
+    //div와 h5와 p 요소를 추가한다
+    const pTag = document.createElement('p')
+    pTag.classList.add('card-text')
+    pTag.textContent = "Some quick example text to build on the card title and make up the bulk of the card's content."
+    
+
+    const h5Tag = document.createElement('h5')
+    h5Tag.classList.add('card-title') 
+    h5Tag.textContent = 'Card title'
+    
+    const divTag = document.createElement('div')
+    divTag.classList.add('card-body')
+    const body = document.querySelector('body')
+    //section > article > div > h5 > p 
+    divTag.appendChild(h5Tag) //포함 관계 및 순서 확인
+    divTag.appendChild(pTag)
+    newArticle.appendChild(divTag)
+    section.appendChild(newArticle)
+    //기존의 article 요소는 삭제한다 
+    body.appendChild(section) //새로 삭제
+
+    //기존의 article 요소삭제
+    //section 아래에것 삭제하기
+    section.removeChild(article) //삭제 완료 
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+  <h1>오늘 할 일</h1>
+  <hr>
+  <ul>
+    <li>수업 복습 하기</li>
+    <li>실습 문제 풀기</li>
+    <li>스터디 참여하기</li>
+    <li>1 일 1 커밋하기</li>
+    <li id="game">게임 하기</li>
+  </ul>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script>
+    // 아래에 코드 작성
+
+    //list-group을 할일 목록 ul 태그에 적용할 수 있도록 class 추가
+    //list-group에 클래스 
+
+    // console.log('hello')
+    // const title = document.querySelector('h1')
+    // console.log(title)
+
+    // //요구조건 이해 이슈 (1)
+    //list-group을 할일 목록 ul 태그에 적용할 수 있도록 class 추가
+    //ul에 적용할 수 있도록
+    //ul태그를 만들고 그기에 대한 class 추가
+    // const ulTag = document.querySelector('ul') //ul tag
+    // console.log(ulTag)
+
+    // ulTag.classList.add('study') //study라는 class 추가 == ultag에 class값 추가
+    // //console.log(ulTag)
+
+    const todoList = document.querySelectorAll('li')
+    console.log('h', todoList) //이걸 ul태에 적용할 수 있도록 class 를 추가 => 2번 조건 
+    //li 값 추가
+
+    //li태그를 하나씩 선택해서 서로 다른 변수에 할당한다.
+    //그리고 list-group-item-class를 추가한다.
+    //todoList.classList.add('list-group-item-class')
+    //list태그 list-group-item-class 추가한다. 
+
+    //각각의 li태그를 선택해 서로 다른 변수에 할당 = ?
+
+
+    // console.log(ulTag.classList)
+    // console.log(todoList.classList)
+
+
+    //todoList.classList.add('list_group') //ul 태그에 적용할 수 있도록 class를 추가한다.
+
+
+
+    const itemGame = document.querySelector('#game')
+    console.log(itemGame)
+    const title = document.querySelector('h1')
+
+    title.textContent = '오늘 공부 목록'
+
+    const studyList = document.querySelector('ul')
+    studyList.classList.add('study', 'list-group') //study class 추가 하시오.  => 3번 조건 => list_group을 넣고
+
+    //li:nth-;child(n) 선택자를 사용하여 각각의 li 태그를 하나씩 선택 해 서로 다른 변수에 할당
+    const li1 = document.querySelector('li:nth-child(1)') //첫번째 선택자를 의미
+    console.log(li1)
+    const li2 = document.querySelector('li:nth-child(2)') //두번째 선택자를 의미
+    const li3 = document.querySelector('li:nth-child(3)') //세번째 선택자를 의미
+    const li4 = document.querySelector('li:nth-child(4)') //네번째 선택자를 의미
+    li1.classList.add('list-group-item')
+    li2.classList.add('list-group-item')
+    li2.setAttribute('aria-current', true) //2번째 태그에는 true를 부여한다.
+    li2.classList.add('active')
+    li3.classList.add('list-group-item')
+    li4.classList.add('list-group-item')
+
+
+
+    studyList.removeChild(itemGame)
+
+  </script>
+</body>
+</html>
