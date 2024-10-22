@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>나의 포트폴리오</title>
+</head>
+<body>
+  <h1>안녕하세요, 제 이름은 <b id="name">홍길동</b>입니다.</h1>
+  
+  <img src="" alt="" width="200">
+  
+  <h2>소개</h2>
+  <p>저는 <b id="job">[직업/전공]</b>으로 일하고 있습니다. <b id="experience">[간단한 경력/학력]</b>을 가지고 있으며, <b>[특기 또는 관심 분야]</b>에 대해 꾸준히 공부하고 있습니다.</p>
+  
+  <h2>프로젝트</h2>
+  <ul id="list-group">
+    <li><b>프로젝트 1:</b> <span class="project-1">[프로젝트 1 제목]</span></li>
+    <li><b>프로젝트 2:</b> <span class="project-2">[프로젝트 2 제목]</span></li>
+    <li><b>프로젝트 3:</b> <span class="project-3">[프로젝트 3 제목]</span></li>
+  </ul>
+  
+  <!-- <img src="./profile.jpg" alt=""> -->
+  <h2>연락처</h2>
+  <p>이메일: <b id="email">[이메일 주소]</b></p>
+  <p>전화번호: <b id="phone">[전화번호]</b></p>
+  
+  <script>
+    const name = document.querySelector('#name') //id 태그에 접근해서
+    name.textContent = '안주민'
+    const job = document.querySelector('#job')
+    job.textContent = '개발'
+    // const favor = document.querySelector('q > b')
+    // favor.textContent = '잠자기'
+    //b의 세번쨰 요소에 어떻게 접근해야 하는가?
+
+    const experience = document.querySelector('#experience')
+    experience.textContent = '인사'
+    const email = document.querySelector('#email')
+    email.textContent = 'jumin9774@naver.com'
+    const phone = document.querySelector('#phone')
+    phone.textContent = '010-XXXX-XXXX'
+
+    //img 에  접근해서 src속성에 값 추가
+    // #document.getElementById("img태그id").src == 를 통해서 할당해주세요
+    const img = document.querySelector('img') //img 속성 => 속성이 아니다 => getAttriubute 
+    //그냥 특정 element
+    console.log(img) //qeury자체에 접ㄱ느해서 -> 그안의 src인 속성에 접근해야 한다.
+    img.src = './profile.jpg'
+    img.alt = 'profile'
+
+//    const img = document.querySelector('img')
+    // document.setAttribue(img.src, './profile.jpg')
+    // document.setAttribute('src', './profile.jpg') //속성 편집
+    // document.setAttribute('alt', 'profiles') //속성 편집
+  
+
+  </script>
+
+</body>
+</html>
