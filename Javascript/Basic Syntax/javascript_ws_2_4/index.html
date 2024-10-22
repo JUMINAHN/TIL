@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //배열의 길이가 동일함 => 배열의 길이 모두 6개
+    //두개의 길이를 변수에 담기 위해 => for ... of 문을 사용하는 코드 
+    //전체 길이를 담은 length.를 활용하여 배열을 index로 순환하는 코드를 작성 
+
+    const roles = ['주연배우', '조연배우', '주연배우', '우정출연', '우정출연', '조연배우']
+    const names = ['홍길동', '이춘향', '금나래', '장보고', '임꺽정', '강감찬']
+    for (let i=0; i < roles.length ; i++) {
+      if (roles[i] === '주연배우') {
+        console.log(`${roles[i]} : ${names[i]}님 반갑습니다!`)
+      } else if (roles[i] === '조연배우') {
+        console.log(`${names[i]}님 환영합니다!`)
+      } else {
+        console.log(`${names[i]}님 와주셔서 감사힙니다!`)
+      }
+    }
+  </script>
+</body>
+</html>

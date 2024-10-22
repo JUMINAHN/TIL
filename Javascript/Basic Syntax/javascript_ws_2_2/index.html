@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 동등 연산자를 활용한 조건문
+    if (0 == []) { //빈 배열값
+      console.log('true?')
+    } else {
+      console.log('false?')
+    } //==연산자 이기 때문에 false flase로 두개가 같다고 본다
+    // 실행 결과 :  true
+
+
+    // 일치 연산자를 활용한 조건문
+    //빈 배열값 -> 오류 발생하진 않을까?
+    if ({} === false) { 
+      console.log('true?')
+    } else {
+      console.log('false?')
+    }
+    // 실행 결과 : false or error
+
+    // 논리 연산자를 활용한 단축 평가
+    console.log(0 && 13)
+    // 실행 결과 : 0 //0이 false이기 떄문에 뒤에거 볼 필요도 없음
+    console.log(0 || 13)
+    // 실행 결과 : 0 => 0또는 13 => 한군데만 참이면 참이 먼저 발견되는 곳 반환
+
+    let num = 12
+    num /= 3
+    console.log(num)
+    // 실행 결과 : 4
+
+    const number = 13
+    number++
+    // 실행 결과 : 할당에러 및 변동없음 => const는 변동될 수 없음 
+  </script>
+</body>
+</html>

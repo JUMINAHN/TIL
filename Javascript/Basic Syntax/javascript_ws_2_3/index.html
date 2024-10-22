@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const scores = [90, 80, 70, 60, 40]
+
+    //길이를 계산해서 length 출력
+    let length = scores.length
+    console.log(length)
+    //총 합 출력
+    let total = 0
+    for (let i=0 ; i < scores.length ; i++) {
+      total += scores[i]
+    }
+
+    //const로? 
+
+
+    console.log(total)
+    //평균값 계산
+    console.log(total/length)
+
+
+    // for .. of 문으로 코드 작성
+    // for of 작성
+    // for (let t of total) {
+    //   console.log(t )
+    // }
+
+    // while문으로 코드 작성
+    //undefined이 뜨는 것
+    //console.log(scores[length])
+    length -=1 //전체 총 길이 => 여기 내부에서 왜 length -1을 하면 안되는지?
+    while(length>=0) {//0일때까지
+      console.log(scores[length])
+      length -= 1;
+    }
+
+  </script>
+</body>
+</html>

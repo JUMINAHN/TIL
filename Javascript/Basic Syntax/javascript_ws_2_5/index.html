@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const citiesInfo = [
+      {
+        city: '서울',
+        utcOffset: ['한국 표준시', 'KST', 'UTC+9'],
+        latitude: 37,
+        longitude: 126
+      },
+      {
+        city: '도쿄',
+        utcOffset: ['일본 표준시', 'JST', 'UTC+9'],
+        latitude: 35,
+        longitude: 139
+      },
+      {
+        city: '상하이',
+        utcOffset: ['중국 표준시', 'CST', 'UTC+8'],
+        latitude: 31,
+        longitude: 121
+      }
+    ]
+
+    //이 dict자체를 해야함
+    for (const info of citiesInfo) {
+        // console.log(info) //dict 자체가 나옴
+        // console.log(info['city']) //value값 잘못 적음
+        console.log(`수도 : ${info['city']}`)
+        console.log(`utcOffset : ${info['utcOffset']}`)
+        console.log(`latitude : ${info['latitude']}`)
+        console.log(`longitude : ${info['longitude']}`)
+      }
+      
+      // for (let i=0 ; i < info.length; i++) {
+    //   console.log(info[i])
+    // }
+    //city is not defiend
+
+  </script>
+</body>
+</html>
