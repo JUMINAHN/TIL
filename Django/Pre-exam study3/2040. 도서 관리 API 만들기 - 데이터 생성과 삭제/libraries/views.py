@@ -36,7 +36,7 @@ def detail(request, book_pk):
         #f-string없이
         serializer = BookSerializer(book)
         #return Response(serializer.data)
-        #예외처리에서 나타나는 not found를 수정한 것인지? -> delte시에만 작동되어야 하는데..
+        #예외처리에서 나타나는 not found를 수정한 것인지?
         return Response(f'"delete" : 도서 고유번호{book.isbn}번의 {book.title}을 삭제하였습니다.') #상태코드이야기 보다는 반환값을 주긴 함
 ""
 
