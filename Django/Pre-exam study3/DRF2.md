@@ -796,3 +796,204 @@ class BookSerializer(serializers.ModelSerializer): #detail에서 지금 사용�
         model = Book
         fields = '__all__'
 ```
+
+# Method not allowed
+
+---
+
+→ view에 있는 api 부분 잘보기
+
+```python
+@api_view(['GET', 'POST']) #로 수정 => post 내용이 없었음
+```
+
+# AssertionError: The field 'recommend_set' was declared on serializer TodoListSerializer, but has not been included in the 'fields' option.
+
+---
+
+- fields 옵션에 해당 내용이 없다는 것을 알 수 있다 ⇒ meta 클래스 확인
+
+# AttributeError: module 'rest_framework.status' has no attribute 'HT’
+
+---
+
+→ 상태 코드 에러
+
+```python
+    elif request.method == "GET":
+        serializer = TodoListSerializer(todo)#정보 조회 => many는 사용할필요가 없음
+        #해당 정보 조회
+        return Response(serializer.data, status=status.HT)
+```
+
+# TypeError: Station() got unexpected keyword arguments: 'location’
+
+---
+
+![image.png](image%205.png)
+
+⇒ create_station이 실행되어야 하는데 station이 실행되는 문제가 발생..된 것 같다
+
+```python
+@api_view(['GET'])
+def station(request): #전체 목록 조회
+    stations = Station.objects.all() #모든 목록
+    serializers = StationListSerializers(stations, many=True)
+    return Response(serializers.data, status=status.HTTP_200_OK) #조회
+```
+
+→ urls 확인하기 : 일단 뒤에 누락되어있었고
+
+```python
+    path('stations/', views.station), #station 과 관련된 동작
+    path('stations/<int:station_pk>', views.station_detail), #station 과 관련된 동작
+```
+
+[models.py]
+
+```python
+class Station(models.Model):
+    address = models.ForeignKey(Location, on_delete=models.CASCADE) #이름이 address
+    total_ports = models.IntegerField()
+    available_ports = models.IntegerField()
+    is_opening = models.BooleanField()
+```
+
+⇒ 따라서 아마 address를 location으로 작성한 문제인 것 같음
+⇒ 지금 어떠한 메서드에서 이 에러가 발생하는지를 따라가면 됨 :: 해결
+
+# django.db.utils.IntegrityError: NOT NULL constraint failed: stations_station.is_opening
+
+---
+
+[serializers.py]
+
+```python
+class StationCreateSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Station
+        fields = ("total_ports", "available_ports",) #입력값을 확인했을 때 === post
+        #생성할때 location 정보는 직접 입력하지 않는다.
+        #읽기 전용 모드를 설정해줘야 함
+        read_only_fields = ("address", "is_opening",) #==즉 address
+        #is_opening의 값은 입력하진 않았음 ==> 따라서 이것도 읽기전용?
+        #pk가 연동되어있는것분만이 아니라 요구조건도 그렇게 되어있으면 읽기전용으롷는것인지?
+```
+
+→ 그래도 뜬다.. 이것도 확인4
+
+→ 마이그레이션 이슈는 없다
+
+⇒ 오류가 낫던 이유는 fields에 나타내는 값 외적으로 address와 is_opening의 내용을 띄워야하는데 
+     그런 부분의 이질적 문제에서 발생함
+
+## ⚠️ **read_only_fields**
+
+---
+
+- 사용자가 직접 입력하지 않아도 되는 필드들을 모두 포함
+- 이렇게 하면 해당 필드들은 **생성 또는 수정 시 사용자 입력을 받지 않고, 서버 측에서 자동으로 
+처리하거나 기본값**을 사용
+
+## 오류 발생 이유
+
+---
+
+1. **`Station`** 모델에서 **`is_opening`**은 **`NULL`**을 허용하지 않는 **`BooleanField`**입니다.
+2. 생성 시 **이 필드에 대한 값을 제공하지 않았기 때문에 데이터베이스에서 `NOT NULL` 제약 조건 위반 오류가 발생**
+
+[방법 1 : models.py 수정]
+
+```python
+class Station(models.Model):
+    address = models.ForeignKey(Location, on_delete=models.CASCADE)
+    total_ports = models.IntegerField()
+    available_ports = models.IntegerField()
+    is_opening = models.BooleanField(default=True)  # 기본값 추가
+```
+
+[방법 2 : [views.py](http://views.py) 수정]
+
+```python
+@api_view(['POST'])
+def create_station(request, location_pk): #location 정보는 사용자가 직접 입력하지 않는다
+    location = Location.objects.get(pk=location_pk) #이것 활용할 것
+    serializer = StationCreateSerializers(data=request.data) #data자체를 받을 것이고
+    #유효성 검사 진행
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(address=location) #혹은 이자체에 명시적으로 설정 is_opening=False
+        return Response(serializer.data, status=status.HTTP_201_CREATED) #성공적으로 만들어짐 => location 정보는사용자가 입력하지 않음 
+
+```
+
+[방법 3 : [serializers.py](http://serializers.py) 수정]
+
+```python
+class StationCreateSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Station
+        fields = "__all__" #입력값을 확인했을 때 === post => 모든 출력값이 포함될 때
+        #생성할때 location 정보는 직접 입력하지 않는다.
+        #읽기 전용 모드를 설정해줘야 함
+        read_only_fields = ("address", "is_opening") #사용자가 직접 입력하지 않아도 되는 필드들을 모두 포함시킨다
+```
+
+# ⚠️ STHSerializer에서 many=True 설정을 사용하는 이유
+
+---
+
+1. 여러 객체 직렬화: many=True는 여러 개의 Article 객체를 한 번에 직렬화할 때 사용된다.
+    1.  article_list 함수에서는 모든 Article 객체를 가져오므로, 단일 객체가 아닌 여러 객체(쿼리셋)를 직렬화해야 한다.
+2. 쿼리셋 처리: get_list_or_404(Article)로 가져온 데이터는 쿼리셋 형태
+    1.  **쿼리셋은 여러 객체를 포함하고 있으므로, many=True를 사용하여 이를 처리한다.**
+3. JSON 배열 생성: many=True를 사용하면 각 Article 객체가 JSON 객체로 변환되고, 이들이 JSON 배열로 묶여 반환된다.
+
+# DoesNotExist at /api/v1/stations/1/
+
+```
+Station matching query does not exist.
+```
+
+---
+
+- 그럼 아직 어떠한 정보도 등록되지 않았다는 것
+
+# stations.models.Location.DoesNotExist: Location matching query does not exist.
+
+---
+
+- 상기와 동일한 문제
+
+# 원하는 값이 나오지 않고 objects로 나오는 문제
+
+---
+
+```python
+
+{
+    "delete": "Location object (1)의 등록 번호 2번 충전소 정보를 삭제하였습니다."
+}
+```
+
+[문제 원인]
+
+- 이 문제는 **`Station`** 모델의 **`address`** 필드가 **`Location`** 모델을 외래 키로 참조하고 있기 때문에 발생
+1. `Location` 모델에 `__str__` 메서드 추가:
+    
+    ```python
+    class Location(models.Model):
+        # 기존 필드들...
+    
+        def __str__(self):
+            return self.address  # 또는 원하는 필드
+    
+    ```
+    
+2. 직접 `Location` 객체의 원하는 필드에 접근:
+    
+    ```python
+    message = {
+        "delete": f"{station.address.address}의 등록 번호 {station.pk}번 충전소 정보를 삭제하였습니다."
+    }
+    
+    ```
