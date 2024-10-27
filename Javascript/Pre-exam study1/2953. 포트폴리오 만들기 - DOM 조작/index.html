@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>나의 포트폴리오</title>
+</head>
+<body>
+  <h1>안녕하세요, 제 이름은 <b id="name">홍길동</b>입니다.</h1>
+  
+  <img src="" alt="" width="200">
+  
+  <h2>소개</h2>
+  <p>저는 <b id="job">[직업/전공]</b>으로 일하고 있습니다. <b id="experience">[간단한 경력/학력]</b>을 가지고 있으며, <b>[특기 또는 관심 분야]</b>에 대해 꾸준히 공부하고 있습니다.</p>
+  
+  <h2>프로젝트</h2>
+  <ul id="list-group">
+    <li><b>프로젝트 1:</b> <span class="project-1">[프로젝트 1 제목]</span></li>
+    <li><b>프로젝트 2:</b> <span class="project-2">[프로젝트 2 제목]</span></li>
+    <li><b>프로젝트 3:</b> <span class="project-3">[프로젝트 3 제목]</span></li>
+  </ul>
+  
+
+  <h2>연락처</h2>
+  <p>이메일: <b id="email">[이메일 주소]</b></p>
+  <p>전화번호: <b id="phone">[전화번호]</b></p>
+  <script> //let name = 
+    document.querySelector("#name").textContent = "홍길동" 
+    let job = document.querySelector("#job") //const로 해서 관련 메서드나 인스턴스가 뜨지 않을 것을 확인할 수 있었음
+    let experience = document.querySelector("#experience")
+    let email = document.querySelector("#email")
+    let phone = document.querySelector("#phone")
+    job.textContent = "의적"
+    //변수가 바뀌어야 함을 유의
+    experience.textContent = "서당"
+    email.textContent = "hgd@korea"
+    phone.textContent = "010-1234-1234"
+
+    //img 태그를 선택하여 src속성에 제공된 profile.png
+    let img = document.querySelector("img") //img 태그
+    img.setAttribute("src", "profile.jpg") //속성추가
+    //img.src = "./profile.jpg" //첫번쨰 방법
+    img.setAttribute("alt", "프로필")
+
+    
+  </script>
+</body>
+</html>
