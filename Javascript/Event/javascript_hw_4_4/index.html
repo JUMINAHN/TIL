@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .done {
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+<body>
+  <form action="/todos/">
+    <input type="text"> <!--값을 눌렀을때 제출된다.. 흠? -->
+    <button>Todo</button> <!--제출되는지 해당 버튼을 누르면 오류메세지가 뜬다.-->
+  </form>
+  <ul></ul>
+
+<script>
+  const form = document.querySelector('form') //input과 btn을 눌러야 함 => form 자체를 누르는 것
+  function addTodo (event) {
+    event.preventDefault()
+
+    // 입력 element를 찾고 해당 입력 element의 value 값을 저장한다.
+    //입력 엘리먼트
+    const inputTag = document.querySelector('input')  //여기에 대한 value 저장 => 내부 text을 value라고 함
+    let textValue = inputTag.value
+
+    // li element를 생성 후 input element의 value 값을 데이터로 저장한다
+    //list element 생성
+    const listTag = document.createElement('li') //list element 생성
+    listTag.textContent = textValue //Q. 궁금한게 list라는 태그 자체가 const고 여기 textcontent넣어도 상관없는지?
+    //맞게 만들어졌는지 확인하기
+    //console.log(listTag)
+
+    // ul 태그의 자식 태그로 위에서 생성한 li element를 넣는다.
+    //ul 태그의 자식태그로 넣는다 그러면 ul 태그를 불러와야 함
+    const ulTag = document.querySelector('ul')
+    ulTag.appendChild(listTag) //ulTag의 자식 => 내부 list가 생성되는 것을 볼 수 있음
+
+    // 삭제 버튼을 생성 후 li 태그의 자식 태그로 넣는다.
+    // 여기서 삭제 버튼을 생성하고 li의 자식 태그로 넣는다?
+    const deleteBtn = document.createElement('button') //button 그자체
+    deleteBtn.textContent = '❌' //X라는 것을 넣어준다
+    listTag.appendChild(deleteBtn)
+
+
+    listTag.addEventListener("click", function(event) {
+    // 클릭된 요소가 삭제 버튼이 아닐 때만 취소선 토글
+    if (event.target !== deleteBtn) {
+      this.classList.toggle('done');
+    }
+    });
+    deleteBtn.addEventListener("click", function(event) {
+    event.stopPropagation(); // 이벤트 버블링 중지
+    event.target.parentElement.remove(); // 클릭된 버튼의 부모 요소(li) 삭제
+    });
+
+
+    // 삭제 버튼을 클릭하면 해당 li element를 삭제한다
+    // 여러개의 버튼 중 특정 삭제 버튼 확인하기.. 
+    //근데 delete 버튼을 삭제하면 무엇이 무엇인지 모르니 lielement를 넣어줌 => 봐도 그냥 리스트로 나오네?
+
+  // li element에 클릭 이벤트 리스너 추가
+  // 즉 list자체에 추가
+ // li element에 클릭 이벤트 리스너 추가
+ // 이벤트 위임을 사용하여 ul에 이벤트 리스너 추가
+ 
+  }
+
+  //캡처링 && 버블링 이해가 필요할 듯 
+  form.addEventListener('submit', addTodo) //form tag 자체에 이벤트 핸들러가 연결되어 있음
+  //ex) form > div > p : p-> div -> form 
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    img {
+      height: 150px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Dog API</h1>
+  <!--draggable이 false가 되면 드래그가 가능 : 오 ,, able이라고 하면 더 가능하게 될 줄 알았는데 반대?-->
+  <img draggable="false" src="noResult.png" alt="dog"> <!--draggable이 뭔지 이해하기 위해서-->
+  <h2>아직 선택된 사진이 없습니다!</h2>
+  <br>
+  <button>Get dog</button>
+  
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+
+    const btn = document.querySelector('button') //button
+    btn.addEventListener("click", function(event){ //즉 event function을 실행하고 -> axios를 실행함으로써 문제를 해결함
+      const clickBtn = axios({ 
+      method: 'get',
+      url: 'https://dog.ceo/api/breeds/image/random' 
+    })
+    .then((response) => {
+      const imgTag = document.querySelector('img')
+
+      imgTag.setAttribute('src', response.data.message) 
+      //그리고 저 h2가 바뀐다
+      
+      if (imgTag.src !== "noResult.png") {
+        const h2Tag = document.querySelector('h2') 
+        //h2Tag.textContent = '' //값을 없애는게 아니라 삭제한데
+        h2Tag.remove()
+        }
+      })
+    .catch((error) => {
+      //error
+      console.log(error) //error이유
+    })
+  })
+
+  </script>
+</body>
+</html>
