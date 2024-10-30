@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>{{ person.username }}님의 프로필</h1>
+  <div> 
+    <div>
+      팔로잉 : {{ person.followings.all|length }} / 팔로워 : {{ person.followers.all|length }}
+    </div>
+    {% if request.user != person %}
+      <div>
+        <!--form에 받을 친구 : 새로 설정하고-->
+        <form id='follow-form'> <!--form에 작성 : axios-->
+          <!--action="{% url 'accounts:follow' person.pk %}" method="POST"-->
+          {% csrf_token %}
+          {% if request.user in person.followers.all %}
+            <input type="submit" value="Unfollow">
+          {% else %}
+            <input type="submit" value="Follow">
+          {% endif %}
+        </form>
+    </div>
+    {% endif %}
+  </div>  
+  <hr>
+  <h2>{{ person.username }}가 작성한 게시글</h2>
+  {% for article in person.article_set.all %}
+    <div>{{ article.title }}</div>
+  {% endfor %}
+  <hr>
+  <h2>{{ person.username }}가 작성한 댓글</h2> 
+  {% for comment in person.comment_set.all %} 
+    <div>{{ comment.content }}</div> 
+  {% endfor %}
+  
+  <hr>
+  <h2>{{ person.username }}가 좋아요한 게시글</h2> 
+  {% for article in person.like_articles.all %} 
+    <div>{{ article.title }}</div> 
+  {% endfor %}
+
+  <!--follow 요청을 위해서 사용될 form : 제출 -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script> //axios를 사용할 수 있도록 url 작성
+    // 여기에 코드 작성
+    //form을 불러와줄 것 -> id 속성을 추가한다.
+    const followForm = document.querySelector('#follow-form') //follow-form 을 선택하고
+    //이벤트 핸들러 할당
+    followForm.addEventListener('submit', (event) => {
+      //submit의 기본 동작 취소
+      event.preventDefault() //기본 동작 취소
+      //기본 동작이 막혔는지 확인하기
+      console.log('팔로우 버튼 클릭!') //input:submit
+    })
+  </script>
+</body>
+</html>

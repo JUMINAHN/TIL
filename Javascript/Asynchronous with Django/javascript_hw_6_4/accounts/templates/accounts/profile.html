@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>{{ person.username }}님의 프로필</h1>
+  <div> 
+    <!--생략 ...-->
+    <div>
+      팔로잉 : <span id="personfollowings">{{ person.followings.all|length }}</span> <!--내가 받아와야 할 값-->
+      / 팔로워 : <span id="personfollowers">{{ person.followers.all|length }}</span>
+    </div>
+    {% if request.user != person %}
+      <div>
+        <form id="follow-form" data-user-id="{{person.pk}}"> <!--userpk값 가져오기-->
+          {% csrf_token %}
+          {% if request.user in person.followers.all %}
+            <input type="submit" value="Unfollow">
+          {% else %}
+            <input type="submit" value="Follow">
+          {% endif %}
+        </form>
+    </div>
+    {% endif %}
+  </div>  
+  <hr>
+  <h2>{{ person.username }}가 작성한 게시글</h2>
+  {% for article in person.article_set.all %}
+    <div>{{ article.title }}</div>
+  {% endfor %}
+  <hr>
+  <h2>{{ person.username }}가 작성한 댓글</h2> 
+  {% for comment in person.comment_set.all %} 
+    <div>{{ comment.content }}</div> 
+  {% endfor %}
+  
+  <hr>
+  <h2>{{ person.username }}가 좋아요한 게시글</h2> 
+  {% for article in person.like_articles.all %} 
+    <div>{{ article.title }}</div> 
+  {% endfor %}
+
+  <script>
+    const followForm = document.querySelector('#follow-form'); //form
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value // 장고에서 받아오기 => hidden의 input type
+    
+    followForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      //console.log('팔로우 버튼 클릭!');
+      const userId = event.currentTarget.dataset.userId //유저아이디 받아오기 => 이게 권고 사항 currentTarget
+      //console.log(userId) //맞게 받아오는지 확인
+      //이걸 axios 라이브러리 활용 => url로 보낼 수 있도록 다 세팅을 완료함
+      axios({
+        method : 'post',
+        url : `/accounts/${userId}/follow/`, //팔로우하는 주소 => 유저 아이디 받아옴 : 클릭할떄마다
+        //근데 지금보면 accounts/profile이 들어있는 것을 볼 수 있음
+        headers : {
+          'X-CSRFToken' : csrftoken //지금 현재 사이트가 없다는 것 => X_CSRFTOken
+        }
+      }).then((response) => { //response
+        //console.log(response) //응답을 받음 => 버튼 클릭 여부에 따라지금 follow / unfollow 진행되는 중
+      // console.log(response.data) //html 출력
+        //console.log(response.data.is_liked) //현재 true/False의 값이 나온다 : 팔로우를 했는가 아닌가의 여부
+        //따라서 follow를 하면 unfollow를 할 수 있또록 할 것
+        //<input type="submit" value="Unfollow">
+        const isLiked = response.data.is_liked // 좋아요의 여부 => 저기 django view에서 받아옴
+        const inputBtn = document.querySelector("input[type=submit]") //inputType이 submit인것으로 => 일단 이거 값을 볼까?
+        //console.log(inputBtn.value, 'btn 버튼') // 맞게 나옴
+        //form 태그이기 때문에 해당 event 자체에는 접근할 수 없음
+        
+        //위에 있는 값들 받아오기
+        const personfollowers = document.querySelector('#personfollowers')
+        const personfollowings = document.querySelector('#personfollowings') //얘네 일단 다 가져왔고
+
+        console.log(personfollowers, 'follow')
+        console.log(personfollowers.textContent, 'follow') //값이 나옴
+        //console.log(personfollowers.value, 'follow.value')
+        console.log(personfollowings, 'followings')
+        //따라서 일단 받아오고 위에 있는 값에 반영해야할 것 같음 -> request.data로 받을 것
+        //<값 그자체>
+        const followingsNumber = response.data.followingNumbers
+        const followersNumber = response.data.followersNumbers //맞게 들어왔는지 확인하자 => 오타로 undefined 
+        console.log(followersNumber, 'followers') //지금 여기는 undefined가 뜬다 => 맞게 들어온 것 확인했고
+        console.log(followingsNumber, 'following')
+
+        //지금 person값에 followingsNumber들을 대입해줘야 할 것임
+
+        if (isLiked) { //라면? btn이 follw, unfollow => 
+          inputBtn.value = 'Unfollow' //바로 부여  -> QQQ. 이것을 여기서 하는 이유는? 새로고침해야 다시들어갈 수 있어서? => 바로 동작하려고? : 페이지를
+          //바꾸지 않고
+        } else {
+          inputBtn.value = 'follow'
+        }
+        personfollowers.textContent = followersNumber
+        personfollowings.textContent = followingsNumber
+        //단 여기서 주의해야 할점은 inputbtn만 반영되고 팔로워 수는 반영되지 않고 있다는 문제임 => 따라서 이것도 바꿔주어야 함
+        //따라서 접근하자 => 그럼 count도 django view에서 받아와야 할 것 => 위로 가서 다시
+        //console.log('Updated values:', personfollowers.textContent, personfollowings.textContent) //값이 실제로 업데이트 되었는지 확인 
+
+
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    });
+
+
+
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</body>
+</html>
