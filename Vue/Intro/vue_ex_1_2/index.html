@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <h1>{{count}}</h1>
+    <button v-on:click="increment">+</button>
+    <button v-on:click="decrement">-</button>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref } = Vue
+    //정수가 0을 가지고 있는 반응형 변수 count를 선언ㅇ
+    const app = createApp({
+      setup() {
+        const count = ref(0) // 정수 0을 가지는 반은형 변수 count => let선언 여부?
+        console.log(count) //일단 이것 확인하고
+        //h1의 콘텐츠로 랜더링 된다.
+        //함수 increment선언
+        const increment = function () { //함수 선언 : 이벤트함수같은 것
+          //+ 버튼을 누르면 호출된다. => BUTTON이 2개  
+          count.value += 1 //count가 증가 한다.
+        }
+        const decrement = function() {
+          count.value -= 1
+        }
+        return {
+          count,
+          increment,
+          decrement
+        }
+      }
+    })
+    app.mount('#app')
+  </script>
+</body>
+
+</html>
