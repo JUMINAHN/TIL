@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <h1>설문조사</h1>
+
+    <form @submit.prevent="submitForm">
+      <div>
+        <label for="name">이름: </label>
+        <input id="name" type="text" v-model="formData.name">
+      </div>
+
+      <div>
+        <label for="email">이메일: </label>
+        <input id="email" type="email" v-model="formData.email">
+      </div>
+
+      <div>
+        <label for="age">나이: </label>
+        <input id="age" type="number" v-model="formData.age">
+      </div>
+
+      <div>
+        <label for="residence">거주지: </label>
+        <select id="residence" required v-model="formData.residence"> <!--select와 input이런 곳에 데이터-->
+          <option value="" disabled selected>거주지를 선택하시오.</option>
+          <option>서울</option>
+          <option>경기</option>
+          <option>충청</option>
+          <option>전라</option>
+          <option>경상</option>
+        </select>
+      </div>
+
+      <div> <!--이런 경우 하나하나 넣어줘야 한다-->
+        <label>사용하는 언어: {{formData.languages}}</label>
+        <div>
+          <input type="checkbox" id="python" value="Python" v-model="formData.languages">
+          <label for="python">Python</label>
+        </div>
+        <div>
+          <input type="checkbox" id="javascript" value="JavaScript" v-model="formData.languages">
+          <label for="javascript">JavaScript</label>
+        </div>
+        <div>
+          <input type="checkbox" id="csharp" value="C#" v-model="formData.languages">
+          <label for="csharp">C#</label>
+        </div>
+        <div>
+          <input type="checkbox" id="ruby" value="Ruby" v-model="formData.languages">
+          <label for="ruby">Ruby</label>
+        </div>
+      </div>
+      <input type="submit" value="제출">
+    </form>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref, reactive } = Vue
+    const app = createApp({
+      setup() { //input의 값과 양방향 바인딩이 된다.
+        //속성을 다섯개 가진 객체 => class
+        const formData = reactive({
+          name : '', //값을 나중에 한 번 넣어보기
+          email : '',
+          age : '',
+          residence : '',
+          languages : [] //여기만 배열인 이유 -> 다양한 객체의 값이 들어올 수 있기 떄문
+        }) //ref같이 사용할 것
+        const submitForm = function() { //submmit가 발생하면 호출된다
+          //console.log가 호출된다.
+          //reactive는 왜 ref 객체와 다르게 .value를 하지 않아도 되는 가?
+          datas = formData
+          console.log(datas)
+          //Proxy(Object) {name: '김승수', email: 'etusrci@huanqiubus.com', age: 1, residence: '서울', 
+          //languages: Array(1)}[[Handler]]: MutableReactiveHandler[[Target]]: Object[[IsRevoked]]: false
+          const newObject = {}; // 새로운 객체를 생성
+
+          for (const key in datas) {
+            if (Array.isArray(datas[key])) {
+              // 배열인 경우 그대로 추가
+              newObject[key] = datas[key];
+            } else {
+              // 배열이 아닌 경우 단일 객체로 추가
+              newObject[key] = { [key]: datas[key] }; // 단일 객체로 추가
+            }
+          }
+          for (const newdata in newObject) {
+            console.log(newObject[newdata])
+          }
+
+        }
+        return {
+          formData,
+          submitForm
+        }
+      }
+    })
+    app.mount('#app')
+  </script>
+</body>
+
+</html>

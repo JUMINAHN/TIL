@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .text-crimson {
+      color: crimson;
+    }
+
+    .text-decorate {
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <h1 :class="colorCrimson">Heading</h1>
+    <!--class자체에 decorate가 들어가있는지 확인-->
+    <p :class="{'text-decorate' : isDecorate}">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nemo, ipsum.</p>
+    <button @click="toggleDecorate">Toggle Text Style</button>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp,ref } = Vue
+    const app = createApp({ //이거의 기능이 뭔지? Q. 이 함수가 뭔지
+      setup() {
+        const colorCrimson = ref('text-crimson') //문자열 text-crimson
+        //h1 클래스 속성 값에 바인딩 하여 폰트 컬러를 변경한다. => class 자체 => 값을 넣었으니 해당 클래스명을 전해주는 것
+        const isDecorate = ref(false) //false를 가진다
+        //p속성에 바인딩하여 -> text_decorate를 적용한다
+        //class의 true / false를 기억해보면 : 특정 {class명 : true/false} -> 객체 모양으로 되어있다
+        //Q. 이렇게 되는 이유??
+        const toggleDecorate = function() { //여기는 event가 없으니까 선언해줘야 함?? 선언안해줘도 됨?
+          if (isDecorate.value == false) {
+            isDecorate.value = true
+          } else {
+            isDecorate.value = false
+          }
+        }
+
+        return {
+          colorCrimson,
+          isDecorate,
+          toggleDecorate
+        }
+      }
+    })
+    app.mount('#app')
+  </script>
+</body>
+
+</html>
