@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <h1>설문조사</h1>
+
+    <form @submit.prevent="submitForm"> <!--event는 첫번째 인스턴스-->
+      <div>
+        <label for="name">이름: </label>
+        <input id="name" type="text" v-model="formData.name">
+      </div>
+
+      <div>
+        <label for="email">이메일: </label>
+        <input id="email" type="email" v-model="formData.email">
+      </div>
+
+      <div>
+        <label for="age">나이: </label>
+        <input id="age" type="number" v-model="formData.age">
+      </div>
+
+      <div>
+        <label for="residence">거주지: </label>
+        <select id="residence" required v-model="formData.residence"> <!--select에 사용-->
+          <option value="" disabled selected>거주지를 선택하시오.</option>
+          <option>서울</option>
+          <option>경기</option>
+          <option>충청</option>
+          <option>전라</option>
+          <option>경상</option>
+        </select>
+      </div>
+
+      <div>
+        <label>사용하는 언어: {{formData.languages}}</label> <!--checkbox는 모두 부여 됨-->
+        <div>
+          <input type="checkbox" id="python" value="Python" v-model="formData.languages">
+          <label for="python">Python</label>
+        </div>
+        <div>
+          <input type="checkbox" id="javascript" value="JavaScript" v-model="formData.languages">
+          <label for="javascript">JavaScript</label>
+        </div>
+        <div>
+          <input type="checkbox" id="csharp" value="C#" v-model="formData.languages">
+          <label for="csharp">C#</label>
+        </div>
+        <div>
+          <input type="checkbox" id="ruby" value="Ruby" v-model="formData.languages">
+          <label for="ruby">Ruby</label>
+        </div>
+      </div>
+      <input type="submit" value="제출">
+    </form>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+      const { createApp,ref } = Vue
+
+      const app = createApp({
+        setup() {
+          //반응형 변수 formData == 모두 양방향 바인딩
+          const formData = ref({ //속성 5개를 가진 객체
+            'name' : '', //빈 값들로 만들면 -> 양방향 기능을 통해 사용자들이 직접 와서 접근해서 사용할 수 있음
+            'email' : '',
+            'age' : '',
+            'residence' : '서울', //기본 세팅값 서울
+            'languages' : ['Python'], //기본 세팅값 파이썬 사용 => 해당 값만 배열으 사용하는 이유는 다양한 값을 담기 위함 
+          })
+          const submitForm = function() { //내부 상태 확인
+            console.log(formData) //객체 자체
+            console.log(formData.value)
+            console.log(formData.value.name)
+
+          //그렇다면 하기처럼 출력하는게 맞는데 => value를 붙이지 않아서!
+          for (const data in formData.value) { //data가 키 값
+            if (Array.isArray(formData.value[data])) {
+              //그런데 languages는 배열
+              //배열인 것은 요소 하나 하나 출력?
+              subData = formData.value[data] //배열 값 하나씩
+              for (const sub of subData) {
+                console.log(sub)
+              }
+            } else {
+              console.log(formData.value[data])
+            }
+          }
+          }
+          return {
+            formData,
+            submitForm
+          }
+        }
+      })
+
+      app.mount('#app')
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <!--style변경-->
+    <!--style바인딩은 어떠한 속성에 어떠한 값을 사용할 것인지에 대해 명시해줘야 함-->
+    <!--키 값이 모두 담겨있는 styleObject 자체를 사용하게 한다.-->
+    <p :style="styleObject">Let's change the font style!</p>
+    <hr>
+    <p>색상 목록</p>
+    <ul>
+      <li>red</li>
+      <li>blue</li>
+    </ul>
+
+    <p>글꼴 목록</p>
+    <ul>
+      <li>fantasy</li>
+      <li>cursive</li>
+      <li>Impact</li>
+    </ul>
+    <hr>
+
+    <!--vue는 자동적으로 event를 첫번째 인자로 전달하고 있음-->
+    <!--제출하면 이벤트 핸들러 changeStyle이 실행-->
+    <form @submit.prevent="changeStyle"> <!--자체적으로 submit, 따라서 event handler를 만들필요 없다 : vue 내장-->
+      <label for="color">색 입력 : </label>
+      <input type="text" id="color" v-model="colorType"> <!--빈 속성에 대한 값을 입력받음-->
+      <br>
+      <label for="font">글꼴 입력 : </label>
+      <input type="text" id="font" v-model="fontType"> {{fontType}}
+      <br>
+      <button>변경!</button>
+    </form>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const {createApp, ref, reactive} = Vue
+    const app = createApp({
+      setup(){
+        const colorType = ref('') //양방향 바인딩
+        const fontType = ref('') //양방향 바인딩
+        const styleObject = ref('') //style에 적용할 변수 -> 단방향 directive (p태그 적용)
+        const changeStyle = function() { //이벤트핸들러 => 값을 enter, 변경하면
+          const new_Style = ref({ //반응형 객체 자체로 만드는게 더 효과적
+            'color' : colorType,
+            'font-family' : fontType,
+          })
+          //styleObject에 할당한다.
+//          styleObject.value = new_Style
+          console.log(new_Style) //ref 객체 자체
+          console.log(new_Style.value) //value? color, font-family? == 이제서야 원하는 값이 들어갔다.
+          styleObject.value = new_Style.value //reactive 자체를 주면 -> color, font-family를 .value가 아닌 값으로 접근이 가능
+          
+          //Q. 객체 value에 객체 자체를 대입할 때, 대입하는 객체도 value를 써줘야하는 이유?
+          //styleObject 자체도 객체 요소 자체이니까? 
+          
+          console.log(styleObject)
+          console.log(styleObject.value.color) //color 값이 없다? 
+          colorType.value = ''
+          fontType.value = ''
+        }
+        return {
+          colorType,
+          fontType,
+          styleObject,
+          changeStyle
+        }
+      }
+    })
+    app.mount('#app')
+    console.log('Vue app mounted');
+  </script>
+</body>
+</html>

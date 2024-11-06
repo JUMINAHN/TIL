@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .text-crimson {
+      color: crimson;
+    }
+
+    .text-decorate {
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <h1 :class="colorCrimson">Heading</h1>
+    <!--클래스 속성값에 바인딩해서 text-decoreate를 적용한다-->
+    <!--클래스 적용 유무에 따른 객체 선언-->
+    <p :class="{'text-decorate':isDecorate}">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nemo, ipsum.</p>
+    <button @click="toggleDecorate">Toggle Text Style</button>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref  } = Vue
+    const app = createApp({
+      setup() {
+        const colorCrimson = ref('text-crimson') //h1 속성값에 바인딩하여 폰트컬러 변경
+        const isDecorate = ref(false)
+        const toggleDecorate = function () {
+          //Toggle Text Style버튼 클릭시 호출
+          //호출하면 isDecorate값 토글
+          if (isDecorate.value == false) {
+            isDecorate.value = true //대입
+          } else {
+            isDecorate.value = false
+          }
+        }
+        return {
+          colorCrimson,
+          isDecorate,
+          toggleDecorate,
+        }
+      }
+    })
+    app.mount('#app')
+  </script>
+</body>
+
+</html>
