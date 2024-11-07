@@ -385,3 +385,208 @@ defineProps({
 ![image.png](image%204.png)
 
 ⇒ `list`에 단순 s만 입력했을 때 값이 출력되었으나 prop 자체가 먹지 않은 것 같음
+
+# BusinessCardDetail.vue:16 [Vue warn]: Component emitted event "deleteUserCard" but it is neither declared in the emits option nor as an "onDeleteUserCard" prop. ⇒ 삭제 후 경고 메세지
+
+---
+
+이 경고 메시지는 `Vue 3에서 컴포넌트가 선언되지 않은 이벤트를 emit하고 있다는 것`을 알려주는 것
+
+⇒ 경고 메시지가 발생하는 주된 이유는 `BusinessCardDetail` 컴포넌트에서 `emits` 옵션을 잘못 정의했기 
+     때문
+
+<aside>
+💡
+
+**문제 사항 도출**
+
+</aside>
+
+- `BusinessCardDetail.vue` 파일에서 `defineEmits`를 잘못 사용
+
+```jsx
+const emits = defineEmits(['businessCard'])
+
+```
+
+⚠️ 하지만 실제로 emit하는 이벤트 이름은 'deleteUserCard
+
+```jsx
+  const emits = defineEmits(['businessCard']) //businessCard를 인자로 넘긴다
+  const deleteCardFunc = function() {//선언 defilEmits
+    emits('businessCard')
+  }
+```
+
+- `defineEmits`는 컴포넌트가 발생시킬 수 있는 이벤트 목록을 정의
+- `emit`은 함수이며, 이를 통해 실제로 이벤트를 발생시킨다 ⇒ emits가 아니라 `emit` 사용
+
+## 1번을 삭제하면 1~5번 까지의 명함 내용이 모두 삭제되는 문제
+
+---
+
+- 이 현상의 원인은 `splice` 메서드의 사용 방식 때문
+- `for` 루프와는 직접적인 관련이 없다.
+
+<aside>
+💡
+
+**문제의 원인**
+
+</aside>
+
+- `splice` 메서드는 두 번째 인자로 삭제할 요소의 개수를 지정해야 한다.
+- Vue의 반응성 시스템이 배열의 변경을 감지하고 화면을 업데이트하려면, `ref`로 감싼 값에 직접 접근해야 한다.
+
+```jsx
+  const deleteCard = function(index) {
+    //특정 값 제거하기 => list에서 이것만 빼고 다시만들어서 ..해야하나? 비효율
+    //pop? remove 아무것도 안든
+    //특정 index 삭제 splice => value에 접근하면 됨
+    businessCards.value.splice(index)
+//    businessCards[index]
+  }
+```
+
+<aside>
+💡
+
+**수정 사항**
+
+</aside>
+
+```jsx
+const deleteCard = function(index) {
+  businessCards.value.splice(index, 1)
+}
+
+```
+
+# computed 속성 이해하기
+
+---
+
+## Computed 속성의 기본 사용법
+
+1. 단순 계산:
+
+```jsx
+const count = ref(0)
+const doubleCount = computed(() => count.value * 2)
+
+//화살표 함수를 함수표현식으로 바꿨을 때
+//computed(function() {
+  //return count.value * 2
+//})
+```
+
+1. 객체 데이터 처리:
+
+```jsx
+const firstName = ref('John')
+const lastName = ref('Doe')
+const fullName = computed(() => `${firstName.value} ${lastName.value}`)
+
+```
+
+## Computed 속성의 주요 특징
+
+1. 캐싱: Computed 속성은 의존하는 **반응형 데이터가 변경될 때만 재계산**
+2. 선언적 코드: 복잡한 로직을 템플릿에서 분리하여 코드를 더 읽기 쉽게 만듬
+3. 성능 최적화: 불필요한 재계산을 방지하여 애플리케이션의 성능을 향상시킴
+
+## Computed 속성의 실제 사용 사례
+
+1. **데이터 필터링:**
+
+```jsx
+const products = ref([...])
+const filteredProducts = computed(() =>
+  products.value.filter(product => product.price > 100)
+)
+
+```
+
+1. 계산된 스타일:
+
+```jsx
+const isActive = ref(false)
+const buttonClass = computed(() => ({
+  'active': isActive.value,
+  'inactive': !isActive.value
+}))
+
+```
+
+1. 페이지네이션 ⇒ 대량의 데이터를 여러 페이지로 나누어 표시하는 기술
+
+```jsx
+const items = ref([...])
+const itemsPerPage = ref(10)
+const currentPage = ref(1)
+
+const paginatedItems = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage.value
+  const end = start + itemsPerPage.value
+  return items.value.slice(start, end)
+})
+
+```
+
+## 주의사항
+
+1. Getter 함수는 순수 함수여야 합니다. 부작용(side effects)을 발생시키지 않아야 함
+2. **비동기 작업은 computed 속성에서 직접 수행하지 않음** → 대신 watch나 methods를 사용한다.
+3. 복잡한 연산이 필요한 경우 computed 속성을 사용하여 성능을 최적화할 수 있다.
+
+# ⚠️ 실제 실습에서 computed 활용하기
+
+---
+
+**⇒ 변하는 내용에 대해서 계속해서 계산하지 않는 장점, 성능과 구조 개선**
+
+```jsx
+<template>
+  <div>
+    <h2>보유 명함 목록</h2>
+    <p v-if="filterCard">현재 보유중인 명함 수 : {{ businessCards.length }}</p>
+    <p v-else>명함이 없습니다. 새로운 명함을 추가해 주세요.</p>
+
+    <businessCardDetail 
+      v-for="(businessCard, index) in businessCards"
+      :key="businessCard.name"
+      :my-prop = businessCard
+      @businessCard = "deleteCard(index)"
+    /> <!--businessCard를 my-prop로 바인딩하여 넘겨줌 >> myProp로 받으면 됨-->
+    <!--emit받기--> <!--emit으로 받는 것은 js? : 그래서 카멜케이스 -->
+    
+  </div>  
+</template>
+```
+
+```jsx
+  //computed를 사용한 데이터 필터링 => bussinessCard의 length를 구할 것
+  const filterCard = computed(() => businessCards.value.length > 0)
+```
+
+<aside>
+💡
+
+**내용 참고하기**
+
+</aside>
+
+1. 목적에 부합: `filterCard`는 `businessCards` 배열의 길이에 따라 boolean 값을 반환
+⇒ 이는 명함이 있는지 없는지를 판단하는 데 사용되며, 템플릿에서 조건부 렌더링(`v-if`/`v-else`)에 
+활용
+2. 반응성: `computed` 속성은 반응형 : **삭제하면 길이가 계속해서 바뀌기 때문에 (바뀌는게 무엇인지?)**
+    
+    `=> businessCards`의 내용이 변경될 때마다 `filterCard`가 자동으로 재계산
+    
+
+```jsx
+const filterCard = computed(() => businessCards.value.length > 0)
+
+```
+
+- `businessCards`의 길이가 0보다 큰지 확인하여 boolean 값을 반환
