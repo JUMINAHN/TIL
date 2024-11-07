@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .is-completed {
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <h1>Todo Application</h1>
+    <form @submit.prevent="addTodo"> 
+      <input type="text" v-model="newTodoText">  <!--새로운 v-model 선언-->
+      <input type="submit" value="Add" > 
+    </form>
+
+    <ul>
+      <li v-for="todo in todos" :key="todo.id"> <!--todo.text-->
+        <input type="checkbox" v-model="todo.isCompleted" > 
+        <!--todotext가 나와야 함-->
+          {{todo.text}}
+
+        <span :class="{ 'is-completed': todo.isCompleted }">{{ todo.text }}</span>
+        <button>Delete</button>
+      </li>
+    </ul>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref } = Vue
+
+    const app = createApp({
+      setup() {
+
+        let id = 1 //외부에서 선언해야 증가 가능 
+        const todos = ref([ 
+          // {id:id++, text:ref(''), isCompleted:false}
+        ])
+        //새로운 값을 담을 변수 선언
+        const newTodoText = ref('')
+        //console.log()
+        //console.log(todos.value.append(1)) => not a function 
+
+        const addTodo = function() { //객체를 추가
+          if (newTodoText) { 
+            //1.할일을 객체로 추가
+            //2.form요소에서 submit 이벤트 발생호출
+            //3.새로운 id 속성값 js date(). 이벤트
+            //4. 사용자 입력값이 없거나 공백 입력시 할일 데이터 추가 패스
+
+            //새로운 할일 객체의 id 속성값은 date 객체의 now()를 활용
+            const value = ref({id:Date.now(), text:newTodoText, isCompleted:false})
+            //todos.append()
+            //todos.value.append()
+            todos.value.append()
+            //todos에 대한 객체를 어떻게 담는가?
+          } else {
+            //사용자 입력값이 없거나 공백을 입력했다면 할일을 추가하지않음
+
+          }
+        }
+        const deleteTodo = function() {
+          //변수 todos에서 특정 할일 객체를 삭제하는 역할
+          //html li 요소 안에서 delete btn을 클릭하여 호출
+          //id 속성값을 활용해어떤 할일 선택되어쓴지 찾는다
+          //선택된 할 일의 idnex를 찾아 todo 배열에서 삭제하낟
+          //js배열의 findindex와 splice를 활용한다.
+        }
+
+        return {
+           todos 
+          }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+</html>

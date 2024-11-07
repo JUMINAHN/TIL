@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .is-completed {
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <h1>Todo Application</h1>
+
+    <ul> <!--여기에 있는 todos목록 렌더링-->
+      <!--isComplted토글된다.-->
+      <!--그러면 for을 위에-->
+      <!--체크박스가 클릭되면 is-completed를 적용한다-->
+      <template v-for="todo in todos" :key="todo.id">
+        <!--checked되면 : is-completed적용-->
+        <li :class="{'is-completed':todo.isCompleted}" > <!--text요소 각 출력-->
+          <input type="checkbox" v-model="todo.isCompleted"> <!--todo가 완료되었는지 여부를 바인딩-->
+          {{todo.text}} <!--목록 추가-->
+        </li>
+      </template>
+    </ul>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp,ref  } = Vue
+
+    const app = createApp({
+      setup() {
+        //3가지할일 객체로 포함
+        let id = 1 //id가 0인 것
+        //지금 todoList에 적혀있는 것 돌아가게 할 것
+        //todos목록 랜더링
+        const todos = ref([ //배열로 선언
+          {id:id++, text:'생필품 구입', isCompleted:false},
+          {id:id++, text:'빨래', isCompleted:false},
+          {id:id++, text:'방청소', isCompleted:false},
+        ])
+        return {
+          todos,
+        }
+      }
+    })
+    app.mount('#app')
+  </script>
+</body>
+
+</html>
