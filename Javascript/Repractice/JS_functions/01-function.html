@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    //즉 불일치 자체를 허용한다는 특징이 있음
+    //매개변수 값을 지정해줄 수 있다. => python position 인자 처럼
+    //전개구문 == ... 뿐만이 아니라 그 뒤에 변수까지 써야 함
+
+
+    // 기본 함수 매개변수 => 매개변수 자체를 기본 세팅해줌 
+    const greeting = function(name = 'Anonymous') { //매개변수인자 => name이라는 파라미터값 자체를 설정해주는 것
+      return `Hi, ${name}`
+    }
+    console.log(greeting(), '새로운 내용')
+
+
+    // 나머지 매개변수 (가변 인자) => ...전개구문  : 전개구문 꼭 ...사용
+    // 나머지 매개변수는 하나만 작성 가능
+    const myFunc = function(params1, params2, ...restParams) {
+      return [params1, params2, restParams] 
+    }
+    console.log(myFunc(1,2,3,4,5)) //나머지 매개변수를 배열로 묶는다.
+    console.log(myFunc(1,2)) //매개변수가 불일치해도 허용해준다 => 빈 값으로!!! 특징
+
+    //error를 발생시키지 않는 특징이 있다.
+    const threeArgs = function(num1, num2, num3) {
+      return [num1, num2, num3]
+    }
+
+    console.log(threeArgs()) //불일치할 경우 undefined로 할당한다.
+    console.log(threeArgs(1)) //불일치할 경우 undefined로 할당한다.
+    console.log(threeArgs(1,2)) //불일치할 경우 undefined로 할당한다.
+
+
+    //매개변수가 인자개수보다 적을 때
+    const noArgs = function() {
+      return 0 //배열자체를 반환 => 값이 없으니까 0으로 일단 넣어줌
+    }
+    //페이지를 조작하는 언어이기 떄문에 유연함
+    console.log(noArgs(1,2,3)) //얘는 에러가 뜨지 않지만 0으로 return시켜줌 => 0으로 그냥 무시해줌
+
+    const twoArgs = function(num1, num2) {
+      return [num1, num2]
+    }
+
+    console.log(twoArgs(1,2,3,4)) //두개 더 넣어보자 => 무시한다.
+
+    
+  </script>
+</body>
+
+</html>

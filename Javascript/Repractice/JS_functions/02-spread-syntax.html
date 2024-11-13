@@ -1,0 +1,46 @@
+<!-- spread-syntax.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    //즉 선언, 호출 모두 된다. => 단 선언시 
+    //호출시 구조적으로 잘 생각해보면 될 것 같음
+    // ... 전개구문 => spreadsheet !! **전개구문의 활용도가 높다.
+
+    // 1. 인자 확장 (함수 호출 시)
+    function myFun(x,y,z) {
+      return x+y+z
+    }
+    console.log(myFun(1,2,3,4,5,6), '일반적으로 뒤에 값은 없앤다.') //1,2,3 자체는 받지만? => 뒤에 무시 : 4,5,6
+
+    let numbers = [1,2,3]
+    console.log(myFun(...numbers), '함수 호출시 전개구문 ...사용 => 배열을 풀어헤치지 않아도 됨') //배열을 하나하나 풀어서 써야했는데 => 통쨰로 풀어서 쓸 수 있음! (단, 개수는 맞아야 함)
+    //만약 맞지 않다면?
+    let numbers2 = [1,2,3,4,5]
+    console.log(myFun(...numbers2), '함수 호출시 전개구문 ...사용 => 초과할경우 동일하게 무시')
+    //적게 할 경우 undefined가 있어서 nan이 될까?
+    let numbers3 = [1,2]
+    console.log(myFun(...numbers3), '함수 호출시 전개구문 ...시용 => 개수를 더 적게 넣을 경우') //예상값이 맞음 숫자 + 숫자 + undefined로 Nan출력
+
+
+
+    // 2. 나머지 매개변수 (함수 선언 시)
+    function myFun2(x, y, ...restArgs) {
+      return [x, y, restArgs] //묶어서 들어갈 것
+    }
+    console.log(myFun2(1,2,3,4,5)) //아마 1,2,[3,4,5]
+    console.log(myFun2(1,2)) //아마 1,2,undefined
+  
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    const user = {
+      name : 'Alice',
+      'key with space' : true, //공백이 있기 때문에 -> boolean 속성
+      greeting : function() {
+        return 'hello'
+      }
+    }
+    // 조회
+    console.log(user.name) //alice
+    //keywithspace 이러한 문자는 => 점으로 접근할 수 없음
+    //즉 대괄호 활용
+    console.log(user['key with space']) //공백은 대괄호 접근법으로만 가능
+    
+    // 추가
+    //address라는 값을 추가할 것이다.
+    user.address = 'KOREA'
+    console.log(user) //이렇게 그냥 추가할 수 있다.
+    
+    // 수정
+    user.name = 'Bella'
+    console.log(user.name)
+    
+    // 삭제 => 삭제가 독특하다. => 데이터를 삭제하려면 delete, remove가 아니다
+    delete user.name
+    console.log(user)
+    //delete 메서드 기억하기
+
+    //객체의 속성이 존재하는지 확인하기
+    // in 연산자
+    console.log('greeting' in user)
+    console.log('country' in user)
+
+
+    // 메서드 호출
+    // 유일한 함수 => 속성 이름이 함수 => 메서드 == class에 속해있는 것
+    // 객체 안에 작성된 것은 메서드
+    console.log(user.greeting()) //함수이기 때문에 호출을 해주어야 함
+
+  </script>
+</body>
+
+</html>

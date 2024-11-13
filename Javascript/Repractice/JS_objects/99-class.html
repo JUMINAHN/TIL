@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 클래스
+    class Member {
+      constructor(name, age) {
+        this.name = name
+        this.age = age
+      }
+      sayHi() {
+        console.log(`Hi, I am ${this.name}`)
+      }
+    }
+
+    const member1 = new Member('Alice', 20)
+
+    console.log(member1) // Member { name: 'Alice', age: 20 }
+    console.log(member1.name) // Alice
+    member1.sayHi() // Hi I am Alice
+
+
+    // [참고] : 생성자 함수 표현 방식 (과거)
+    // function Member(name, age) {
+    //   this.name = name
+    //   this.age = age
+    //   this.sayHi = function () {
+    //     console.log(`Hi, I am ${this.name}`)
+    //   }
+    // }
+  </script>
+</body>
+
+</html>

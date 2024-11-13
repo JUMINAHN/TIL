@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 1. 단축 속성
+    const name = 'Alice'
+    const age = 30
+
+    const user1 = {
+      name: name,
+      age: age
+    }
+
+    const user2 = {
+      name,
+      age
+    }
+
+
+    // 2. 단축 메서드
+    const myObj1 = {
+      myFunc: function () { //function 키워드 제거 가능
+        return 'Hello'
+      }
+    }
+
+    const myObj2 = {
+      myFunc() {
+        return 'Hello'
+      }
+    }
+
+
+    // 3. 계산된 속성
+    const product = prompt('물건 이름을 입력해주세요')
+    const prefix = 'my'
+    const suffix = 'property'
+
+    const bag = {
+      [product]: 5, //키를 변수로 활용 => [] 신기한 것 이런거 있다고만 알고있기
+      [prefix + suffix]: 'value' //새로운 키를 섞어서 만들 수 있음
+    }
+
+    console.log(bag) // {연필: 5, myproperty: 'value'}
+
+
+    // 4. 구조 분해 할당
+    const userInfo = {
+      firstName: 'Alice',
+      userId: 'alice123',
+      email: 'alice123@gmail.com'
+    }
+    
+    // 다 값을 얻어내고 싶으면?
+    // const firstName = userInfo.firstName
+    // const userId = userInfo.userId
+    // const email = userInfo.email
+
+    const {firstName, userId, email} = userInfo //무언가를 풀어헤쳐서 어딘가에 할당
+    //변수 선언과 똑같다.
+    //userInfo라는 객체와 같아야 함 => 즉 userinfo안의 firstname이다 ..
+    console.log(firstName, userId, email)
+
+
+    // 구조 분해 할당 활용 - "함수 매개변수"
+    //키 밸류가 분해된다. => 매개 변수로 할당 가능
+    const person = {
+      name: 'Bob',
+      age: 35,
+      city: 'London',
+    }
+
+    const printInfo = function({name, age, city}) { // person자체인데.. const {name,age,city} = person
+      console.log(`이름 : ${name}, 나이 : ${age}, 도시 : ${city}`)
+    }
+    // 함수 호출 시 객체를 구조 분해하여 함수의 매개변수로 전달
+    printInfo(person) //구조분해 변수명을 이곳에 쓴다.
+
+
+    // 5. 전개 구문 - "객체 복사"
+    // ...이 객체랑 쓰이면 => 객체를 복사한다. (이전에는 배열)
+    const obj = { b: 2, c: 3, d: 4 }
+    const newObj = { a: 1, ...obj, e: 5}
+    console.log(newObj) // {a: 1, b: 2, c: 3, d: 4, e: 5}
+
+
+    // 6. 유용한 객체 메서드 (Object.keys(), Object.values())
+    const profile = {
+      name: 'Alice',
+      age: 30
+    }
+
+    console.log(profile.keys()) // ['name', 'age']
+    console.log(profile.values()) // ['Alice', 30]
+
+  </script>
+</body>
+
+</html>

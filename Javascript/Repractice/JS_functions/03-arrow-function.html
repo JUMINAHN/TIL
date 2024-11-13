@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    //기존 함수
+    const arrow = function(name) {
+      return `hello, ${name}` //기존 함수
+    }
+
+    //1차 변형 => fucntion없애기!!!
+    //눈에 익히기 
+    const arrow2 = (name) => { //function을 생략하고, name이라는 매개변수를 받아서 돌려주는 것
+      return `hello, ${name}`
+    }
+
+    //2차 변형 괄호 없애기 == 매개변수가 하나뿐이라면
+    const arrow3 = name => {
+      return `hello, ${name}`
+    }
+
+    //3차 변형 {}도 없애기, return도 없앨 수 있음
+    const arrow4 = name => `hello, ${name}`
+
+    //함수의 인자가 없는 경우 ()나 _
+    const noArgs = () => 'No args' //return과 {}도 제거함
+
+    //객체를 return할 경우 return을 명시적으로 작성해야 함 
+    const returnObject1 = () => {return {key : 'value'}}
+    const returnObject2 = () => ({key : 'value'})
+
+
+
+  </script>
+</body>
+
+</html>

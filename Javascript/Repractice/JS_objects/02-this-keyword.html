@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 객체 내부 메서드 자체에서 객체 값을 사용하고 싶음
+    // 함수나 메서드를 호출한 객체를 가리키는 것
+    // 메서드를 호출하는 대상 == 객체 누구 ? == 바로 this 
+    // 즉 user안의 다른 속성을 활용할 수 있음
+    const person = {
+      name : 'Alice',
+      greeting : function() {
+        //this를 지우고 name만 사용했을 때 아무런 값이 뜨지 않는 것을 볼 수 있음 
+        //동일한 같은 객체의 값
+        return `Hello my name is ${this.name}` //이렇게는 안되는지?
+      }
+    }
+    //항상 메서드 앞의 객체이냐? XX
+    //메서드를 호출한 객체
+    console.log(person.greeting()) //console.log에 찍히니까 반환값이 있어야 함
+    
+    //함수가 단순 호출을 했을 때 == 전역 객체 == 즉 window를 가리킴
+    const myFunc = function() {
+      return this
+    }
+    console.log(myFunc()) //객체가 아니라 => 단순 호출되었을 떄 => f() {} 이렇게 되면 함수 호출을 안한 것
+
+
+
+    // 2. 중첩된 함수에서의 this
+    // 2.1 일반 함수
+    const myObj3 = {
+      numbers : [1,2,3],
+      myFunc : function() { //myFunc 자체
+        this.numbers.forEach(function(number){ //function 자체
+          console.log(this, 'window 출력') //window
+        })
+      }
+    }
+    myObj3.myFunc()
+
+    // 2.2 화살표 함수로 바꾸면 => 본인만의 this가 없기 떄문에 해결 가능 => 상위함수의 this를 따라간다.
+    const myObj4 = {
+      numbers : [1,2,3],
+      myFunc : function() { //myFunc 자체
+        this.numbers.forEach((number) => { //function 자체
+          console.log(this, 'window 출력이 아니게 됨') //window
+        })
+      }
+    }
+    myObj4.myFunc()
+
+
+  </script>
+</body>
+
+</html>
