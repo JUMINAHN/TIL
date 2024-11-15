@@ -18,7 +18,7 @@
       //여기서 일부파라미터 변경할 것
       url : `https://www.googleapis.com/youtube/v3/search`,
       data : { 
-        key :'AIzaSyCR2gGm-hE2vBYJmJmQVHg42gkp9EMBhl4',
+        key :'',
         part : 'snippet',
         type : 'video',
         q : search//파라미터로 받은 것들 input으로 들어가짐
