@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    const library = {
+      books: [
+        { id: 1, title: '자바스크립트 완벽 가이드', status: 'available' },
+        { id: 2, title: '파이썬 기초', status: 'borrowed' },
+        { id: 3, title: 'HTML/CSS 입문', status: 'available' }
+      ],
+      borrowHistory: [
+        { bookId: 2, userId: 'user1', date: '2024-10-20' },
+        { bookId: 1, userId: 'user2', date: '2024-10-15' },
+        { bookId: 1, userId: 'user2', date: '2024-10-23' }
+      ]
+    }
+
+    // forEach를 사용하여 다음을 구현하세요:
+    // 1. 현재 대출 가능한 도서 목록
+
+    // 대출 가능 도서
+    const availableBooks = []
+    //이용 가능한 애들
+    //일단 객체 하나에서 진행을 해야하는데 => 객체의 books에 있다.
+    // console.log(library.books) //js 문법 => dictionary key로도 접근 가능 할 것 => 이렇게 해도 뜸
+    const books = library.books // books를 가지고 있는 배열
+    books.forEach((book) => {
+      if(book.status === 'available') {
+        availableBooks.push(book) // book 자체를 주고
+      } //그게 아니면 그냥 넘어가겠지
+    })
+    console.log(availableBooks, '결과값 : 이용가능한 book')
+
+    // user2 대출 이력
+    // 2. 특정 사용자(user2)의 대출 이력 => 이 자체에서 user2가 사용한 것은 일단 찾을 수 있는데 
+    //상기와 동일
+    const availableBooks2 = []
+    const user2History = []
+    const borrowHistory = library.borrowHistory
+    borrowHistory.forEach((borrow) => {
+      if(borrow.userId === 'user2') {
+        //borrow //이거 자체 user2가 사용한 내용 => 그런데 여기에 값과 books.id의 값이 같을 경우의 내용을 넣어야 한다.
+        //id 값을 제외하고
+        books.forEach((book) => {
+          if (book.id === borrow.bookId) { //이게 같을 경우에
+            availableBooks2.push(book.title)//이용가능한 책 => user2가 이용가능한 것
+            //타이틀과 데이트
+            user2History.push({
+              title : book.title,
+              date : borrow.date
+            })
+          }
+        })
+        
+      }
+    })
+    console.log(user2History, '결과값: user')
+
+    
+
+
+
+
+
+
+
+    
+  </script>
+</body>
+
+</html>

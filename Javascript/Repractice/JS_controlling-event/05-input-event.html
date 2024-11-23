@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="text" id="text-input">
+  <p></p>
+
+  <script>
+    //p tag에 text값이 출력되어야함 => v-model을 쓰면 금방이지만,,
+    const inputTag = document.querySelector('#text-input') //받아서 관련 값을 받아온다
+    //console.log(inputValue) //뜨는지 확인해보자 => 하지만 단순히는 안된다. 무언가 진행되어야 하는데
+    
+    //ptag안에 넣으려면?
+    const pTag = document.querySelector('p')
+    const writeMsg = function() {
+      //inputTag자체가 아니라 활성화된 event로 접근할수도 있따. => inputTag 자체 == currentTarget == this
+
+      //값이 하나 있으니 이렇게 해도 무방함
+      const inputValue = inputTag.value //inputTag안에 값이 나오는지 확인
+      console.log(inputValue) //원하는 값이 나타나는게 보인다. => 그렇다면?
+      pTag.textContent = inputValue
+      
+    }
+
+    //keyboard자체감지? => 아니면 input?
+    inputTag.addEventListener('input', writeMsg) //input 활성화
+
+
+  </script>
+</body>
+
+
+</html>

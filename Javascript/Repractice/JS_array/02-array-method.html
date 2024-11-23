@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    const names = ['Alice', 'Bella', 'Cathy']
+    // 맨 끝에 있는 요소 제거하고 반환해보는 연습해보기
+    const result1 = names.pop() //맨 끝 요소
+    console.log(result1)
+    console.log(names)
+
+    //추가해본다 => 맨 뒤에 추가한다.
+    names.push('Hello')
+    console.log(names)
+
+
+    //맨 앞의 값을 제거한다.
+    const result2 = names.shift()
+    console.log(result2)
+    console.log(names) //배열 새로운 값
+    
+    //맨 앞에 대한 값을 추가한다.
+    names.unshift('Elly')
+    console.log(names)
+
+  </script>
+</body>
+
+</html>

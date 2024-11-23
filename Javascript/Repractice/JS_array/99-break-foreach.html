@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    const array = [1, 2, 3, 4, 5]
+
+    // some
+    // 하나라도 참이면 중지한다.
+    const isEvenNumber = array.some((arr) => {
+      return arr % 2 == 0 //중지 된다 => 참이면 => 그리고 true반환
+    })
+
+    console.log(isEvenNumber, '반환 여부 확인') // true => 일부만 만족하는지?
+
+    // every
+    // 모든게 참이면 참 반환 => 브레이크 없음
+    const isAllEvenNumber = array.every((number) => {
+      return number % 2 == 0
+    })
+
+    console.log(isAllEvenNumber, '모두 다 만족하는지를 확인 ') // false
+
+
+    ////////////////////////////////////////////////
+
+
+    //break처럼 사용하기 
+    const names = ['Alice', 'Bella', 'Cathy']
+
+    //만약 bella를 찾으면 break해라
+    const findBella = names.some((name) => { //중단조건만 잘쓰면 괜찮음
+      if (name === 'Bella') {
+        return 'Find Bella' //참을 반환 => 참을 반환 ==> 자체적으로 True => String을 써도 True
+      } //Break가 되는 것
+      return 'Where is Bella?s'
+    })
+
+    console.log('result : ', findBella)
+
+
+    // 2. every => 조건이 다름 => false를 반환하면 중단이 됨
+    const findBella2 = names.every((name) => { //중단조건만 잘쓰면 괜찮음
+      if (name === 'Bella') {
+        return false //참을 반환 => 참을 반환 ==> 자체적으로 True => String을 써도 True
+      } //Break가 되는 것
+      return true
+    })
+
+    console.log('result : ', findBella2)
+
+
+  </script>
+</body>
+
+</html>

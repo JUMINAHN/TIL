@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="text" class="input-text">
+  <button id="btn">+</button>
+  <ul></ul>
+
+  <script>
+    // 1. 필요한 요소들 일단 선택
+    const inputTag = document.querySelector('.input-text')
+    const btn = document.querySelector('#btn')
+    const ulTag = document.querySelector('ul')
+    
+    // 2. 콜백 함수 (실제 todo 데이터를 생성 후 추가하는 로직)
+    // const addTodo = function (event) {
+    //   // 2.1 사용자 입력 데이터 저장
+    //   const inputData = inputTag.value
+
+    //   // 2.2 li 태그를 생성
+    //   const liTag = document.createElement('li')
+
+    //   // 2.3 li 태그의 텍스트 콘텐츠로 사용자 입력데이터 할당
+    //   liTag.textContent = inputData
+    //   // console.log(liTag)
+
+    //   // 2.4 ul 태그의 자식태그로 완성된 li 태그를 자식으로 추가
+    //   ulTag.appendChild(liTag)
+
+    //   // 2.5 todo 추가 후에 input에 작성한 데이터를 초기화
+    //   inputTag.value = ''
+    // }
+
+    const addTodo = function (event) {
+      const inputData = inputTag.value
+      if (inputData.trim()) {
+        const liTag = document.createElement('li')
+        liTag.textContent = inputData
+        ulTag.appendChild(liTag)
+        inputTag.value = ''
+      } else {
+        alert('todo를 입력해주세요.')
+        // window.alert('todo를 입력해주세요.')
+      }
+    }
+
+    // 3. 버튼에 이벤트 핸들러 부착
+    btn.addEventListener('click', addTodo)
+  </script>
+</body>
+
+</html>

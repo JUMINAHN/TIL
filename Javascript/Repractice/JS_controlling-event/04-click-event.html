@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button id="btn">버튼</button>
+  <p>클릭횟수 : <span id="counter">0</span></p>
+
+  <script>
+    let countNumber = 0
+
+    //버튼 요소 선택
+    const btn = document.querySelector('#btn')
+    const number = document.querySelector('#counter')
+    
+    //함수 생성
+    const clickHandler = function(event) {
+      //매개로 일단 사용하고
+      countNumber += 1 //#초기값 +1 증가시킨다
+      number.textContent = countNumber //해당 내부 값 자체를 바꾸겠다.
+    }
+
+    //이벤트 부착
+    btn.addEventListener('click', clickHandler) //함수 => 따로 함수를 만들어서 생성함
+
+
+  </script>
+</body>
+
+</html>

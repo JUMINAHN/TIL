@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // forEach를 사용하여 다음 작업을 수행하세요:
+    const numbers = [1, 2, 3, 4, 5]
+    // 1. 짝수는 2배로 증가
+    // 2. 홀수는 3을 더하기
+    // 결과를 새 배열에 저장
+
+    //짝수로 2배 증가 홀수 3을 더하기 map이 아닌 forEach로
+    const result = [] //배열 요소에 할당하는게 아님 => 주소 안의 값, 
+    numbers.forEach((number) => {
+      if (number % 2 === 0) {
+        result.push(number * 2)
+      } else {
+        result.push(number + 3)
+      }
+    })
+    console.log(result)
+
+  </script>
+</body>
+
+</html>

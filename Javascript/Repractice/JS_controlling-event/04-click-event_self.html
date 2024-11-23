@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button id="btn">버튼</button>
+  <p>클릭횟수 : <span id="counter">0</span></p>
+
+  <script>
+    //클릭하면 클릭 횟수가 증가되도록 구현한다.
+    //일단 click횟수가 바껴야 한다. => span id에 있는 element를 가져온다. 
+    const counter = document.querySelector('#counter')
+    console.log(counter, '원하는 값이 맞는지 확인한다.') //element자체가 가져와짐
+    //text만 가져오기
+    console.log(counter.textContent) //가져와지는 것 확인함 => 여기에 원하는 값이 있는데 => 원하는 변경 값을 추가해주는 것!!
+
+
+    //countNumber 값이 변동되어야 하는데 => const 선언으로 변동안됨주의
+    let countNumber = 0 
+    const btn = document.querySelector('#btn')
+    //클릭 이벤트에 값을 증가시킬 메서드 넣기
+    const raiseNumber = function(event){ //클릭했을떄 값이 증가 -> event
+      countNumber += 1 //text로 새로운 값 전달
+      console.log(countNumber, 'count')
+      counter.textContent = countNumber //똑같은 이슈.
+      console.log('number 증가')
+
+    }
+    //클릭 이벤트를 달 것 
+    btn.addEventListener('click', raiseNumber)
+
+  </script>
+</body>
+
+</html>

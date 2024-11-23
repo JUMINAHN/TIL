@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button id="btn">버튼</button>
+
+  <script>
+    //버튼 선택
+    const btn = document.querySelector('#btn') //btn 선택
+
+    //함수선언
+    const detectClick = function(event) { //event => 따라서 이것만 선언하면 일반 선언함수지만, 하기에 선언되니 콜백함수?
+      //첫번쨰는 반드시 이벤트 객체
+      console.log(event) //값이 채워지기 전 
+      console.log(event.target)
+      //진짜 target은 우리가 원하는, 찾고 싶은 부분
+      console.log(event.currentTarget) //브라우저가 아닌 여기서 보면 잘 나올 것 => 그냥 나온다는 것만 알자
+      console.log(this) //currentTarget
+    }
+
+    //이벤트 핸들러 부착
+    btn.addEventListener('click', detectClick) //click 이벤트 발생하고, 호출
+    //element가 부착된 곳 == curentTarget
+
+  </script>
+</body>
+
+</html>

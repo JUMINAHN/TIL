@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    //map은 반환값이 존재한다. 
+    const persons = [
+      { name: 'Alice', age: 20 },
+      { name: 'Bella', age: 21 }
+    ]
+
+    // 1.1 for...of
+    //alice와 bella push해보기
+    let result1 = []
+    for (person of persons) {
+      result1.push(person.name) //각각 요소 한개씩 => 배열안에 있는 값이니까 for .. of 사용 가능 할 것 
+    }
+    console.log(result1, 'result1')
+
+    // 1.2 map => 맵 자체가 반환하니까 result2를 만들 필요가 없음
+    //콜백으로 만들어보자
+    const result2 = persons.map((person) => {
+      return person //person을 하나씩 넣어보면?
+    })
+    console.log(result2, 'result2') //지금은 배열만 들어가지는데 => 만약 값만 넣어야 한다면?
+
+    const result3 = persons.map((person) => {
+      return person.name
+    })
+    console.log(result3, '각 person.name이 return화 됨') 
+  
+
+
+    //또 다른 값으로 연습해보기
+    const names = ['Alice', 'Bella', 'Cathy']
+    //이 친구들의 길이를 반환해보자
+
+    const namesLength = names.map((name) => { //forEach를 쓰면 값이 들어가지 않음 => 해당 부분 오류
+      return name.length 
+    })
+    console.log('names each length? : ', namesLength)
+
+
+    //또 다른 값으로 연습해보기
+    const numbers = [1, 2, 3]
+    //상기 값을 활용해보자
+    const doubleNumber = numbers.map((number) => {
+      return number * 2
+    })
+    //이건 원래 버전
+ 
+    const TripleNumber = function(number){
+      return number*3 //이거 return 으로 일단 잡고 => 이것도 return?
+    }
+    const result4 = numbers.map(TripleNumber) //map자체가 반환인데 return 3?
+    console.log(result4, 'it is True?')
+
+
+    //하기 두개 값이 똑같이 나온다?
+    //음.. 뭘까?? => return 값이 없어도? map 은 return 
+
+    //만약 function도 return이 없으면?
+    const TripleNumber2 = function(number) {
+      number*3
+    }
+    const result5 = numbers.map(TripleNumber)
+    console.log(result5, 'noReturn')
+
+
+  </script>
+</body>
+
+</html>
