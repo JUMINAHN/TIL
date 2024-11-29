@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="root">
+
+  </div>
+</body>
+<!-- https://legacy.reactjs.org/docs/cdn-links.html -->
+<!-- https://yamoo9.gitbook.io/webpack/babel/babel-standalone/ -->
+<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+  //jsx를 이해시켜주는 것 == babel : jsx가 적은 것
+  //props 속성 => id : property
+  //기존 html
+  // const root = document.querySelector("#root")
+  // const Title = (
+  //   <h3 id="title" onMouseEnter={() => console.log('mouser enter')}>
+  //     Hello I'm a title
+  //     </h3>
+  //   )
+
+  //함수형 컴포넌트로 변경
+  const Title = () => (
+    <h3 id="title" onMouseEnter={() => console.log('mouser enter')}>
+      Hello I'm a title
+    </h3>    
+    )
+
+
+  const Button = () => (
+      <button style={{
+      backgroundColor : "tomato", 
+    }} 
+    onClick={() => console.log("im clicked")}>
+      Click Here
+    </button>
+    )
+
+
+  const App = () => {
+    <div>
+      <Title />
+      <Button />
+    </div>
+  }  
+  //   const Button = (
+  //   <button style={{
+  //     backgroundColor : "tomato", //css 자체 {} 속성 => 거기다가 props 속성은 모두 {}
+  //   }} 
+  //   onClick={() => console.log("i'm clicked")}>
+  //     Click Here
+  //   </button>
+  // )
+
+  //tag안에 코드를 넣어서 더 직관적으로 이해시켜줌 
+  // const container = React.createElement("div", null, [Title, Button])
+  // ReactDOM.render(container, root)
+  const root = ReactDOM.createRoot(document.querySelector('#root'))
+  root.render(<App />)
+
+</script>
+</html>  
