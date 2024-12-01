@@ -22,6 +22,9 @@ const Button = ({text, color = 'blue', children}) => {
   const onClickButton = (e) => {
     console.log(e) //이벤트 객체 가능
     //syntehtic basic : 합성 이벤트 객체
+    //크롬은 target, 사파리는 etarget
+    //브라우저 규격 동작이 달라서 발생하는게 synthentic Event
+    //통일된 규격으로 통일 시켜줌 => cross 이슈 
     console.log(text, "click event 발동")
   }
 

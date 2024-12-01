@@ -1,45 +1,33 @@
+//1. state변경
+//2. props 변경되면 리랜더링
+//3. 부모 컴포넌트 변경되면 자식도 리랜더링 => 따라서 관련없는 것 분류
+
+import { useState } from 'react'
 import './App.css'
-import Header from './components/Header' //react는 파일 확장자 생략 가능
-import Main from './components/Main' 
-import Footer from './components/Footer' 
-import Button from './components/Button'
+import Bulb from './components/Bulb'
+import Counter from './components/Counter'
 
+function App() { 
+  //const state = useState()
+  //undefined, function => 2개의 배열을 볼 수 있음
+  //2개의 요소를 담은 배열
+  //초기값 => useState에 0을 넣으면 0이 출력 == state현재 값
+  //함수 == 상태를 변화시키는 함수 == 상태변화함수
+  //따라서 일반적으로 배열화 
+  //가변적인 값을 state로 관리한다.
+  //값과 함수 => 구조 분해 할당
 
-//여기서는 @/components가 안되나?
-
-
-function App() { //함수의 이름을 따서 컴포넌트라고 부른다.
-
-  //여기서 props로 전달하는 것이 Vue랑 비슷한지? 
-  //그떄는 :sth = {} 이런식으로 전달하고
-  //define으로 받았었는데 ?
-  //헷갈리는게 지금 text={"sth"}그냥 단순 이런구조로 접근해도 되는건가?
-
-  const buttonProps = {
-    text : '메일',
-    color : 'red',
-    a : 1,
-    b : 2,
-    c : 3
-  }
-
+  //교재에서 본 것처럼 다시
 
   return ( 
     <>
-    {/* 다른 text를 전달 -> 일단 이거 제공해준 것이고 활용 아직 X*/}
-    <Button {...buttonProps}/> 
-    <Button text={"카페"}/>
-    <Button text={"블로그"}>
-      <div>자식요소</div>
-      {/* 자동으로 자식요소? : 자동으로 children */}
-    </Button>
-      {/* <Header />  */}
-      {/* 반환값을 불러와서 함께 랜더링 된다. == 즉 자식 컴포넌트 */}
-      {/* <h1>안녕 리액트</h1>  */}
-      {/* <Main/> */}
-      {/* <Footer /> */}
-      {/* html 반환 가능 => 앱은 랜더링 됨 ==이건 부모컴포넌트 (ROOT) */}
-      {/* Root가 무엇인지에 따라 달라짐 : 관례상 APP이 루트 컴포넌트 */}
+      {/* <h1>{light}</h1>/ */}
+      {/* light라는 속성을 상기에 추가했기 때문에 light라는 곳에 light 속성값을 넣어주는 것 Q? */}
+      {/* 자식 컴포넌트는 부모에게 받는 props가 바뀌게 되면 계속해서 리랜더링 된다.*Q */}
+      <Bulb />
+      <Counter />
+
+
     </>
   )
 }
