@@ -1,0 +1,18 @@
+body {
+  padding : 20px;
+}
+
+.App {
+  margin : 0 auto;
+  /* 0 auto */
+  /* 해당 기능의 넓이 */
+  width: 400px;
+}
+
+.App > section {
+  background-color: rgb(245,245,245);
+  border:1px solid rgb(240,240,240);
+  border-radius: 5px;
+  padding : 20px;
+  margin-bottom: 20px;
+}
