@@ -1,0 +1,25 @@
+.Editor {
+  display: flex;
+  gap: 10px;
+}
+
+/* 한칸 다 차지하는 css */
+/* 높이? */
+
+.Editor > input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 5px;
+  /* 여기 패딩을 주니까 button도 같이 적용됨 => 이유? */
+}
+
+.Editor > button {
+  cursor: pointer;
+  width: 50px;
+  border: none;
+  background-color: rgb(28, 145, 255);
+  border-radius: 5px;
+  color: white;
+}
+

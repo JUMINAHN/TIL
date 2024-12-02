@@ -1,0 +1,34 @@
+.List {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* LIST 관련은 진행하지 않았음 */
+
+.ListSearch > input{
+  width: 100%;
+  /* 넓이도 */
+  border: none;
+  padding : 10px;
+  border-bottom: 1px solid rgb(227,227,227);
+}
+
+.ListSearch > input:focus {
+  /* outLine : 윤곽 */
+  outline: none;
+  border-bottom : 1px solid rgb(37, 147, 255);
+}
+
+.ListInput {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ListDetail {
+  display: flex;
+  align-items: center; 
+  /* 새로 중앙 정렬  == 삭제 사이즈 동일화 */
+  gap: 10px;
+}
