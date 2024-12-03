@@ -5,11 +5,13 @@ import './Editor.css'
 const Editor = ({onClickAddBtn}) => {
   const [input, setInput] = useState('') //초기값 
   const inputRef = useRef()//빈값
+  //입력값 자체는 지금 여기 코드에 활용된 것이고 관련데이터를 어디로 넘겨주냐에 따라 다름
 
   const onChangeInput = (e) => {
-    console.log(e.target.value, '타겟 value')
     //지금 input만 했는데도 error가 뜨는 문제 
     setInput(e.target.value)
+
+
   }
 
   const onClickBtn = () => { 
@@ -19,7 +21,6 @@ const Editor = ({onClickAddBtn}) => {
       return
     }
     onClickAddBtn(input)
-    console.log('input 값 출력 형태 : ', input)
     //하자말자 비워주기
     setInput('') // state 자체가 초기화되는 것
   }
@@ -33,7 +34,7 @@ const Editor = ({onClickAddBtn}) => {
     }
   }
 
-
+  //여기
   return (
     <div className="Editor">
       <input type="text"

@@ -1,28 +1,31 @@
 import './TodoItem.css'
-//매개변수로 todoListItem을 받아와야 함 
-//어디서? List에서 
 
-const TodoListItem = ({todo}) => {
-  // const todos = [
-  //   {id : 0, isDone : false, title:'REACT 공부하기', date:'Date'},
-  //   {id : 1, isDone : false, title:'빨래 널기', date:'Date'},
-  //   {id : 2, isDone : false, title:'노래 연습하기', date:'Date'}  
-  // ]
 
-  return(
-    <div>
-      {todo.map((todo) => (
-        <div className="TodoItem"
-        key={todo.id}>
-          <input type="checkbox"
-          />
-          <h4>{todo.title}</h4>
-          <h5>{todo.date}</h5>
-          <button>삭제</button>          
-        </div>
-      ))}
+const TodoItem = ({todo, onChangeCheck, onDeleteData}) => {
+  //onChangeCheck를 누르면 checked가 수정될 것
+  const onChangeUpdate = (todo) => {
+    console.log(todo)
+    onChangeCheck(todo.id) //todo의 id를 전달해준다.
+  }
+
+  const onClickDelete = (todo) => {
+    onDeleteData(todo.id)
+  }
+
+  //checked가 수정되어야 함
+  return (
+    <div className="TodoItem">
+      <input 
+        type="checkbox"
+        onChange={()=>onChangeUpdate(todo)}
+        checked={todo.isDone}
+      />
+      <h4>{todo.title}</h4>
+      <h5>{new Date(todo.date).toLocaleDateString()}</h5>
+      <button
+      onClick={()=>onClickDelete(todo)}>삭제</button>          
     </div>
   )
 }
 
-export default TodoListItem
+export default TodoItem
