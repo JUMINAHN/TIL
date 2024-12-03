@@ -1,0 +1,8 @@
+.TodoItem {
+  display: flex;
+  align-items: center; 
+  /* 새로 중앙 정렬  == 삭제 사이즈 동일화 */
+  gap: 5px;
+}
+
+/* 디테일한 CSS 보류  */
