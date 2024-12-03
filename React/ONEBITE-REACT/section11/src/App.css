@@ -1,0 +1,11 @@
+.App {
+  width: 500px;
+  margin : 0 auto;
+  display: flex;
+  flex-direction: column;
+  /* 열 기준으로 세로로 배치 */
+  gap : 10px;
+  /* display column인 경우만 가능*/
+
+  /* margin : 0 auto; */
+}
