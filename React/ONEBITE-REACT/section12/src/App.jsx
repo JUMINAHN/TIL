@@ -12,20 +12,28 @@ import './App.css'
 
 
 
-//일기 데이터 여러개
+// 일기 데이터 여러개
+// 필터링을 위해서 임시데이터 변경해줌
 const mockData = [
   {
     id : 1,
-    createdData : new Date().getTime(),
+    createdData : new Date("2024-12-04").getTime(),
     emotionId : 1,
     content : "1번 일기 내용"
   },
   {
     id : 2,
-    createdData : new Date().getTime(),
+    createdData : new Date("2024-12-03").getTime(),
     emotionId : 2,
     content : "2번 일기 내용"
   },
+  {
+    id : 3,
+    createdData : new Date("2024-11-02").getTime(),
+    emotionId : 3,
+    content : "3번 일기 내용"
+  },
+
 ]
 
 //reducer은 신기하게
@@ -45,8 +53,9 @@ function reducer(state, action){
   } 
 }
 //모든 곳에서 사용가능할 수 있도록 공급
-const DiaryStateContext = createContext() //data state 값을 routes 밑의 모든 페이지가 접근할 수 있도록 한다.
-const DiaryDispatchContext = createContext()
+//DiaryState를 다른데서 사용해야하니까 내보내야함 
+export const DiaryStateContext = createContext() //data state 값을 routes 밑의 모든 페이지가 접근할 수 있도록 한다.
+export const DiaryDispatchContext = createContext()
 
 function App() {
   const refId = useRef()
@@ -93,27 +102,6 @@ function App() {
 
   return (
     <>
-    {/* 상단에 components 뜨는 것 생각 */}
-    <Header title={"Header"}
-    leftChild={<Button text={"<"}/>}
-    rightChild={<Button text={">"}/>}/>
-
-      <button onClick={()=> {
-        onCreate(new Date().getTime(), 1, '나의 감정 일기 Test')
-      }}>
-        나의 감정 등록하기
-      </button>
-      <button onClick={()=>{
-        onUpdate(1, new Date().getTime(), 3, '수정된 일기입니다.')
-      }}>
-        나의 감정 수정하기
-      </button>
-      <button onClick={()=> {
-        onDelete(1)
-      }}>
-        나의 감정 삭제하기
-      </button>
-     
       <DiaryStateContext.Provider value={data}>
         <DiaryDispatchContext.Provider value={{
           onCreate,
