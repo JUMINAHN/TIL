@@ -58,7 +58,7 @@ export const DiaryStateContext = createContext() //data state 값을 routes 밑�
 export const DiaryDispatchContext = createContext()
 
 function App() {
-  const refId = useRef()
+  const refId = useRef(4)
   const [data, dispatch] = useReducer(reducer, mockData) //state 대신 reducer 전체 복잡한 코드 쉽게 관리하기 위함
 
   //새로운 일기 추가 = newpage()가 정상 호출될거라 생각하고
