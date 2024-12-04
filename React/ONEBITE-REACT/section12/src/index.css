@@ -19,6 +19,7 @@ html, body {
   min-height: 100vh;
   height: 100%;
   box-shadow: rgba(100, 100, 100, 0.2) 0px 0px 29px 0px; 
+  padding : 0px 20px;
   /* vh == view height : 현재 브라우저 스크린 높이  ==최대 높이만큼*/
 }
 

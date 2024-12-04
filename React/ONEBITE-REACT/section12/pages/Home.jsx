@@ -6,7 +6,7 @@ import { useSearchParams } from "react-router-dom"
 const Home = () => {
   //searchParams는 [sth, set] 구조로
   const [params, setParams] = useSearchParams()
-  console.log(params.get('value'))
+  // console.log(params.get('value'))
   //?value=hello로 알맞게 전달받을 수 있음 => value로된 것을 가져온다는의미?
   return (
     <h1>Home</h1>

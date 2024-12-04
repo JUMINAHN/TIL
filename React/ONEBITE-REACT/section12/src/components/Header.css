@@ -1,0 +1,31 @@
+.Header {
+  display: flex;
+  align-items: center;
+  /* align-items는 열 기준으로 */
+  padding : 20px 0px;
+  border-bottom: 1px solid rgb(226, 226, 226);
+}
+
+.Header > div {
+  display: flex;
+  /* 이거 div안에서는 왜하는것? : div밑에 btn밖에 없는데 */
+}
+
+/* .Header하고 .header_left를 하는 이유는 Heder밑에 header_left 모든 하위 요소 의미? */
+.Header .header_center {
+  width: 50%;
+  font-size: 25px;
+  justify-content: center;
+  /* 자식들이 배치하는 것을 가운데 : justify-content : 이안에선 어떻게? */
+} 
+
+.Header .header_left {
+  width: 25%;
+  justify-content: flex-start;
+}
+
+.Header .header_right {
+  width: 25%;
+  justify-content: flex-end;
+} 
+
