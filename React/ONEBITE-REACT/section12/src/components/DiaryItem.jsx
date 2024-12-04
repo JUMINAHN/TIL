@@ -21,7 +21,8 @@ const DiaryItem = ({id, emotionId, createdData, content}) => {
       }}
       className="info_section">  
         <div className="created_date">
-          {createdData}
+          {new Date(createdData).toLocaleDateString()} 
+          {/* 여기 표기 오류 */}
         </div>
         <div className="content">{content}</div>
       </div>

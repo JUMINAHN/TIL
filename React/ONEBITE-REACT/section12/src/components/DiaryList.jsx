@@ -20,9 +20,9 @@ const DiaryList = ({data}) => {
   const getSortedDate = () => {
     return data.toSorted((a,b) => {
       if (sortType === "oldest") {
-        return Number(a.createdData) - Number(b.createdData)
+        return new Date(a.createdData) - new Date(b.createdData)
       } else {
-        return Number(b.createdData) - Number(a.createdData)
+        return new Date(b.createdData) - new Date(a.createdData)
       }
     })
   }
@@ -33,7 +33,7 @@ const DiaryList = ({data}) => {
     <div className="DiaryList">
       <div className="menu_bar">
         <select
-        onClick={onChangeSortType}>
+        onChange={onChangeSortType}>
           {/* 정렬관련 */}
           <option value={"latest"}>최신순</option>
           <option value={"oldest"}>오래된 순</option>
