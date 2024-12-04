@@ -9,6 +9,8 @@ html, body {
   margin : 0px;
   width: 100%;
   background-color: rgb(246,246,246);
+  display: flex; 
+  /* flex: 사용해서 내부 요소 자연스럽게 배치시킴 */
 }
 
 #root {
