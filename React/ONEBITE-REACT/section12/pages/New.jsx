@@ -14,6 +14,7 @@ const New = () => {
     onCreate(input.createdDate.getTime(), input.emotionId, input.content)
     nav('/', {replace:true}) //뒤로가기 방지
   }
+  
   return (
     <div>
       <Header 

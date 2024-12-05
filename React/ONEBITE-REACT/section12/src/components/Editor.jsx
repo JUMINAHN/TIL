@@ -3,9 +3,8 @@ import Button from './Button'
 import './Editor.css'
 import EmotionItem from './EmotionItem'
 import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react';
 
-//나의 감정 => 계속 랜더링 할필요가 없으니 외부에 선언
-//emotionId 이름, emotionText
 const EmotionList = [
   {
     emotionId : 1,
@@ -29,9 +28,7 @@ const EmotionList = [
   }
 ]
 
-//지금은 초기값
 const getStringDate = (targetDate) => {
-  //날짜 yyyy-mm-dd 형식으로 바꿔줘야 함 => 데이터 소스 받아오기
   let year = targetDate.getFullYear()
   let month = targetDate.getMonth() + 1
   let date = targetDate.getDate()
@@ -46,19 +43,38 @@ const getStringDate = (targetDate) => {
   return `${year}-${month}-${date}`
 }
 
-const Editor = ({onSubmit}) => {
-  //이모션별로 어떠한 감정이 선택되었는지 담아줘야 함
-  //사용자가 입력한 값들 다 담아줘야함 => 감정, 날짜, 일기 등..
-  //onCreate에 전달해주면 됨 => 근데 oncreate XX => edit페이지에서 업데이트를 시켜야하니까 이부분 조심해야 함
-  //작성완료 -> page -> props로 전달받음 
+//initData가 초기값으로 설정
+const Editor = ({initData, onSubmit}) => {
   const [input, setInput] = useState({ //여러 요소 객체로 담아줘야 함
     // 더미
-    createdDate : new Date(),
+    createdDate: new Date(), 
     emotionId : 3,
-    content : "",
+    content : "하하",
   })
   const nav = useNavigate()
+  useEffect(()=> {
+    if(initData) {
+      //initData가 있을떄만
+      setInput({
+        ...initData,
+        createdDate: new Date(Number(initData.createdDate))
+        //new Date그 자체로 들ㅇ거ㅏ면 우리가 날짜를 객체로 바꾼 것에 대한 에러가 있을 수 있기 때문에 저렇게 설정
+      })
+    }
+  }, [initData]) //initData => ctrl + s 로 뜨게 되는 이유는 의존성 배열이 명확하게 되어있지 않아서
   
+  const onClickSubmit = () => {
+  if (input.content.length < 1) {
+    window.alert("일기 내용을 작성해주세요")
+    return
+  }
+  
+  if (window.confirm(initData ? "일기를 수정하시겠습니까?" : "새로운 일기를 작성하시겠습니까?")) {
+    onSubmit(input)
+  }
+}
+
+  //new에서 한 것 처럼 동일하게 onsubmit
 
   // 일단 오늘의 날짜 관련 함수로만 받아와보기
   const onChangeInput = (e) => {
@@ -77,16 +93,14 @@ const Editor = ({onSubmit}) => {
     })
   }
 
-  const onClickSubmit = () => {
-    onSubmit(input) //그냥 inputsatc넘겨준다
-  }
-  // const emotionId = 5 //이거와 일치하면 특별한 메서드 제공
+  // const onClickSubmit = () => {
+  //   onSubmit(input) //그냥 inputsatc넘겨준다
+  // }
 
   return (
     <div className='Editor'>
       <section className='date_section'>
         <h4>오늘의 날짜</h4>
-        {/* input은 createDate로 만든 Date()객체를 이해못함 -> string Type으로 바꿔줘야 함 */}
         <input value={getStringDate(input.createdDate)} 
         name="createdDate"
         onChange={onChangeInput}
@@ -96,22 +110,15 @@ const Editor = ({onSubmit}) => {
         <h4>오늘의 감정</h4>
         <div className='emotion_list_wrapper'>
           {EmotionList.map((item) => <EmotionItem 
-          //component 클릭이지만 onClick으로 이벤트 강제 발생
-          // 직접 만들어서 전달해줘야함
           onClick={() => onChangeInput({
-            //컴포넌트라서 자동으로 전달되지 않음
-            // 여기 주의
             target : {
               name : "emotionId",
               value : item.emotionId
             }
           })}
           key={item.emotionId}
-          // emotionId={item.emotionId}
-          // emotionName={item.emotionName}
           {...item}
           isSelected={item.emotionId === input.emotionId}/>)} 
-          {/* item 모두 활용? Q.? */}
         </div>
       </section>
       <section className='content_section'>

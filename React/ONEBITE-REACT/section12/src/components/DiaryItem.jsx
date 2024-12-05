@@ -4,7 +4,7 @@ import Button from "./Button"
 import './DiaryItem.css'
 
 
-const DiaryItem = ({id, emotionId, createdData, content}) => {
+const DiaryItem = ({id, emotionId, createdDate, content}) => {
   const nav = useNavigate()
   return(
     <div className="DiaryItem">
@@ -21,8 +21,8 @@ const DiaryItem = ({id, emotionId, createdData, content}) => {
       }}
       className="info_section">  
         <div className="created_date">
-          {new Date(createdData).toLocaleDateString()} 
-          {/* 여기 표기 오류 */}
+        {new Date(createdDate).toLocaleDateString()} 
+        {/* 여기 표기 오류 */}
         </div>
         <div className="content">{content}</div>
       </div>

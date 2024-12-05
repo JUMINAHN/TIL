@@ -24,8 +24,7 @@ const getMonthlyData = (pivotDate, data) => { //오늘 날짜, 일기 데이터(
     59,
     59
   ).getTime()
-  return data.filter((item) => beginTime <= item.createdData && item.createdData <= endTime)
-  
+  return data.filter((item) => beginTime <= item.createdDate && item.createdDate <= endTime)
 
 }
 
