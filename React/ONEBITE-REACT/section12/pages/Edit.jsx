@@ -4,6 +4,8 @@ import Button from "../src/components/Button"
 import Editor from "../src/components/Editor"
 import { DiaryDispatchContext, DiaryStateContext } from "../src/App"
 import { useContext, useEffect, useState } from "react"
+import useDiary from "../src/hooks/useDiary"
+import usePageTitle from "../src/hooks/usePageTitle"
 
 
 
@@ -14,23 +16,9 @@ const Edit = () => {
   //app의 data에서 우리가 원하는것만 받아오며 됨
   const nav = useNavigate()
   const {onDelete, onUpdate} = useContext(DiaryDispatchContext)
-  const data = useContext(DiaryStateContext) 
   // console.log(data)
-  const [currentDiaryItem, setCurrentDiaryItem] = useState()
-
-  //mount된 이후, 일기 데이터를 통해서 진행할 수 있음
-  useEffect(()=>{ //getCurrentDiary가 하던기능 그대로 넣어줌
-    const currentDiaryItem = data.find((item) => 
-      String(item.id) === String(params.id))
-      
-      if (!currentDiaryItem) {
-        window.alert('존재하지 않는 일기입니다.')
-        // 홈페이지로 보내달라고 했는데 그대로 수정에만 진행됨
-        nav('/', {replace : true})
-      }
-      setCurrentDiaryItem(currentDiaryItem) //값이 있으면 그냥 이 값 자체를 반환해주면 됨
-      //이 값을 보관할 곳이 없기 떄문에 저장할 state 만들어줌
-  }, [params.id, data])
+  const currentDiaryItem = useDiary(params.id)
+  usePageTitle(`${params.id}번 일기 수정`)
 
   const onClickDelete = () => {
     if (
