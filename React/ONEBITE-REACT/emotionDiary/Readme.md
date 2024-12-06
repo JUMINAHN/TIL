@@ -363,4 +363,382 @@ export const getEmotion = (emotionId) => {
 //받아는 왔는데 깔끔하지 못한 느낌..
 ```
 
-⇒ 이부분 내가 지금 작성한거랑 swtich case 부분
+<aside>
+💡
+
+**강의에서 해설된 내용**
+
+</aside>
+
+```jsx
+export function getEmotionImage (emotionId) {//emotion 관련 id를 받아와서 필터링
+  switch (emotionId) {
+    case 1: 
+      return emotion1
+    case 2: 
+      return emotion2
+    case 3:   
+      return emotion3
+    case 4: 
+      return emotion4
+    case 5: 
+      return emotion5
+    default:
+      return null
+  }
+}
+
+```
+
+<aside>
+💡
+
+**지피티 분석 내용**
+
+</aside>
+
+### 접근 방식 비교
+
+| 특성 | 배열과 find 메서드 사용 | switch 문 사용 |
+| --- | --- | --- |
+| 코드 길이 | 더 길고 복잡함 | 간결하고 직관적 |
+| 확장성 | 새로운 감정 추가가 쉬움 | 새로운 case 추가 필요 |
+| 성능 | 배열 순회 필요 (O(n)) | 직접 접근 (O(1)) |
+| 유연성 | 객체로 추가 정보 저장 가능 | **단순 매핑에 적합** |
+| 가독성 | 데이터 구조가 명확히 보임 | 로직이 간단히 보임 |
+
+### 예시와 분석
+
+1. 배열과 find 메서드 접근:
+    
+    ```jsx
+    const emotions = [
+      { id: 1, emotionId: emotion1, emotionName: '완전 좋음' },
+      // ... 다른 감정들
+    ];
+    
+    export const getEmotion = (emotionId) => {
+      return emotions.find(item => String(emotionId) === String(item.id));
+    }
+    
+    ```
+    
+    - 장점: 감정에 대한 추가 정보(이름 등)를 쉽게 저장하고 관리할 수 있음
+    - 단점: **매번 배열을 순회해야 하므로 성능상 비효율적**일 수 있음
+2. switch 문 접근:
+    
+    ```jsx
+    export function getEmotionImage(emotionId) {
+      switch (emotionId) {
+        case 1: return emotion1;
+        // ... 다른 케이스들
+        default: return null;
+      }
+    }
+    
+    ```
+    
+    - 장점: **직접적이고 성능이 좋음**
+    - 단점: 새로운 감정을 추가할 때 함수를 수정해야 함
+
+### **문제 해결 접근 방법**
+
+1. 요구사항 명확화:
+    - **단순히 이미지만 필요한지, 추가 정보도 필요한지 파악**
+2. 확장성 고려:
+    - 향후 확장 가능성을 고려하여 적절한 방식 선택
+3. 성능 고려:
+    - 데이터 규모와 접근 빈도를 고려하여 적절한 방식 선택
+
+### 헷갈림의 원인
+
+1. 과도한 일반화:
+    - **단순한 문제에 복잡한 해결책을 적용하려 함**
+2. 데이터 구조와 로직의 혼동:
+    - **데이터 저장과 접근 로직을 분리하지 않음**
+
+### 개선 방향
+
+1. **문제를 단순화하여 접근**
+2. **요구사항에 맞는 가장 간단한 해결책 먼저 고려**
+3. **필요에 따라 점진적으로 복잡성 추가**
+
+이렇게 접근하면 문제 해결이 더 쉬워지고, 코드도 더 깔끔해질 것입니다.
+
+## 데이터 저장과 접근 로직을 분리하지 않을 경우 예시
+
+---
+
+프로그래밍에서 중요한 개념인 "관심사의 분리(Separation of Concerns)"와 관련이 있습니다. 이를 더 자세히 설명해 드리겠습니다:
+
+1. **데이터 저장:**
+    - 데이터의 구조와 내용을 정의하는 부분
+    - 예: `emotions 배열`의 정의
+2. **접근 로직:**
+    - 저장된 데이터를 사용하는 방법을 정의하는 부분
+    - 예: `getEmotion` 함수
+
+두 개념을 분리하지 않았을 때의 예:
+
+```jsx
+export const getEmotion = (emotionId) => {
+  const emotions = [
+    { id: 1, emotionId: emotion1, emotionName: '완전 좋음' },
+    // ... 다른 감정들
+  ];
+  return emotions.find(item => String(emotionId) === String(item.id));
+}
+
+```
+
+분리한 경우:
+
+```jsx
+// 데이터 저장
+const emotions = [
+  { id: 1, emotionId: emotion1, emotionName: '완전 좋음' },
+  // ... 다른 감정들
+];
+
+// 접근 로직
+export const getEmotion = (emotionId) => {
+  return emotions.find(item => String(emotionId) === String(item.id));
+}
+
+```
+
+이렇게 분리하면:
+
+1. 코드의 가독성이 향상됩니다.
+2. 데이터 구조 변경과 접근 로직 변경을 독립적으로 할 수 있습니다.
+3. 재사용성과 유지보수성이 높아집니다.
+
+# [CSS] 관련 개념 부족
+
+---
+
+```jsx
+@font-face { /* 사용자 폰트 정의 */
+  font-family: "NanumPenScript";
+  src: url('/public/NanumPenScript-Regular.ttf');
+}
+
+body * { /*body 내의 모든 요소에 스타일을 적용*/
+  font-family: "NanumPenScript";
+}
+
+html, body {
+  margin : 0px;
+  width : 100%;
+  background-color: rgb(246, 246, 246);
+  /* min-height : 100%; */
+  /* height : 100%; */
+  /*min-height: 100%;와 height: 100%;는 페이지 전체 높이를 차지하게 만듭니다. 
+    둘 중 하나만 사용해도 충분합니다. */
+}
+
+/* 메인 컨테이너 스타일 => body 태그 안의 div아이디가 root */
+#root {
+  background-color: white;
+  max-width: 600px;
+  width: 100%; /* 부모 요소의 전체 너비를 차지 */
+  margin: 0 auto; /* 요소를 수평 중앙에 위치 */
+  /* min-height: 100%; */
+  height : 100%;
+  min-height: 100vh; /* vh : 뷰포트 : 브라우저 창의 높이의 100%를 최소 높이로 설정 */
+  /* vh : 현재 브라우저 스크린 크기 : 브라우저 스크린 높이만큼 */
+  box-shadow: rgba(100, 100, 100, 0.2) 0px 0px 29px 0px;
+  /* 순서대로 색상, x-offset, y-offset, blur-radius, spread-radius를 나타냅니다. */
+}
+```
+
+1. 뷰포트와 높이 설정:
+    - 뷰포트(viewport)는 웹 페이지가 표시되는 브라우저의 가시 영역입니다.
+    - `vh` (viewport height)는 뷰포트 높이의 1%를 나타냅니다. 100vh는 **뷰포트 전체 높이입니다.**
+    - 높이 설정 best practice:
+        
+        ```css
+        html, body {
+          height: 100%;
+        }
+        #root {
+          min-height: 100vh;
+        }
+        
+        ```
+        
+    
+    이렇게 하면 `#root`가 최소한 뷰포트 전체 높이를 차지하며, **내용이 더 길어지면** 그에 맞춰 늘어납니다.
+    
+    [가시화]
+    
+    1. HTML과 BODY 설정:
+        
+        ```
+        +------------------------+
+        |  HTML (height: 100%)   |
+        |  +--------------------+|
+        |  | BODY (height: 100%)||
+        |  |                    ||
+        |  |                    ||
+        |  |                    ||
+        |  |                    ||
+        |  |                    ||
+        |  +--------------------+|
+        +------------------------+
+        
+        ```
+        
+        HTML과 BODY가 브라우저 창의 전체 높이를 차지합니다.
+        
+    2. ROOT 설정:
+        
+        ```
+        +------------------------+
+        |  HTML & BODY           |
+        |  +--------------------+|
+        |  | #root (min-height: ||
+        |  |        100vh)      ||
+        |  |                    ||
+        |  |                    ||
+        |  |                    ||
+        |  |                    ||
+        |  +--------------------+|
+        +------------------------+
+        
+        ```
+        
+        #root는 최소한 뷰포트 높이(100vh)만큼의 높이를 가집니다.
+        
+    3. 내용이 적을 때:
+        
+        ```
+        +------------------------+
+        |  HTML & BODY           |
+        |  +--------------------+|
+        |  | #root              ||
+        |  | +-----------------+||
+        |  | | Content         |||
+        |  | +-----------------+||
+        |  |                    ||
+        |  |                    ||
+        |  +--------------------+|
+        +------------------------+
+        
+        ```
+        
+        내용이 적어도 #root는 여전히 전체 뷰포트 높이를 유지합니다.
+        
+    4. 내용이 많을 때:
+        
+        ```
+        +------------------------+
+        |  HTML & BODY           |
+        |  +--------------------+|
+        |  | #root              ||
+        |  | +-----------------+||
+        |  | | Content         |||
+        |  | |                 |||
+        |  | |                 |||
+        |  | |                 |||
+        |  | |                 |||
+        |  | +-----------------+||
+        |  +--------------------+|
+        |                        |
+        +------------------------+
+        
+        ```
+        
+        **내용이 뷰포트 높이를 초과하면 #root와 BODY, HTML이 함께 늘어납니다.**
+        
+    
+    이 설정의 주요 이점은 내용의 양에 관계없이 최소한 전체 화면 높이를 차지하면서, 필요시 더 늘어날 수 있다는 것입니다.
+    
+2. HTML과 BODY:
+    - HTML은 최상위 요소입니다. **BODY는 HTML의 직접적인 자식**입니다.
+    - HTML에 스타일을 적용하지 않으면, 일부 브라우저에서 **예상치 못한 여백**이 생길 수 있습니다.
+
+1. ROOT와 BODY:
+    - `#root`는 보통 React 앱의 최상위 컨테이너로, **BODY의 직접적인 자식**입니다.
+    - **ROOT에 적용된 스타일은 BODY의 크기와 스타일을 기반으로 동작**합니다.
+
+1. Box Shadow 속성:
+    - **x-offset: 그림자의 수평** 위치 (양수: 오른쪽, 음수: 왼쪽)
+    - **y-offset: 그림자의 수직** 위치 (양수: 아래, 음수: 위)
+    - **blur-radius: 그림자의 흐림** 정도 (값이 클수록 더 흐림)
+    - **spread-radius: 그림자의 크기** (양수: 확장, 음수: 축소)
+
+[box-shadow - CSS: Cascading Style Sheets | MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow)
+
+이러한 설정들을 통해 웹 페이지의 레이아웃과 시각적 효과를 정밀하게 제어할 수 있습니다.
+
+## height와 min-height의 사용법
+
+---
+
+### CSS 속성 비교
+
+| 속성 | 설명 | 사용 예시 | 효과 |
+| --- | --- | --- | --- |
+| `height: 100%` | **부모 요소**의 높이를 기준으로 100% 설정 | `html, body { height: 100%; }` | **부모 요소의 높이에** 따라 높이가 결정됨. |
+| `min-height: 100%` | 부모 요소의 높이를 기준으로 **최소** 높이 설정 | `#root { min-height: 100%; }` | 내용이 부족하면 100% 높이를 유지하며, **내용이 많아질 경우 늘어남.** |
+| `min-height: 100vh` | 뷰포트 높이에 기반하여 최소 높이를 설정 | `#root { min-height: 100vh; }` | 항상 뷰포트 높이만큼 최소 높이를 유지함. |
+
+### 예시 코드
+
+### HTML 구조
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Height vs Min-Height Example</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="root">
+        <h1>Hello World!</h1>
+        <p>This is a simple demonstration of height and min-height properties.</p>
+        <!-- 이 부분에 내용이 더 추가될 수 있습니다. -->
+    </div>
+</body>
+</html>
+
+```
+
+### CSS 코드
+
+```css
+html, body {
+    height: 100%;  /* 부모 요소의 높이를 100%로 설정 */
+    margin: 0;     /* 기본 마진 제거 */
+    padding: 0;    /* 기본 패딩 제거 */
+}
+
+#root {
+    min-height: 100vh; /* 뷰포트 전체 높이를 최소 높이로 설정 */
+    background-color: white;
+    margin: 0 auto;    /* 수평 중심 정렬 */
+    max-width: 600px;  /* 최대 너비 설정 */
+    box-shadow: rgba(100, 100, 100, 0.2) 0px 0px 29px 0px; /* 그림자 효과 */
+    padding: 20px;     /* 내부 여백 */
+}
+
+```
+
+### 설명
+
+- **HTML 구조**:
+    - `#root`는 내용을 담고 있는 최상위 요소입니다.
+- **CSS**:
+    - `html, body { height: 100%; }`: HTML과 BODY 요소가 브라우저 전체 높이를 차지합니다.
+    - `#root { min-height: 100vh; }`: #root 요소는 뷰포트의 높이를 최소한으로 차지하며, 내용이 더 많아지면 늘어납니다.
+
+### 결과
+
+1. **내용이 적을 경우**:
+    - `#root`는 뷰포트 전체 높이를 차지합니다.
+2. **내용이 많을 경우**:
+    - 사용자가 추가한 내용에 따라 `#root`는 아래로 늘어납니다.
