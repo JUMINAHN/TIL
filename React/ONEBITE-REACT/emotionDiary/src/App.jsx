@@ -6,12 +6,8 @@ import Home from './pages/Home'
 import New from './pages/New'
 import NotFound from './pages/NotFound'
 import { createContext, useContext, useEffect, useReducer, useRef } from 'react'
-//createcontext 선언을 어디서 하는게 좋은가..?
-//계속 랜더링 되어야 하는가? context가? => click : 계속 동적으로? 
 
 
-
-//수정, 삭제 => 어디서? : new page & home & edit 모두
 function reducer(state, action) { 
   switch(action.type) { 
     case "CREATE":
@@ -25,18 +21,14 @@ function reducer(state, action) {
   }
 }
 
-//계속 리랜더링 할필요가 없으면 외부에 작성 => mockData쓸것
-//이거는 어떻게 보면 계속 랜더링 되어야 하는 값아닌가.. ? 일단
-const mockData = [ //어떤 데이터 => 날짜 데이터, 감정, 내용, id
+const mockData = [
   {id : 1, createdDate : new Date().getTime(), emotionId : 1, content : '1번 일기'},
   {id : 2, createdDate : new Date().getTime(), emotionId : 2, content : '2번 일기'},
   {id : 3, createdDate : new Date().getTime(), emotionId : 3, content : '3번 일기'},
 ]
 
 //사용할때 useContext로 사용할 것
-//onCreate, Delete, Update 함수 들어가긴 했는데 뭔가 약간 애매한 느낌
 //이것도 export? => data값을 넣으려니까 맨 상기에서 접근은 불가능 ==> export 공급을 하려면 맨 위로
-//use는 커스텀 훅이니까 use활용자제
 export const DiaryStateContext = createContext() //data값을 넣고 == state값이니까
 export const DiaryDispatchContext = createContext() // 여러개니까 객체를 넣나..? dispatch관련 data들을 넣을 것
 
@@ -50,7 +42,6 @@ function App() {
       dispatch({ //맞게 들어간것을 볼 수 있음
       type: "CREATE", //create로 들어갈 값 임시로 생성
       data: {//data에 들어갈 값
-        // ref => current값 존재 주의
         id : idRef.current++, 
         createdDate : new Date().getTime(),
         emotion : emotionId,
@@ -83,21 +74,10 @@ function App() {
   }
 
 
-
-
-  // reducer에 대한 동작 테스트 실시
   return (
     <div>
-      <button onClick={() => onCreate(
-        new Date().getTime(), 1, '4번 일기 작성'
-      )}>생성 버튼</button>
-      <button onClick={() => onDelete(1)}>삭제 버튼</button>
-      <button onClick={() => onUpdate(
-        1, new Date().getTime(), 1, '1번 일기를 새로운 일기로 바꿔봐요'
-      )}>수정 버튼</button>
-      {/* value 전달 : provider에서 value 역할 */}
-      <useStateContext.Provider value={data}>
-        <useDispatchContext.Provider value={{
+      <DiaryStateContext.Provider value={data}>
+        <DiaryDispatchContext.Provider value={{
           onCreate,
           onUpdate,
           onDelete
@@ -110,8 +90,8 @@ function App() {
             <Route path="/diary" element={<Diary />}></Route>
             <Route path="*" element={<NotFound />}></Route>
           </Routes>
-        </useDispatchContext.Provider>
-      </useStateContext.Provider>
+        </DiaryDispatchContext.Provider>
+      </DiaryStateContext.Provider>
     </div>
   )
 }
