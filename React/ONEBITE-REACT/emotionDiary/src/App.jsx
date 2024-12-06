@@ -5,26 +5,113 @@ import Edit from './pages/Edit'
 import Home from './pages/Home'
 import New from './pages/New'
 import NotFound from './pages/NotFound'
+import { createContext, useContext, useEffect, useReducer, useRef } from 'react'
+//createcontext 선언을 어디서 하는게 좋은가..?
+//계속 랜더링 되어야 하는가? context가? => click : 계속 동적으로? 
 
 
+
+//수정, 삭제 => 어디서? : new page & home & edit 모두
+function reducer(state, action) { 
+  switch(action.type) { 
+    case "CREATE":
+      return [action.data , ...state]
+    case "UPDATE":
+      return state.map((item) => String(item.id) === String(action.data.id) ? action.data : item)
+    case "DELETE":
+      return state.filter((item) => String(item.id) !== String(action.data.id)) 
+    case "default":
+      return state //state 현태 상태 그대로를 돌려준다.
+  }
+}
+
+//계속 리랜더링 할필요가 없으면 외부에 작성 => mockData쓸것
+//이거는 어떻게 보면 계속 랜더링 되어야 하는 값아닌가.. ? 일단
+const mockData = [ //어떤 데이터 => 날짜 데이터, 감정, 내용, id
+  {id : 1, createdDate : new Date().getTime(), emotionId : 1, content : '1번 일기'},
+  {id : 2, createdDate : new Date().getTime(), emotionId : 2, content : '2번 일기'},
+  {id : 3, createdDate : new Date().getTime(), emotionId : 3, content : '3번 일기'},
+]
+
+//사용할때 useContext로 사용할 것
+//onCreate, Delete, Update 함수 들어가긴 했는데 뭔가 약간 애매한 느낌
+//이것도 export? => data값을 넣으려니까 맨 상기에서 접근은 불가능 ==> export 공급을 하려면 맨 위로
+//use는 커스텀 훅이니까 use활용자제
+export const DiaryStateContext = createContext() //data값을 넣고 == state값이니까
+export const DiaryDispatchContext = createContext() // 여러개니까 객체를 넣나..? dispatch관련 data들을 넣을 것
 
 function App() {
-  //Router로 이동시킬 수 있어야 함
-  //실제 A tag 사용하면 우리가 원하는 SPA 원칙을 못지킴
-  //버튼이 navigate잖아
-  //Link to
-  const nav = useNavigate()
-  //버튼말고, 그냥 url 링크로 이동하기..
+  const [data, dispatch] = useReducer(reducer, mockData) //일단 빈배열
+  const idRef = useRef(4) //4번부터니까
+
+  //dispatch를 언제 실행한것인지에 대한 생각 없이 지금 작성했었음
+  //id값을 직접받는게 XX
+  const onCreate = (createdDate, emotionId, content) => { //들어올 데이터들
+      dispatch({ //맞게 들어간것을 볼 수 있음
+      type: "CREATE", //create로 들어갈 값 임시로 생성
+      data: {//data에 들어갈 값
+        // ref => current값 존재 주의
+        id : idRef.current++, 
+        createdDate : new Date().getTime(),
+        emotion : emotionId,
+        content : content}
+    })
+  }
+
+  const onUpdate = (id, createdDate, emotionId, content) => { //id값을 받아서 matching => 여기에 대한 처리를 어떻게 할지에 대한 고민
+    dispatch({ 
+      type:"UPDATE",
+      //이미 들어가 있는 키값에 변수명 넣기 == 값이 똑같아서 상관없지 않는가..? == 상관없음
+      data : {
+        id,
+        createdDate : new Date().getTime() + 1,
+        emotionId,
+        content,
+      }
+    })
+  }
+
+  const onDelete = (id) => {
+    console.log('onDelete에 id 태그 들어옴', id)
+    dispatch({
+      type : "DELETE",
+      data : {
+        id
+      }
+    })
+    console.log('dispatch지나감')
+  }
+
+
+
+
+  // reducer에 대한 동작 테스트 실시
   return (
     <div>
-      <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/new" element={<New />}></Route>
-        <Route path="/edit/:id" element={<Edit />}></Route>
-        {/* id로 설정 하면  */}
-        <Route path="/diary" element={<Diary />}></Route>
-        <Route path="*" element={<NotFound />}></Route>
-      </Routes>
+      <button onClick={() => onCreate(
+        new Date().getTime(), 1, '4번 일기 작성'
+      )}>생성 버튼</button>
+      <button onClick={() => onDelete(1)}>삭제 버튼</button>
+      <button onClick={() => onUpdate(
+        1, new Date().getTime(), 1, '1번 일기를 새로운 일기로 바꿔봐요'
+      )}>수정 버튼</button>
+      {/* value 전달 : provider에서 value 역할 */}
+      <useStateContext.Provider value={data}>
+        <useDispatchContext.Provider value={{
+          onCreate,
+          onUpdate,
+          onDelete
+        }}>
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/new" element={<New />}></Route>
+            <Route path="/edit/:id" element={<Edit />}></Route>
+            {/* id로 설정 하면  */}
+            <Route path="/diary" element={<Diary />}></Route>
+            <Route path="*" element={<NotFound />}></Route>
+          </Routes>
+        </useDispatchContext.Provider>
+      </useStateContext.Provider>
     </div>
   )
 }

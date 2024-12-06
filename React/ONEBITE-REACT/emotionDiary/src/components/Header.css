@@ -26,14 +26,7 @@
 
 .Header > .header_title {
   justify-content: center;
-  /* 가운데 text를 넣고 */
-  /* flex: 1; */
   width : 50%; 
-  /* flex1말고 width 50%? 차이 */
-
-  /* text-align: center; */
-  /* flex 1을 하니까 원하는 대로 채워짐 => 의미 */
-  /* font sizing */
   font-size: 25px;
   font-weight: bold;
 }

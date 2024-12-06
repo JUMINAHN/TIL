@@ -13,18 +13,10 @@
   /* 화면이 줄어들더라도 줄바꿈하지 않도록 */
 }
 
-/* .Button .Button_POSITIVE {
-  background-color: rgb(0, 196, 112);
-} */
-
 .Button_POSITIVE {
   background-color: rgb(99, 201, 101);
   color:white;
 }
-
-/* .Button .Button_NEGATIVE {
-  background-color: rgb(239, 86, 86);
-} */
 
 .Button_NEGATIVE {
   background-color: rgb(253, 86, 95);
