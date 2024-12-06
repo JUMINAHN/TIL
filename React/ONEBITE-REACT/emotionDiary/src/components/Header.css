@@ -1,0 +1,45 @@
+/* <div className='Header'> 
+<section className="header_left">leftChild</section>
+<section className="header_title">title</section>
+<section className="header_right">rigthChild</section>
+</div> */
+
+.Header {
+  display : flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0px;
+  /* justify-content:space-around */
+  /* header자체에 밑줄 */
+  border-bottom: 1px solid rgb(226, 226, 226);
+}
+
+/* 지금 코드 displayFlex를 각각해주고 있음 한꺼번에 진행 */
+.Header > div {
+  display:flex;
+}
+
+.Header > .header_left {
+  justify-content: flex-start;
+  width: 25%;
+}
+
+.Header > .header_title {
+  justify-content: center;
+  /* 가운데 text를 넣고 */
+  /* flex: 1; */
+  width : 50%; 
+  /* flex1말고 width 50%? 차이 */
+
+  /* text-align: center; */
+  /* flex 1을 하니까 원하는 대로 채워짐 => 의미 */
+  /* font sizing */
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.Header > .header_right {
+  width: 25%;
+  justify-content: flex-end;
+}
+

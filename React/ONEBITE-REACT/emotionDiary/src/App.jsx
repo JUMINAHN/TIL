@@ -17,19 +17,6 @@ function App() {
   //버튼말고, 그냥 url 링크로 이동하기..
   return (
     <div>
-      <div>
-        <Link to="/">HOME</Link>|
-        <Link to="/new">New</Link>|
-        <Link to="/diary">Diary</Link>|
-        <Link to="/edit">Edit</Link>|
-      </div>
-
-      <div>
-        <button
-        onClick={()=> {
-          nav('/new')
-        }}>New Page로 이동합니다.</button>
-      </div>
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/new" element={<New />}></Route>
