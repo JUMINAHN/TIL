@@ -22,9 +22,13 @@ function reducer(state, action) {
 }
 
 const mockData = [
-  {id : 1, createdDate : new Date().getTime(), emotionId : 1, content : '1번 일기'},
-  {id : 2, createdDate : new Date().getTime(), emotionId : 2, content : '2번 일기'},
-  {id : 3, createdDate : new Date().getTime(), emotionId : 3, content : '3번 일기'},
+  //{id : 1, createdDate : new Date(new Date().getMonth()-1).getTime() , emotionId : 1, content : '1번 일기'}, == 1970.1.1이 되는이유?
+  // 그냥 new Date의 날짜 작성해도 형식에 맞게 입력됨 => new Date("2024-12-06")
+  {id : 1, createdDate : new Date("2024-12-07").getTime() , emotionId : 1, content : '1번 일기'},
+  {id : 2, createdDate : new Date("2024-12-06").getTime() , emotionId : 2, content : '2번 일기'},
+  {id : 3, createdDate : new Date("2024-11-07").getTime() , emotionId : 3, content : '3번 일기'},
+  {id : 5, createdDate : new Date("2024-10-06").getTime() , emotionId : 1, content : '5번 일기 : 내 생일'},
+  {id : 4, createdDate : new Date("2024-10-07").getTime() , emotionId : 4, content : '4번 일기'},
 ]
 
 //사용할때 useContext로 사용할 것
@@ -87,7 +91,7 @@ function App() {
             <Route path="/new" element={<New />}></Route>
             <Route path="/edit/:id" element={<Edit />}></Route>
             {/* id로 설정 하면  */}
-            <Route path="/diary" element={<Diary />}></Route>
+            <Route path="/diary/:id" element={<Diary />}></Route>
             <Route path="*" element={<NotFound />}></Route>
           </Routes>
         </DiaryDispatchContext.Provider>
