@@ -8,7 +8,7 @@
 
 - 스스로 이 내용을 보고 구조별 단락을 어떻게 나눠야지라는 생각을 못하겠음
 
-![image.png](image.png)
+![image.png](1image.png)
 
 컴포넌트 구조화와 HTML 구조에 대한 이해를 높이기 위한 방법을 알려드리겠습니다:
 
@@ -87,7 +87,7 @@
 1. React Router 공식 문서:
     - [https://reactrouter.com/docs/en/v6](https://reactrouter.com/docs/en/v6)
     
-    ![image.png](image%201.png)
+    ![image.png](1image%201.png)
     
 2. React 공식 문서:
     - [https://react.dev/](https://react.dev/)
@@ -108,7 +108,7 @@
   console.log(id)
 ```
 
-![image.png](image%202.png)
+![image.png](1image%202.png)
 
 ## `searchParams`와 `setSearchParams`의 역할
 
