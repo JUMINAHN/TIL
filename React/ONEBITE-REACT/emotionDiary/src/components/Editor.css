@@ -1,0 +1,62 @@
+/* 섹션별 margin top 10px씩 주면 될 것 같음 */
+/* 일단 background color부터 변경 */
+
+
+/* 내부적으로 정렬 : 레이아웃 > 크기 > 간격 */
+.Editor {
+  display: flex;
+  flex-direction: column;
+}
+
+/* section끼리 좀 떨어져 있어야 할 것 같음 : 이정도 */
+.Editor > section {
+  margin: 10px;
+}
+
+
+/* 공통 요소 묶으면 좋지 않을까? : 묶음 */
+.Editor > section > input, textarea {
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(236, 236, 236);
+  padding : 5px 20px;
+  font-size : 18px;
+}
+
+.Editor .Editor_Date > input {
+  /* outline: none; */
+  cursor: pointer;
+}
+
+/* Editor_Emotion_Item이 있어야 함 */
+.Editor .Editor_Emotion {
+  display: flex;
+  flex-direction: column;
+}
+
+.Editor .Editor_Emotion .Editor_Emotion_Item {
+  display: flex; 
+  justify-content: center;
+  cursor: pointer;
+}
+
+.Editor .Editor_Diary > textarea {
+  /* width는  cursor로 움직이지 못하게*/
+  /* 넓이 조절 : 크기 */
+  /* 임의로 조절 가능?  == 반응 유동적..?*/
+  /* 일단 이렇게 구성 */
+  width: 540px;
+  height: 200px;
+  resize: vertical;
+  margin-bottom: 10px;
+  /* 일단 얘네 조절 */
+}
+
+/* Q. 궁금한게 Editor내부에 EditorButton인것은 알겠는데 이러면 
+Editor도 같이 적용되는 것은 아닌지? */
+.Editor .Editor_Button {
+  margin-top: 10px !important;
+  /* Q. 적용이 왜 안될까 */
+  display: flex;
+  justify-content: space-between;
+}

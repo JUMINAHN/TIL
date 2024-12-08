@@ -1,0 +1,19 @@
+/* 간격이 있어야 하늗네,, */
+.EmotionItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  padding: 10px 25px;
+  background-color: rgb(236, 236, 236);
+  border-radius: 5px;
+}
+
+.EmotionItem > img {
+  width: 50px;  
+}
+
+.EmotionItem > h4 {
+  font-size: 18px;
+}
