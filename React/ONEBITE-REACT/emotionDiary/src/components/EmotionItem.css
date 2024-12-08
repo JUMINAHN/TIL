@@ -1,14 +1,17 @@
-/* 간격이 있어야 하늗네,, */
+/* 선생님 작성 코드 */
 .EmotionItem {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-  padding: 10px 25px;
   background-color: rgb(236, 236, 236);
   border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  padding: 20px;
 }
+
+.EmotionItem .emotion_img {
+  width: 50%;
+  margin-bottom: 10px;
+}
+
 
 .EmotionItem_1 {
   background-color: rgb(99,201,101);
@@ -26,10 +29,3 @@
   background-color: rgb(253, 86, 95);
 }
 
-.EmotionItem > img {
-  width: 50px;  
-}
-
-.EmotionItem > h4 {
-  font-size: 18px;
-}

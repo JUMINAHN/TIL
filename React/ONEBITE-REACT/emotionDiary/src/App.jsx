@@ -44,19 +44,19 @@ function App() {
       type: "CREATE", //create로 들어갈 값 임시로 생성
       data: {//data에 들어갈 값
         id : idRef.current++, 
-        createdDate : new Date().getTime(),
-        emotion : emotionId,
+        createdDate : createdDate,
+        emotionId : emotionId,
         content : content}
     })
   }
 
-  const onUpdate = (id, createdDate, emotionId, content) => { //id값을 받아서 matching => 여기에 대한 처리를 어떻게 할지에 대한 고민
+  const onUpdate = (createdDate, emotionId, content, id) => { //id값을 받아서 matching => 여기에 대한 처리를 어떻게 할지에 대한 고민
     dispatch({ 
       type:"UPDATE",
       //이미 들어가 있는 키값에 변수명 넣기 == 값이 똑같아서 상관없지 않는가..? == 상관없음
       data : {
         id,
-        createdDate : new Date().getTime() + 1,
+        createdDate : createdDate,
         emotionId,
         content,
       }

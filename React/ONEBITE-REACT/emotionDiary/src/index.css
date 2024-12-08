@@ -14,6 +14,7 @@ html, body {
   margin : 0px;
   width : 100%;
   background-color: rgb(246, 246, 246);
+  display: flex;
   /* min-height : 100%; */
   /* height : 100%; */
 
