@@ -10,6 +10,22 @@
   border-radius: 5px;
 }
 
+.EmotionItem_1 {
+  background-color: rgb(99,201,101);
+}
+.EmotionItem_2 {
+  background-color: rgb(157,215,114);
+}
+.EmotionItem_3 {
+  background-color: rgb(253,206,23);
+}
+.EmotionItem_4 {
+  background-color: rgb(253, 132, 70);
+}
+.EmotionItem_5 {
+  background-color: rgb(253, 86, 95);
+}
+
 .EmotionItem > img {
   width: 50px;  
 }

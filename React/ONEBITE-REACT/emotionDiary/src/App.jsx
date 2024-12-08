@@ -22,7 +22,6 @@ function reducer(state, action) {
 }
 
 const mockData = [
-  //{id : 1, createdDate : new Date(new Date().getMonth()-1).getTime() , emotionId : 1, content : '1번 일기'}, == 1970.1.1이 되는이유?
   // 그냥 new Date의 날짜 작성해도 형식에 맞게 입력됨 => new Date("2024-12-06")
   {id : 1, createdDate : new Date("2024-12-07").getTime() , emotionId : 1, content : '1번 일기'},
   {id : 2, createdDate : new Date("2024-12-06").getTime() , emotionId : 2, content : '2번 일기'},
@@ -40,8 +39,6 @@ function App() {
   const [data, dispatch] = useReducer(reducer, mockData) //일단 빈배열
   const idRef = useRef(4) //4번부터니까
 
-  //dispatch를 언제 실행한것인지에 대한 생각 없이 지금 작성했었음
-  //id값을 직접받는게 XX
   const onCreate = (createdDate, emotionId, content) => { //들어올 데이터들
       dispatch({ //맞게 들어간것을 볼 수 있음
       type: "CREATE", //create로 들어갈 값 임시로 생성
@@ -67,16 +64,13 @@ function App() {
   }
 
   const onDelete = (id) => {
-    console.log('onDelete에 id 태그 들어옴', id)
     dispatch({
       type : "DELETE",
       data : {
         id
       }
     })
-    console.log('dispatch지나감')
   }
-
 
   return (
     <div>

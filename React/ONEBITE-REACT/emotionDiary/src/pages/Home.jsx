@@ -43,7 +43,6 @@ const Home = () => {
       leftChild={<Button 
       onClick={() => onClickBeforeDate(pivotDate)}
       text={"<"}/>}/> 
-      {/* filter된 데이터 전달 */}
       <DiaryList data={filterDiaryData}/>
     </div>
   )
