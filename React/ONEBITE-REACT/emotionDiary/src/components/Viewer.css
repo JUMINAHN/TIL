@@ -1,0 +1,73 @@
+.Viewer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+  text-align: center;
+  /* aligin-items는 하기 div때문에 또 이상해진듯 */
+}
+
+.Viewer > section {
+  margin: 15px;
+}
+
+.Viewer > section > h4 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.Viewer .emotion_section {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.Viewer .emotion_section .emotion_section_img {
+  border-radius: 5px;
+  /* text-align: center; */
+  /* justify-content: center; */
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: center; */
+  /* justify-content: center; */
+  padding: 10px;
+  width: 40%;
+
+  /* align-items: center;   */
+}
+
+/* div는 먹지 않음 */
+.Viewer .emotion_section .emotion_section_img > h4 {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.Viewer .emotion_section .emotion_section_img_1 {
+  background-color: rgb(99,201,101);
+}
+.Viewer .emotion_section .emotion_section_img_2 {
+  background-color: rgb(157,215,114);
+}
+.Viewer .emotion_section .emotion_section_img_3 {
+  background-color: rgb(253,206,23);
+}
+.Viewer .emotion_section .emotion_section_img_4 {
+  background-color: rgb(253, 132, 70);
+}
+.Viewer .emotion_section .emotion_section_img_5 {
+  background-color: rgb(253, 86, 95);
+}
+
+.Viewer .content_section {
+  margin-top: 50px;
+}
+
+.Viewer .content_section .content_section_info {
+  background-color: rgb(236, 236, 236);
+  border-radius: ;
+  padding : 40px;
+  font-size: 24px;
+  font-weight: bold;
+}

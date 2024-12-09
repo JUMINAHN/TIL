@@ -44,19 +44,14 @@ const Editor = ({onSubmit, data}) => {
     emotionId : "", //"", //
     content : "" //임시, "" //
   })
-  // 데이터가 존재할 때 일기데이터를 불러오는 것
-  useEffect(()=> { //input자체에 넣겠다는 뜻?
-    //data가 있을떄만 진행하게
+
+  useEffect(()=> {
     if (data) {
       console.log(data, 'data')
       console.log(data.createdDate, 'date?')
       setInput({
-        //굳이 렇게 쓸필요 없이 ...data로 넘겨주면 됨
         ...data,
         createdDate : new Date(Number(data.createdDate)) //오류
-        // new Date(data.createdDate),
-        // data.emotionId,
-        // data.content,
       })
     }
   }, [data]) //데이터가 변경될 때 마다
