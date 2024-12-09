@@ -2,7 +2,7 @@ import { emotionData } from '../util/get-matching-image'
 import Button from './Button'
 import EmotionItem from './EmotionItem'
 import './Editor.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const changeFormatter = (date) => { 
@@ -24,30 +24,44 @@ const changeFormatter = (date) => {
 } 
 
 //input값을 기반으로 매칭 => input => 근데 input값? => 들어있는가? : New에서 있었던 것..? => 그냥 data자체에서 매칭시켜야할 것 같은데
-const findData = (params, data) => { //id를 기반으로 일치값 찾기
-  const innerData = data.find((item) => String(item.id) === String(params.id))
-  return innerData
-}
+// const findData = (params, data) => { //id를 기반으로 일치값 찾기
+//   const innerData = data.find((item) => String(item.id) === String(params.id))
+//   return innerData
+// }
 
-const Editor = ({onSubmit, params, data}) => {
-  // console.log(params, 'Edit의 경우')
-  // console.log(data, '기존 데이터 내역')
-  //이제 params와 일치되는 것을 input에 넣어주면 되지 않을까?
-
-  let innerData
-  if (params) {
-    innerData = findData(params, data) //무작정 실행이 되니까
-    // console.log(innerData, 'undefined')
-  } 
+const Editor = ({onSubmit, data}) => {
+  // let innerData
+  // if (params) {
+  //   innerData = findData(params, data) //무작정 실행이 되니까
+  //   // console.log(innerData, 'undefined')
+  // } 
 
   const nav = useNavigate()
   const [input, setInput] = useState({ //여러 데이터 한꺼번에 전달
     //date, diary, emotion값 한꺼번에 저장하는 방식 => 기존 데이터 받아왔고
     // id : params ? innerData.id : "", 
-    createdDate : params ? new Date(innerData.createdDate) : new Date(), //new Date(), // 
-    emotionId : params ? innerData.emotionId : "", //"", //
-    content : params ? innerData.content : "" //임시, "" //
+    createdDate : new Date(), //new Date(), // 
+    emotionId : "", //"", //
+    content : "" //임시, "" //
   })
+  // 데이터가 존재할 때 일기데이터를 불러오는 것
+  useEffect(()=> { //input자체에 넣겠다는 뜻?
+    //data가 있을떄만 진행하게
+    if (data) {
+      console.log(data, 'data')
+      console.log(data.createdDate, 'date?')
+      setInput({
+        //굳이 렇게 쓸필요 없이 ...data로 넘겨주면 됨
+        ...data,
+        createdDate : new Date(Number(data.createdDate)) //오류
+        // new Date(data.createdDate),
+        // data.emotionId,
+        // data.content,
+      })
+    }
+  }, [data]) //데이터가 변경될 때 마다
+
+
 
   //onClickEvent도 전체 통합
   const onChangeInput = (e) => {

@@ -1,0 +1,59 @@
+/* 최악의 CSS 실력 */
+
+.DiaryListItem {
+  display: flex;
+  /* 각 요소별 간격 */
+  gap: 15px;
+  justify-content: space-between;
+  padding : 15px 0px;
+  /* 영역 별 구분 */
+  border-bottom: 1px solid rgb(236,236,236);
+}
+
+.DiaryListItem .img_section {
+  /* 최소넓이 */
+  min-width: 100px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.DiaryListItem .img_section > img {
+  width: 50%;
+}
+
+.DiaryListItem .img_section_1 {
+  background-color: rgb(99,201,101);
+}
+.DiaryListItem .img_section_2 {
+  background-color: rgb(157,215,114);
+}
+.DiaryListItem .img_section_3 {
+  background-color: rgb(253,206,23);
+}
+.DiaryListItem .img_section_4 {
+  background-color: rgb(253, 132, 70);
+}
+.DiaryListItem .img_section_5 {
+  background-color: rgb(253, 86, 95);
+}
+
+/* 추가 */
+.DiaryListItem .info_section {
+  flex: 1;
+  cursor: pointer;
+}
+
+.DiaryListItem .info_section .created_date {
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.DiaryListItem .info_section .content {
+  font-size: 18px;
+}
+
+.DiaryListItem .button_section {
+  min-width: 70px;
+}
