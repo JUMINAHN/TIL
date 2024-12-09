@@ -19,7 +19,7 @@ const Diary = () => {
 
   useEffect(()=>{
     if (result) {
-      console.log('result' , result)
+      // console.log('result' , result)
       setDiaryDate(result)
       // setDiaryDate({
       //   ...result,
@@ -34,7 +34,7 @@ const Diary = () => {
   if (!diaryDate) {
     return <div>...로딩중</div>
   }
-  console.log(diaryDate, 'diaryDate 받아와지는데 왜 HeaderText는 못받아오는가?')
+  // console.log(diaryDate, 'diaryDate 받아와지는데 왜 HeaderText는 못받아오는가?')
 
   
   // console.log(diaryDate, 'hello')

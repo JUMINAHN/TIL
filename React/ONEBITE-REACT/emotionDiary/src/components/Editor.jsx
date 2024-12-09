@@ -4,24 +4,25 @@ import EmotionItem from './EmotionItem'
 import './Editor.css'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { changeFormatter } from './../util/get-matching-date';
 
-const changeFormatter = (date) => { 
-// input으로 입력되는 친구도 똑같은 문자열이기 때문에 날짜로 다시 변환
-  // console.log(date)
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  //근데 단순히 작성하면 2024-12-8 => 우리가 원하는 00-00이 아님
-  if (month < 10 && day < 10) {
-    return `${year}-0${month}-0${day}`
-  } else if (month < 10) {
-    return `${year}-0${month}-${day}`
-  } else if (day < 10) {
-    return `${year}-${month}-0${day}`
-  } else {
-    return `${year}-${month}-${day}`
-  }
-} 
+// const changeFormatter = (date) => { 
+// // input으로 입력되는 친구도 똑같은 문자열이기 때문에 날짜로 다시 변환
+//   // console.log(date)
+//   const year = date.getFullYear()
+//   const month = date.getMonth() + 1
+//   const day = date.getDate()
+//   //근데 단순히 작성하면 2024-12-8 => 우리가 원하는 00-00이 아님
+//   if (month < 10 && day < 10) {
+//     return `${year}-0${month}-0${day}`
+//   } else if (month < 10) {
+//     return `${year}-0${month}-${day}`
+//   } else if (day < 10) {
+//     return `${year}-${month}-0${day}`
+//   } else {
+//     return `${year}-${month}-${day}`
+//   }
+// } 
 
 //input값을 기반으로 매칭 => input => 근데 input값? => 들어있는가? : New에서 있었던 것..? => 그냥 data자체에서 매칭시켜야할 것 같은데
 // const findData = (params, data) => { //id를 기반으로 일치값 찾기
