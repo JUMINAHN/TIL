@@ -13,12 +13,10 @@ const getMonthlyData = (pivotDate, data) => {
   return data.filter((item) => beginDate <= item.createdDate && item.createdDate <= endDate) 
 }
 
-
 const Home = () => {
   const data = useContext(DiaryStateContext) //받아온 data => date와 일치여부 판단 진행할 것
   const [pivotDate, setPivotDate] = useState(new Date()) //기준이 될 날짜
 
-  
   const onClickBeforeDate = (pivotDate) => {
     setPivotDate(new Date(pivotDate.getFullYear(), pivotDate.getMonth()-1))
   }
@@ -26,9 +24,7 @@ const Home = () => {
   const onClickAfterDate = (pivotDate) => {
     setPivotDate(new Date(pivotDate.getFullYear(), pivotDate.getMonth()+1))
   }
-  
   const filterDiaryData = getMonthlyData(pivotDate, data) 
-
 
   return (
     // Header 컴포넌트 생성필요

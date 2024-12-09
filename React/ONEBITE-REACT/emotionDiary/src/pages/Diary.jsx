@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from "react"
 import { DiaryStateContext } from './../App';
 import { changeFormatter } from "../util/get-matching-date";
 import { getEmotionImage } from "../util/get-motion-image";
+import usePageTitle from "../hooks/usePageTitle";
 
 
 const Diary = () => {
@@ -16,6 +17,7 @@ const Diary = () => {
   const data = useContext(DiaryStateContext)
   const result = useDiary(data, params.id)
   //호출말고 일단 불러오는 것 사용
+  usePageTitle(`${params.id}번 일기`)
 
   useEffect(()=>{
     if (result) {
@@ -36,7 +38,7 @@ const Diary = () => {
   }
   // console.log(diaryDate, 'diaryDate 받아와지는데 왜 HeaderText는 못받아오는가?')
 
-  
+
   // console.log(diaryDate, 'hello')
   return (
     <div>

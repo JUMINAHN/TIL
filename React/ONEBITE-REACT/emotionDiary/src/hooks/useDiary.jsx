@@ -1,10 +1,11 @@
 //Edit 페이지 수정
 
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 // diarydata, params.id
-
 const useDiary = (data, id) => {
+  const nav = useNavigate()
   const [currentDiaryItem, setCurrentDiaryItem] = useState()
     useEffect(()=>{
       const innerData = data.find((item) => String(item.id) === String(id))
