@@ -15,12 +15,10 @@ const DiaryListItem = ({id, createdDate, emotionId, content}) => {
       onClick={() => nav(`/diary/${id}`)}>
 
         <div className='created_date'>{new Date(createdDate).toLocaleDateString()}</div>
-        {/* 일단 이거 추후 2022.05.31 구조로 바꿀 것 */}
         <div className='content'>{content}</div>
       </section>
       <section className='btn_section'>
         <Button 
-        //특정 id로 이동할 수 있또록 => 받은 id를 기반으로
         onClick={()=> {nav(`/edit/${id}`)}}
         text={"수정하기"}/>
       </section>

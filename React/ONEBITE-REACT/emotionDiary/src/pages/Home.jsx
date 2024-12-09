@@ -28,7 +28,6 @@ const Home = () => {
   }
   
   const filterDiaryData = getMonthlyData(pivotDate, data) 
-  //console.log(filterDiaryData)
 
 
   return (
@@ -36,7 +35,6 @@ const Home = () => {
     <div>
       <Header text={`${pivotDate.getFullYear()}년
       ${pivotDate.getMonth()+1}월`}
-      // button Tag를 봐야함
       rightChild={<Button
       onClick={() => onClickAfterDate(pivotDate)}
       text={">"}/>}

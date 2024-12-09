@@ -1,10 +1,8 @@
-/* 기본적으로 font 설정 */
 @font-face {
   font-family: "NanumPenScript";
   src: url('/public/NanumPenScript-Regular.ttf');
 }
 
-/* html, root? */
 body * {
   font-family: "NanumPenScript";
 }
