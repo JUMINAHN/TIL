@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <h1 id="name">제 이름은 {{name}} 입니다.</h1> <!--여기서 자동으로 ref가 풀린다 -->
+    <p>저는 {{age}} 살 입니다.</p>
+    <p>연락처 : {{phone}} </p>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    /*
+      - Vue3 CDN을 사용한다. 
+      1. 아이디가 app인 container 요소에 새로운 앱 인스턴스를 mount 하시오.
+      2. 이름, 나이, 연락처 정보를 각각 name, age, phone 변수에 할당한다.
+        - 단, ref 함수를 사용하여 반응성을 가지는 참조 변수로 만들어야 한다.
+      3. 각 데이터는 template을 수정하여 적절하게 표기 될 수 있도록 작성한다.
+    */
+
+    //아이디가 app인 곳에 앱 instance를 마운트해라
+    //ref는 반응형 데이터를 선언하는 함수 
+
+    const {createApp, ref} = Vue //vue
+    //Vue에 직접적인 접근을 하지않고, 변수에 할당하여 변수자체를 쓰기 위함 
+    //Vue에서 ref를 사용하는 이유 -> Dom요소 직접 접근을 위해 & 자식 컴포넌트에 접근하기 위해 & 반응형 데이터 생성을 위해
+    //mount가 된 이후에만 접근 가능하다 -=> 과동한 ref는 위배될 수 있으므로 꼭필요한 경우에만 사용해야 한다.
+    
+    const newApp = createApp({ //newApp을 만들고 => 문법 헷갈리네
+      setup() {
+        //ref  객체로 감싸주는 것         
+        const name = ref('홍길동') //반응형 데이터를 넣을 것 
+        console.log(name) //객체 자체로 되어있음 -> 따라서 객체 주소값 자체를 바꾸는 것이 아니라 객체 내부의 값을 바꾸는 것
+        name.value = '미로'
+        const age = ref(30)
+        const phone = ref('010-1234-1234')
+      return { //name = name같은 것 => setup 자체에 있어야 함 => mount만 하고 실제적으로 사용하지 않음
+        name,
+        age,
+        phone
+        }
+      }
+    })
+    newApp.mount('#app')  //app이라는 것을 등록
+
+  </script>
+</body>
+</html>
