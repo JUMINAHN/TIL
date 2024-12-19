@@ -1,0 +1,4 @@
+.Item_wrap {
+  display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(3, minmax(100px, auto));}

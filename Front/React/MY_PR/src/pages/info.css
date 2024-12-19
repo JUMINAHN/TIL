@@ -1,0 +1,15 @@
+/* info 태그의 위치 => box내부 자체에 */
+.Info {
+  /* 지금 필요한 것은 info 요소 자체가 position요소로 
+      => 해당 기능은 지금 Home에서 진행 중 */
+
+  /* card component 위치 */
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border : 2px solid rgb(236,236,236);
+  border-radius: 7px;
+  padding : 20px;
+  width: 1200px;
+  height: 330px;
+}

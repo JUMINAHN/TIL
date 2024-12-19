@@ -1,0 +1,6 @@
+.Item_wrap {
+  display: flex;
+  justify-content: space-around;
+  word-wrap: break-word;
+  flex-basis: 10px;
+}
