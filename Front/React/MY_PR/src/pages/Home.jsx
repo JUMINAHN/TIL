@@ -1,11 +1,23 @@
 import { useState } from 'react'
 import closeBag from '../assets/mainImg/001.png'
 import openBag from '../assets/mainImg/002.png'
-import Info from './Info'
+import Info from '../components/Info'
 import './Home.css'
 
 const Home = () => {
   const [bagStatus, setBagStatus] = useState(closeBag) //일단 이것
+
+  //일단 저장해야할 데이터
+  // 1. profile : 인적사항(간단한 인적사항)
+  // 2. project에 임하는 마인드
+  // 3. 비전공자로써 가지고 있는 강점
+  // 4. 반면의 약점
+  // 5. 실제 프로젝트?
+  // 6. 개발 경력 및 사용 언어
+
+
+
+  
 
   const onClickBagChange = () => {
     // 가방의 유무에 따라서 openBag, closeBag로 바꿔야 함

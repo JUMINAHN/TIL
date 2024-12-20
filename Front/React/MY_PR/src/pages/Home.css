@@ -27,6 +27,6 @@
 .Home .img_info_section {
   /* Q. 자동 img relatvie? => 정확한 위치값 설정을 위해 부모 요소 지정 */
   position: absolute;
-  top : 35%
+  top : 40%
   /* 이정도로 하고 */
 }
