@@ -14,7 +14,6 @@
   padding : 20px;
   width: 1200px;
   height: 330px;
-  margin-top: ;
 }
 
 .info_wrap {
@@ -22,7 +21,6 @@
   height: 230px;
   gap: 10px;
   width: fit-content;
-
   /* 성능 최적화 */
   will-change: transform;
 

@@ -1,0 +1,57 @@
+.Profile {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.typing-container {
+  position: absolute;
+  text-align: center;
+  opacity: 1;
+  transition: opacity 1s ease-out;
+}
+
+.typing-container.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.highlight {
+  color: #ff4444;
+}
+
+.second-phase {
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s ease-in;
+  width: 100%;
+  text-align: center;
+}
+
+.second-phase.fade-in {
+  opacity: 1;
+  visibility: visible;
+}
+
+.profile-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+}
+
+.profile-text {
+  font-size: 1.5rem;
+  margin: 0;
+}

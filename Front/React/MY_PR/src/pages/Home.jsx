@@ -27,7 +27,7 @@ const Home = () => {
   return (
     <div className='Home'>
       <section className="title_section">
-        <h1>What's In My Bag?</h1>
+        <h1>Zoom What's In Your Bag?</h1>
       </section>
       <section className="img_section">
         {/* 클릭하면 open_bag로 변경 */}

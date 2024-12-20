@@ -24,7 +24,7 @@ const Info = () => {
   // 멈추는 것
   const [isPaused, setIsPaused] = useState(false) // 멈춤은 false
   const [position, setPosition] = useState(0) //일단 초기값 0으로 설정
-  const itemWidth = 150
+  const itemWidth = 202
 
   useEffect(()=>{
     if (isPaused) return
@@ -35,12 +35,12 @@ const Info = () => {
     setPosition(prev => { //이전 position의 값을 불러와서
       const next = prev + 1 //1px 증가
       // 마지막 전에 처음으로 돌아가도록
-      if (next >= (dummy.length * itemWidth)) {
+      if (next >= dummy.length * itemWidth) {
         return 0
       }
       return next
     })
-    }, 30) //더 부드럽게 간격 줄임
+    }, 50) //더 부드럽게 간격 줄임
     return () => clearInterval(interval)
   },[isPaused])
 
@@ -55,8 +55,8 @@ const Info = () => {
   const slideStyle = { //관련해서 style객체를 만들어야 함
     //position에 따라서 translate 변경
     transform : `translateX(-${position}px)`, //transform : 자체가 이동하는 것
-    transition : position === 0 ? 'none' : 'transform 0.3s ease' //transform은 이동속성에만 적용됨
-  }
+    transition: position === 0 ? 'none' : 'transform 0.5s linear'
+    }
 
   const onClick = (category) => {
     nav(`/${category}`)
