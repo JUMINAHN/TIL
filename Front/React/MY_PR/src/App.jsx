@@ -17,9 +17,9 @@ function App() {
       <Route path='/profile' element={<Profile />}>Profile</Route>
       <Route path='/skill' element={<Skill />}>Skill</Route>
       <Route path='/project' element={<Project />}>Project</Route>
-      <Route path='/strong' element={<Strong />}>Strong</Route>
-      <Route path='/weak' element={<Weak />}>Weak</Route>
-      <Route path='/mindset' element={<MindSet />}>MindSet</Route>
+      {/* <Route path='/strong' element={<Strong />}>Strong</Route> */}
+      {/* <Route path='/weak' element={<Weak />}>Weak</Route> */}
+      <Route path='/mindSet' element={<MindSet />}>MindSet</Route>
     </Routes>
   )
 }

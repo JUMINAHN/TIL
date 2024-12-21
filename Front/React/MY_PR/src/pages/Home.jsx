@@ -5,20 +5,7 @@ import Info from '../components/Info'
 import './Home.css'
 
 const Home = () => {
-  const [bagStatus, setBagStatus] = useState(closeBag) //일단 이것
-
-  //일단 저장해야할 데이터
-  // 1. profile : 인적사항(간단한 인적사항)
-  // 2. project에 임하는 마인드
-  // 3. 비전공자로써 가지고 있는 강점
-  // 4. 반면의 약점
-  // 5. 실제 프로젝트?
-  // 6. 개발 경력 및 사용 언어
-
-
-
-  
-
+  const [bagStatus, setBagStatus] = useState(closeBag) 
   const onClickBagChange = () => {
     // 가방의 유무에 따라서 openBag, closeBag로 바꿔야 함
     setBagStatus(bagStatus === closeBag ? openBag : closeBag)
@@ -28,15 +15,14 @@ const Home = () => {
     <div className='Home'>
       <section className="title_section">
         <h1>Zoom What's In Your Bag?</h1>
+        {/* <p>▼</p> */}
+        {/* <p>Click Bag</p> */}
       </section>
       <section className="img_section">
-        {/* 클릭하면 open_bag로 변경 */}
         <img src={bagStatus} alt="close_bag" 
         onClick={onClickBagChange}/>
-        {/* open_bag일때만 요소가 튀어나오게 해야함 => if문 ? */}
-        {/* img위에 position으로 다시 */}
         <div className='img_info_section'>
-          <Info />
+          {bagStatus === openBag ? <Info /> : ''}
         </div>
       </section>
     </div>

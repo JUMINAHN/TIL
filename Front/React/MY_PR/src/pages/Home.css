@@ -7,26 +7,31 @@
 .Home .title_section {
   padding-top: 30px;
   font-size: 30px;
+  margin: 50px;
 }
 
 .Home .img_section {
-/* 지금 해당영역이 div의 가장 큰 페이지를 모두 차지 하고 있음 */
   display: flex;
-  /* 각 요소 가운데 정렬 */
-  /* justify-content: center;
-  align-items: center; */
+  /* img뿐만아니라 imgsection 자체를 */
+  position: relative;
 }
 
 .Home .img_section > img {
   width: 800px;
   height: 540px;
-  position: relative;
+  max-width: 100%;
+  /* height: auto; */
+  /* position: relative; */
   cursor: pointer;
 }
 
 .Home .img_info_section {
   /* Q. 자동 img relatvie? => 정확한 위치값 설정을 위해 부모 요소 지정 */
   position: absolute;
-  top : 40%
+  top : 40%;
+  /* left: 50%; */
+  /* width: 80%; */
+  /* transform: translate(-50%, -50%); */
+  max-width: 1200px;
   /* 이정도로 하고 */
 }
