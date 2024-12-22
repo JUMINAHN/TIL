@@ -8,10 +8,10 @@ const SkillItem = ({ title, description, img}) => {
       <section className='img_section'>
         <img src={img} alt="" />
       </section>
-      {/* <section className='info_section'>
-        <p>{title}</p>
+      <section className='info_section'>
+        <h1>{title}</h1>
         <p>{description}</p>
-      </section> */}
+      </section>
     </div>
   )
 }

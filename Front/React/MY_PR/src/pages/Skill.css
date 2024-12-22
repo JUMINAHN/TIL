@@ -6,9 +6,65 @@
   align-items: center;
   min-height: 100vh;
   gap: 30px;
+  position: relative;
   /* justify-content: space-evenly; */
 }
 
 .Skill > section {
   display: flex;
+}
+
+.Skill .img_section {
+  width: 100%;
+  height: 100%;
+  /* min-height: 100vh; */
+  position: relative;
+}
+
+.Skill .img_section::before {
+  width: 100%;
+  height: 100%;
+  position: absolute; 
+}
+
+
+.Skill .img_section > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* opacity: 0.4; */
+}
+
+.Skill .frame_section {
+  position: absolute;
+  z-index: 8;
+  opacity: 1 ;
+  /* position: relative; */
+}
+
+.Skill .frame_section .skill_wrap {
+  display: flex;
+  /* background-color: white; */
+  padding: 20px;
+  gap : 40px;
+  position: relative;
+  opacity: 1;
+}
+
+.Skill .frame_section .btn {
+  position: absolute;
+  z-index: 10;
+  border-radius: 50%;
+  border: none;
+  top:40%;
+  padding: 15px 20px;
+  font-size: 22px;
+}
+
+.Skill .frame_section .left_button {
+  left : 10px;
+}
+
+.Skill .frame_section .right_button {
+  right : 10px;
 }

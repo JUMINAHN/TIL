@@ -19,7 +19,6 @@ import vue from '/src/assets/skillImg/vue.svg'
 import react from '/src/assets/skillImg/react.svg'
 import notion from '/src/assets/skillImg/notion.svg'
 
-
 export const skills = [
   // framework
   {title : 'Vue', 
