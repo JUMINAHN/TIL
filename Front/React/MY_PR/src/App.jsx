@@ -25,8 +25,8 @@ function App() {
     nav('/')
   }
 
-  console.log(location)
-  console.log(location.pathname)
+  // console.log(location)
+  // console.log(location.pathname)
 
   return (
     <div className='App'>

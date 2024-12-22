@@ -1,0 +1,43 @@
+.Project {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width : 1600px;
+  height: 100vh;
+}
+
+.Project .project_title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Project .project_title > a {
+  text-decoration: none;
+  color: black;
+}
+
+.Project .project_title > h1 {
+  cursor: pointer;
+}
+
+.Project .project_title > p {
+  margin-top: 2px;
+  font-weight: bold;
+  color: red;
+  font-size: 22px;
+}
+
+.Project .project_wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+/* .project_detail {
+  border: 1px solid black;
+} */

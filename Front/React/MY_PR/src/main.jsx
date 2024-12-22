@@ -8,9 +8,9 @@ import store from './store';
 
 createRoot(document.getElementById('root')).render(
   // 브라우저 라우터보다 상위에 있어야 함
-  <Provider store={store}>
+  // <Provider store={store}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </Provider>
+  // </Provider>
 )
