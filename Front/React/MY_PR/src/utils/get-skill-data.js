@@ -1,13 +1,24 @@
-import django from '/src/assets/skillImg/django.png'
-import react from '/src/assets/skillImg/react.png'
-import vue from '/src/assets/skillImg/vue.webp'
-import vuetify from '/src/assets/skillImg/vuetify.jpg'
-import antidesign from '/src/assets/skillImg/antidesign.png'
-import bootstrap from '/src/assets/skillImg/bootstrap.png'
-import notion from '/src/assets/skillImg/notion.png'
-import jira from '/src/assets/skillImg/jira.jpeg'
-import git from '/src/assets/skillImg/git.png'
+// import django from '/src/assets/skillImg/django.png'
+// import react from '/src/assets/skillImg/react.png'
+// import vue from '/src/assets/skillImg/vue.webp'
+// import vuetify from '/src/assets/skillImg/vuetify.jpg'
+// import css from '/src/assets/skillImg/css.png'
+// import bootstrap from '/src/assets/skillImg/bootstrap.png'
+// import notion from '/src/assets/skillImg/notion.png'
+// import jira from '/src/assets/skillImg/jira.jpeg'
+// import git from '/src/assets/skillImg/git.png'
 // 파일 쉼표로 에러
+
+import bootstrap from '/src/assets/skillImg/bootstrap.svg'
+import css from '/src/assets/skillImg/css.svg'
+import django from '/src/assets/skillImg/django.svg'
+import git from '/src/assets/skillImg/git.svg'
+import jira from '/src/assets/skillImg/jira.svg'
+import vuetify from '/src/assets/skillImg/vuetify.svg'
+import vue from '/src/assets/skillImg/vue.svg'
+import react from '/src/assets/skillImg/react.svg'
+import notion from '/src/assets/skillImg/notion.svg'
+
 
 export const skills = [
   // framework
@@ -23,7 +34,7 @@ export const skills = [
 
   // desgin
   {title : 'Vuetify', description : '데이터베이스, 페이지네이션, 카드 컴포넌트 등의 디자인을 사용할 수 있습니다.', img : vuetify },
-  {title : 'AntDesign', description : '버튼, 입력창, 카드 컴포넌트 등의 디자인을 사용할 수 있습니다.', img : antidesign },
+  {title : 'Css', description : '간단한 레이아웃, 버튼 등 기본적인 CSS를 구현할 수 있습니다.', img : css },
   {title : 'Bootstrap', description : '레이아웃, 버튼, 입력창, 네비게이션 바 등의 디자인을 사용할 수 있습니다.', img : bootstrap},
 
   //협업툴
