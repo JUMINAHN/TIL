@@ -2,6 +2,11 @@ import { useEffect, useState } from 'react'
 import './MindSet.css'
 
 const MindSet = () => {
+  const [resultWater, setResultWater] = useState(false)
+  // drag 
+  const [dragOn, setDragOn] = useState(false) //현재 드래그 상태
+  const [dragOut, setDragOut] = useState(false) //드래그 놓기
+
   // typing
   const [nowTyping, setNowTyping] = useState('') //일단 빈 값
   const fullText = 'SSAFY에서 주어진 6개월 간 매일 매일 `성장`하는 것이 목표입니다.'
@@ -21,7 +26,28 @@ const MindSet = () => {
     },100) //초 한번씩?
     return () => clearInterval(interval) //interval종료
   },[])
-  // console.log(nowTyping, 'check')
+
+
+  // drag, dragOver
+  //eventHandler => e.target으로
+  const onDragWater = (e) => {
+    setDragOn(true)
+  }
+
+  
+  const onDragOverWater = (e) => {
+    e.preventDefault() //기본 동작 방지
+    // console.log(e)
+    setDragOn(false)
+    setDragOut(true)
+    setResultWater(true)
+
+    setTimeout(()=>{
+      setDragOut(false)
+      setResultWater(false)
+    }, 2000)
+  }
+
 
   return (
     <div className="MindSet">
@@ -37,6 +63,26 @@ const MindSet = () => {
         <p>속도는 느리지만, 최선을 다하겠습니다.</p>
         <p>감사합니다.</p>
       </section>
+      <section className='enhance_section'>
+        <div className={`enhance_zone enhance_zone_${resultWater}`}>
+          <div className='enhance_box' onDragOver={onDragOverWater}>
+            {
+              resultWater ? <p>🍎</p> : <p>🌱</p>
+            }
+            {resultWater ? 
+            <p>오늘도 성장했어요</p> : <p>새싹에 물을 주세요</p>}
+          </div>
+        </div>
+        <div className='enhance_heart'>
+          <h1 onDrag={onDragWater}
+          draggable="true"
+          // 드래그가 가능하도록 설정해야함
+          >💧</h1>
+        </div>
+      </section>
+      <div className='result'> 
+        {resultWater ? '오늘도 한 단계 성장했습니다.' : ''}
+      </div>
     </div>
   )
 }

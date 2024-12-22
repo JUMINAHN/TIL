@@ -14,3 +14,60 @@
 .MindSet .content_section > p {
   font-size: 22px;
 }
+
+/*  */
+.MindSet .enhance_section {
+  display: flex;
+}
+
+.MindSet .enhance_section .enhance_zone {
+  border: 2px solid rgb(206, 209, 213);
+  background-color: rgb(131, 185, 137);
+  width : 200px;
+  height: 200px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.MindSet .enhance_section .enhance_zone_true {
+  border: 2px solid rgb(236, 84, 84);
+  background-color: rgb(247, 104, 97);
+  box-shadow: 0 0 20px rgb(232, 75, 28);
+  /* width : 200px;
+  height: 200px;
+  border-radius: 10px;
+  position: relative; */
+}
+
+
+.enhance_box > p {
+  color: white;
+  font-weight: bold;
+  padding : 20px;
+  font-size: 20px;
+  margin: 0 auto;
+  text-align: center;
+  text-wrap: balance;
+  /* Q.단순 text로 가운데 넣는 방법? */
+
+  /* align-items: center; */
+}
+
+.enhance_heart > h1 {
+  position: absolute;
+  font-size: 100px;
+  top : 50%;
+  right : 30%;
+  /* drag이미지가 안보임? */
+  transition: transform 0.3s ease;
+  /* user-select: none; */
+  cursor: grab;
+}
+
+.enhance_heart > h1:active {
+  cursor: grabbing;
+}
+
+.result {
+  margin-top: 15px;
+}
