@@ -40,3 +40,86 @@
 .read-the-docs {
   color: #888;
 }
+
+.join_zone {
+  display: flex;
+  flex-direction: column;
+}
+
+.join_zone_wrap {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.join_zone .join_zone_wrap > input {
+  padding: 15px;
+  width: 300px;
+  border: none;
+  border-radius: 10px;
+}
+
+.join_zone .join_zone_wrap > button {
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.chat_zone {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* 여기 왜 부모 컴포넌트 기반 width100%가 아닌지? */
+.chat_zone_wrap {
+  /* position: relative; */
+  /* box-sizing: border-box; */
+  /* 왜  */
+  /* width: 100%; */
+  /* left: 0px; */
+  /* right: 0px; */
+  /* bottom: 0px; */
+  /* box-sizing: border-box; */
+  display: flex;
+  justify-content: center;
+  border: 2px solid white;
+  border-radius: 10px;
+  /* gap: 10px; */
+}
+
+.chat_zone .chat_zone_wrap > input {
+  padding: 15px;
+  width: 100%;
+  /* width: 300px; */
+  border: none;
+  border-radius: 10px;
+}
+
+.chat_zone .chat_zone_wrap > input :focus {
+  outline: none;
+}
+
+.chat_zone .chat_zone_wrap > button {
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.chat_zone_list {
+  box-sizing: border-box;
+  margin-top: 40px;
+  width: 100%;
+  /* padding: 20px; */
+  border: 2px solid white;
+  border-radius: 10px;
+}
+
+.chat_zone_list > ul > li {
+  list-style-type: none;
+  list-style: none;
+}
+
+.join_message {
+  margin-top: 10px;
+  padding-top: 10px;
+}
